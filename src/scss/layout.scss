@@ -1,0 +1,16 @@
+body {
+    font-family: 'Open Sans';
+    box-sizing: border-box;
+    color: #17283f;
+    padding: 0;
+    margin: 0;
+
+    & * {
+        box-sizing: border-box;
+    }
+}
+
+.cnt {
+    @include layout;
+    padding: 40px 0;
+}
