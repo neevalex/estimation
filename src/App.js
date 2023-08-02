@@ -9,9 +9,16 @@ function App() {
 
   const getData = async () => {
     const url = 'http://localhost:8000';
-    const response = await fetch(url);
-    const data = await response.json();
-    setData( data );
+
+    fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      if( data ) setData( data );
+    })
+    .catch(rejected => {
+        console.log(rejected);
+    });
+
   }
 
   const [data, setData] = useState({});
@@ -54,7 +61,6 @@ function App() {
 
         </div>
       </div>
-      <pre>{data && JSON.stringify(data, null, 2)}</pre>
     </div>
   );
 }
