@@ -2,3 +2,24 @@
     max-width: 1270px;
     margin: auto;
   }
+
+@mixin button {
+    color: #f8f9fb;
+    white-space: nowrap;
+    background-color: #205e63;
+    border-radius: 3px;
+    margin: 0;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    border: 0;
+    line-height: 1.5;
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      color: #fff;
+      background-color: #10383b;
+      box-shadow: 0 1px 8px rgba(57,64,72,.4);
+    }
+}

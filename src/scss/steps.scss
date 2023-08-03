@@ -20,6 +20,15 @@
         cursor: pointer;
         transition: all 0.3s ease-in-out;
 
+        &.disabled {
+            opacity: 0.5;
+            cursor: default;
+
+            &:hover {
+                opacity: 0.5;
+            }
+        }
+
         &:hover {
             opacity: 0.75;
         }

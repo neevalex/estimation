@@ -1,4 +1,4 @@
-function Header() {
+function Header({ setStep }) {
     return (
         <header>
             <div className="inner">
@@ -8,6 +8,9 @@ function Header() {
                     </a>
                 </div>
                 <div className="buttons">
+                    <a href="#" onClick={() => { setStep(1) }} >
+                        <img src="/assets/img/reload.svg" alt="Call us" />
+                    </a>
                     <a href="tel:12345">
                         <img src="/assets/img/phone.svg" alt="Call us" />
                     </a>

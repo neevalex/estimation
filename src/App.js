@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import Header from "./components/Header";
-import Home from "./pages/Home";
 import getImageURL from "./functions/getImageURL";
 import Steps from "./components/Steps";
+import IndexStep from "./steps/IndexStep";
+import FormStep from "./steps/FormStep";
+import PdfStep from "./steps/PdfStep";
 import './scss/index.scss';
 
 function App() {
@@ -24,42 +26,62 @@ function App() {
   const [data, setData] = useState({});
   const [step, setStep] = useState(1);
 
+  const [state, setState] = useState({
+    prevButtonState: false,
+    nextButtonState: false
+  });
+
+  const checkState = ( forcedStep  ) => { 
+
+    let v_prevButtonState = false;
+    let v_nextButtonState = false;
+
+    if (forcedStep <= 2) {
+      v_nextButtonState = true;
+    }
+
+    if (forcedStep > 1) {
+      v_prevButtonState = true;
+    }
+
+    setState({ prevButtonState: v_prevButtonState, nextButtonState: v_nextButtonState });
+
+  }
+
+  const nextStep = (enabled) => {
+    if (!enabled) return false;
+    let newStep = step + 1;
+    if (step < 3) {
+      setStep(newStep);
+    }
+   
+    checkState(newStep);
+  }
+
+  const prevStep = (enabled) => {
+    if (!enabled) return false;
+    let newStep = step - 1;
+    if (step > 1) {
+      setStep(newStep);
+    }
+
+    checkState(newStep);
+  }
+
 
   useEffect(() => {
     getData();
+    checkState(step);
   }, []);
-
-  const nextStep = () => {
-    if (step < 3) {
-      setStep(step + 1);
-    }
-  }
-
-  const prevStep = () => {
-    if (step > 1) {
-      setStep(step - 1);
-    }
-  }
 
   return (
     <div className="App">
-      <Header />
-      <Steps step={step} nextStep={nextStep} prevStep={ prevStep } />
+      <Header setStep={ setStep } />
+      <Steps state={ state } step={step} nextStep={nextStep} prevStep={ prevStep } />
       <div className="cnt">
-        <div className="questions">
-
-          { !data.translations && (<h3>Loading...</h3>)}
-          
-          {data && data.index_step && data.index_step.map((item) => { 
-            return (
-              <div className="question" key={item.q_id} onClick={() => { nextStep() } }  >
-                <img src={getImageURL(item.q_picture)} alt={item.q_text} title={item.q_text} />
-                <h4>{item.q_text}</h4>
-              </div>
-            )
-          })}
-
-        </div>
+        {step === 1 && (<IndexStep nextStep={nextStep} data={data} getImageURL={getImageURL} />)}
+        {step === 2 && (<FormStep data={data} getImageURL={getImageURL} />)}
+        {step === 3 && (<PdfStep />)}
       </div>
     </div>
   );
