@@ -90,11 +90,9 @@ function App() {
 
   const [selectedOptions, setSelectedOptions] = useState({});
 
-  function handleSelectedOptions(qid, value) {
+  function handleSelectedOptions(value) {
     
-    let choice = [];
-    choice[qid] = value;
-    setSelectedOptions({...selectedOptions, ...choice});
+    setSelectedOptions({...selectedOptions, ...value});
    // console.log(selectedOptions);
   }
 
