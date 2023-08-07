@@ -29,6 +29,12 @@ function Steps({ state, step, nextStep, prevStep } ) {
                   <p className="span-bleu-small">3</p>
                 </div>
               </div>
+            
+              <div className={"centre_block " + (step > 3 ? 'selected' : '')}>
+                <div className="centre_icon_wrap">
+                  <p className="span-bleu-small">4</p>
+                </div>
+              </div>
             </div>
 
           <div className={"arrow next " + (state.nextButtonState ? '' : 'disabled')} onClick={() => { nextStep(state.nextButtonState) } } >

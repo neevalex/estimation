@@ -3,6 +3,14 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 30px;
 
+    &.five {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;   
+    }
+
+    &.six{
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;   
+    }
+
     .question {
         display: inline-block;
         margin-bottom: 0px;
@@ -10,13 +18,23 @@
         border-radius: 10px;
         cursor: pointer;
         transition: all 0.3s ease-in-out;
+        position: relative;
 
         &:hover {
             opacity: 0.75;
             
         }
 
-        img {
+        &.selected {
+            background: #1a8992;
+            color: white;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        & > img {
             max-width: 100%;
             border-radius: 10px;
             border-bottom-left-radius: 0;
@@ -30,5 +48,76 @@
             font-weight: 500;
 
         }
+
+        .mark {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: white;
+            padding: 5px;
+            border-bottom-left-radius: 10px;
+            
+            img {
+                display: none;
+                height: 26px;
+                background: white;
+                border-bottom-left-radius: 10px;
+            }
+        }
+
+
+        &.sqmselect {
+            cursor: default;
+
+            &:hover {
+                opacity: 1;
+                
+            }
+
+
+            .rw-widget-input {
+                font-size: 12px;
+            }
+        }
+    }
+
+    .hasnumbers {
+        .mark {
+            img {
+                display: block;
+            }
+        }
+    }
+
+
+    .sub {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 60px;
+
+        .rw-number-picker {
+            max-width: 55px;
+            .rw-widget-picker {
+                min-height: 30px;
+                grid-template: 1fr/1fr 1.3em;
+            }
+        }
+
+        h4 {
+            padding: 0 10px;
+            font-size: 14px;
+        }
+
+        .right {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            width: 100%;
+        }
+    }
+
+    .sqm {
+        max-height: 30px;
     }
 }

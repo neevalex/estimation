@@ -1,0 +1,17 @@
+.bottom-navigation {
+    @include layout;
+
+    .control {
+        display: flex;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .button {
+        @include button;
+        max-width: 300px;
+        margin: 0 20px;
+        
+    }
+}
