@@ -37,6 +37,11 @@
         .image {
             width: 100%;
             position: relative;
+            min-height: 200px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
 
             img {
                 max-width: 100%;
@@ -56,10 +61,12 @@
                 h4 {
                     background: white;
                     display: inline-block;
-                    font-size: 13px;
+                    font-size: 14px;
                     padding: 3px 8px;
                     border-radius: 4px;
                     font-weight: 600;
+                    border-bottom-left-radius: 0;
+                    border-bottom-right-radius: 0;
                 }
             }
         }
@@ -86,12 +93,24 @@
             background: white;
             padding: 5px;
             border-bottom-left-radius: 10px;
+            z-index: 6;
+            display: none;
             
             img {
-                display: none;
                 height: 26px;
                 background: white;
                 border-bottom-left-radius: 10px;
+            }
+        }
+
+        .subitems {
+            width: 100%;
+            font-size: 12px;
+            display: none;
+            padding: 0;
+
+            &.active {
+                display: block;
             }
         }
 
@@ -113,10 +132,9 @@
 
     .hasnumbers {
         .mark {
-            img {
-                display: block;
-            }
-        }
+            display: block;
+        }    
+        
     }
 
 
@@ -126,6 +144,7 @@
         justify-content: space-between;
         min-height: 60px;
         flex-wrap: wrap;
+        padding: 6px;
 
         .row {
             width: 100%;
@@ -133,29 +152,29 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            padding: 2px 6px;
-            font-size: 12px;
+            padding: 6px 6px;
+            font-size: 14px;
+            p {
+                margin: 0;
+                padding: 0;
+                line-height: 15px;
+            }
 
             .title {
-                flex: 1 0 50%;
+                flex: 1 0 40%;
             }
 
 
             &.spoiler {
-    
-                display: none;
+                display: flex;
                 overflow: hidden;
                 transition: opacity 0.3s ease-in-out;
-
-                &.active {
-                   display: flex;
-
-                }
+                font-size: 13px;
             }
         }
 
         .rw-number-picker {
-            max-width: 55px;
+            max-width: 65px;
             .rw-widget-picker {
                 min-height: 30px;
                 grid-template: 1fr/1fr 2em;
@@ -164,7 +183,7 @@
 
         h4 {
             padding: 0px;
-            font-size: 14px;
+            font-size: 16px;
         }
 
         .right {
@@ -177,5 +196,57 @@
 
     .sqm {
         max-height: 30px;
+    }
+}
+
+
+.inputs {
+    &.noradio {
+        display: flex;
+
+        label {
+            font-size: 12px;
+            line-height: 12px;
+            background: #fff;
+            padding: 2px 6px;
+            border: 1px solid #1a8992;
+            cursor: pointer;
+        }
+
+        input[ type="radio" ] {
+            display: none;
+
+            &:checked+label{  
+                background-color: #1a8992; 
+                color: white;
+            } 
+
+        }
+
+        .smallicon {
+            max-width: 18px;
+            padding: 2px;
+            margin-right: 4px;
+            opacity: 0.6;
+        }
+
+
+        &>div:nth-child(2) label {
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            border-right: 0;
+        }
+
+        &>div:last-child label {
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            border-left: none;
+        }
+
+
+
+        &>div {
+            
+        }
     }
 }

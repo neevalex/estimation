@@ -32,6 +32,8 @@ function App() {
   const [data, setData] = useState({});
   const [step, setStep] = useState(1);
   const [choices, setChoices] = useState({});
+  const [total, setTotal] = useState(0);
+  const [pdfRows, setPdfRows] = useState(0);
 
   const [state, setState] = useState({
     prevButtonState: false,
@@ -86,14 +88,73 @@ function App() {
     //await checkState(step);
   }
 
-
-
   const [selectedOptions, setSelectedOptions] = useState({});
 
   function handleSelectedOptions(value) {
     
     setSelectedOptions({...selectedOptions, ...value});
    // console.log(selectedOptions);
+  }
+
+  const calculateTotals = () => { 
+    let final_total = 0;
+    if (choices) {
+      let total_step = Object.values(choices) + '_step';  //flooring
+      if (selectedOptions) {
+
+        Object.keys(selectedOptions).map((option_name, option_key) => {
+          // console.log(option_name);
+          Object.keys(selectedOptions[option_name]).map((sub_option_name, sub_option_key) => { 
+            let amount = selectedOptions[option_name]['price_per_m'];
+            //console.log(amount);
+            let service_data_key = selectedOptions[option_name][sub_option_name];
+
+            if(Number.isInteger(service_data_key)) service_data_key = sub_option_name; // value is not text, so take it's key name instead of value
+            //console.log(service_data_key);
+
+            data[total_step].map((data_item, datakey) => {
+              if (data_item === null) return false;
+              
+              if (data_item.q_id === option_name) {
+        
+                if (service_data_key === 'price_per_m') {
+                  final_total += (parseInt(data_item[sub_option_name]) * amount);
+                  let newLine = [];
+                  newLine[option_name] = { 'id': option_name, 'key': service_data_key, 'name': data_item.q_text + ' (' + amount + 'sq. meters)', 'amount': (parseInt(data_item[sub_option_name]) * amount) }
+                  setPdfRows({ ...pdfRows, ...newLine });
+                } else {
+                  if (data_item[service_data_key]) {
+                   // console.log(service_data_key);
+                    // console.log(data_item);
+                    // console.log(data_item[service_data_key]);
+                    final_total += (parseInt(data_item[service_data_key]) * amount);
+
+                    let newAdditional = pdfRows[option_name]['additional'];
+                    if (!newAdditional) newAdditional = [];
+
+
+                    let newLine = [];
+                    newLine[service_data_key] = { 'key': service_data_key, 'amount': (parseInt(data_item[service_data_key]) * amount) };
+
+                    newAdditional = { ...newAdditional, ...newLine };
+
+                    let newPdfRows = pdfRows;
+                    newPdfRows[option_name]['additional'] = newAdditional;
+
+                    setPdfRows(newPdfRows);
+                  }
+                }
+              }
+
+            });
+
+          });
+        });
+      }
+
+    }
+    //console.log(final_total);
+    setTotal(final_total);
   }
 
 
@@ -115,9 +176,8 @@ function App() {
       v_prevButtonState = true;
     }
 
-  
-
     setState({ prevButtonState: v_prevButtonState, nextButtonState: v_nextButtonState });
+    calculateTotals();
 
   }, [step, choices, selectedOptions]);
 
@@ -128,11 +188,14 @@ function App() {
       <div className="cnt">
         {step === 1 && (<IndexStep nextStep={nextStep} data={data} getImageURL={getImageURL} step={step} handleChoices={handleChoices} choices={ choices } />)}
         {step === 2 && (<OptionsStep nextStep={nextStep} data={data} getImageURL={getImageURL} step={step} handleSelectedOptions={handleSelectedOptions} selectedOptions={ selectedOptions} />)}
-        {step === 3 && (<FormStep data={data} getImageURL={getImageURL} />)}
-        {step === 4 && (<PdfStep />)}
+        {step === 33 && (<FormStep data={data} getImageURL={getImageURL} />)}
+        {step === 3 && (<PdfStep getImageURL={getImageURL} pdfRows={pdfRows} total={ total } />)}
       </div>
       <BottomNavigation state={ state } step={step} nextStep={nextStep} prevStep={ prevStep } />
       <footer>
+        <pre> !!!DEV DATA!!! </pre>
+        <pre>Price : <strong>{JSON.stringify(total, null, 2)}€</strong> </pre>
+        <pre>{JSON.stringify(pdfRows, null, 2)}</pre>
         <pre>{JSON.stringify(choices, null, 2)}</pre>
         <pre>{JSON.stringify(selectedOptions, null, 2)}</pre>
       </footer>
