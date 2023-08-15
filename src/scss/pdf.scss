@@ -1,6 +1,13 @@
 .pdf {
+    display: flex;
+    .message {
+        flex: 1 0 40%;
+    }
     iframe {
+        flex: 1 0 60%;
         width: 100%;
-        min-height: 800px;
+        min-height: 600px;
+        border: 0;
+
     }
 }

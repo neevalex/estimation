@@ -201,22 +201,26 @@ const MyDocument = ({ getImageURL, pdfRows, total,vat, total_ttc  }) => (
         <Text style={[styles.textbold]}>Récapitulatif des lots</Text>
 
         {pdfRows && Object.keys(pdfRows).map((row, index) => (
-          <View>
-          <View style={ styles.estimrow }>
-            <Text style={[styles.estimrowleft]}>{ index + 1 }. { pdfRows[row].name }</Text>
-            <Text style={[styles.estimrowright ]}>{ pdfRows[row].amount }€</Text>
-          </View>
+          <>
 
-          {pdfRows[row]['additional'] && Object.keys(pdfRows[row]['additional']).map((additional_key, index) => (
-              <View style={ styles.estimrowsub }>
-              <Text style={[styles.estimrowleft]}>- { pdfRows[row]['additional'][additional_key].key }</Text>
-                <Text style={[styles.estimrowright ]}>{ pdfRows[row]['additional'][additional_key].amount}€</Text>
-              </View>
-          ))}
+          {pdfRows[row].amount && pdfRows[row].amount > 0 && (
+              <View>
+                <View style={styles.estimrow}>
+                  <Text style={[styles.estimrowleft]}>{index + 1}. {pdfRows[row].name}</Text>
+                  <Text style={[styles.estimrowright]}>{pdfRows[row].amount}€</Text>
+                </View>
+
+                {pdfRows[row]['additional'] && Object.keys(pdfRows[row]['additional']).map((additional_key, index) => (
+                  <View style={styles.estimrowsub}>
+                    <Text style={[styles.estimrowleft]}>- {pdfRows[row]['additional'][additional_key].key}</Text>
+                    <Text style={[styles.estimrowright]}>{pdfRows[row]['additional'][additional_key].amount}€</Text>
+                  </View>
+                ))}
             
-          <Text style={[{ height: '10' }]}></Text>
-          </View>
-
+                <Text style={[{ height: '10' }]}></Text>
+              </View>)
+          }
+          </>
         ))}
     
 
@@ -279,13 +283,11 @@ const App = ({ getImageURL, pdfRows, total }) => {
 
   return (
     <div className="pdf">
-      <PDFViewer>
+     <div className="message">123123123</div>
+      <PDFViewer scale={0.56}>
         <MyDocument getImageURL={getImageURL} pdfRows={pdfRows} total={total} vat={vat} total_ttc={ total_ttc } />
       </PDFViewer>
     
-      {pdfRows && Object.keys(pdfRows).map((row, index) => (
-        <pre>{JSON.stringify(pdfRows[row], null, 2)}</pre>
-      ))}
     </div>
   );
 };

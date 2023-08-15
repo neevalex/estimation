@@ -33,7 +33,7 @@ function App() {
   const [step, setStep] = useState(1);
   const [choices, setChoices] = useState({});
   const [total, setTotal] = useState(0);
-  const [pdfRows, setPdfRows] = useState(0);
+  const [pdfRows, setPdfRows] = useState({});
 
   const [state, setState] = useState({
     prevButtonState: false,
@@ -119,14 +119,20 @@ function App() {
         
                 if (service_data_key === 'price_per_m') {
                   final_total += (parseInt(data_item[sub_option_name]) * amount);
-                  let newLine = [];
-                  newLine[option_name] = { 'id': option_name, 'key': service_data_key, 'name': data_item.q_text + ' (' + amount + 'sq. meters)', 'amount': (parseInt(data_item[sub_option_name]) * amount) }
-                  setPdfRows({ ...pdfRows, ...newLine });
+
+                  // let newLine = [];
+                  // newLine[option_name] = { 'id': option_name, 'key': service_data_key, 'name': data_item.q_text + ' (' + amount + 'sq. meters)', 'amount': (parseInt(data_item[sub_option_name]) * amount) }
+
+                  let newPdfRows = pdfRows; 
+                  if(!newPdfRows) newPdfRows = [];
+                  if (!newPdfRows[option_name]) newPdfRows[option_name] = [];
+                  
+                  newPdfRows[option_name] = { 'id': option_name, 'key': service_data_key, 'name': data_item.q_text + ' (' + amount + 'sq. meters)', 'amount': (parseInt(data_item[sub_option_name]) * amount) };
+                  console.log(newPdfRows);
+                  setPdfRows(newPdfRows);
                 } else {
                   if (data_item[service_data_key]) {
-                   // console.log(service_data_key);
-                    // console.log(data_item);
-                    // console.log(data_item[service_data_key]);
+                  
                     final_total += (parseInt(data_item[service_data_key]) * amount);
 
                     let newAdditional = pdfRows[option_name]['additional'];
@@ -141,7 +147,7 @@ function App() {
                     let newPdfRows = pdfRows;
                     newPdfRows[option_name]['additional'] = newAdditional;
 
-                    setPdfRows(newPdfRows);
+                    // setPdfRows(newPdfRows);
                   }
                 }
               }
@@ -196,7 +202,7 @@ function App() {
         <pre> !!!DEV DATA!!! </pre>
         <pre>Price : <strong>{JSON.stringify(total, null, 2)}€</strong> </pre>
         <pre>{JSON.stringify(pdfRows, null, 2)}</pre>
-        <pre>{JSON.stringify(choices, null, 2)}</pre>
+        {/* <pre>{JSON.stringify(choices, null, 2)}</pre> */}
         <pre>{JSON.stringify(selectedOptions, null, 2)}</pre>
       </footer>
     </div>
