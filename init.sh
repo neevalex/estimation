@@ -1,4 +1,5 @@
 #!/bin/bash
 php json.php
-php -S localhost:3001 &
+nohup php -S localhost:3001 &
 npm run build &
+nohup serve -s build -l 3000
