@@ -109,3 +109,17 @@
     }
   
 }
+
+.step {
+    .separator {
+        display: grid;
+        grid-template-columns: 100px 1fr;
+        grid-gap: 30px;
+
+        
+        .line {
+            border-top: 3px dashed #e0ddd8;
+            margin-bottom: 60px;
+        }
+    }
+}

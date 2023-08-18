@@ -9,7 +9,8 @@ import FormStep from "./steps/FormStep";
 import PdfStep from "./steps/PdfStep";
 import "react-widgets/styles.css";
 import './scss/index.scss';
-
+import React from 'react';
+import 'tippy.js/dist/tippy.css'; // optional
 
 function App() {
 
@@ -34,7 +35,7 @@ function App() {
   const [choices, setChoices] = useState({});
   const [total, setTotal] = useState(0);
   const [pdfRows, setPdfRows] = useState({});
-
+  const [hasFreeRooms, sethasFreeRooms] = useState(false);
   const [state, setState] = useState({
     prevButtonState: false,
     nextButtonState: false
@@ -47,9 +48,10 @@ function App() {
     let v_nextButtonState = false;
 
     if (forcedStep <= 3) { // Next Button
-      
-      if(step === 1 && choices[1]) v_nextButtonState = true;
+      if(step === 1 && choices && choices.service ) v_nextButtonState = true;
     }
+
+
 
     if (forcedStep > 1) { // Prev Button
       v_prevButtonState = true;
@@ -81,25 +83,28 @@ function App() {
     checkState(newStep);
   }
 
-  const handleChoices = async (stepChoice) => { 
-    //console.log('ss'+stepChoice);
-    await setChoices({ ...choices, ...stepChoice });
-   // await sleep(500);
-    //await checkState(step);
+  const handleChoices = (type, stepChoice) => { 
+  
+    let newChoices = choices;
+    if (!newChoices) newChoices = {};
+    newChoices[type] = stepChoice;
+
+    setChoices({ ...choices, ...newChoices });
+
   }
 
   const [selectedOptions, setSelectedOptions] = useState({});
 
   function handleSelectedOptions(value) {
-    
     setSelectedOptions({...selectedOptions, ...value});
-   // console.log(selectedOptions);
+    //console.log(selectedOptions);
   }
 
   const calculateTotals = () => { 
+    console.log('ct');
     let final_total = 0;
-    if (choices) {
-      let total_step = Object.values(choices) + '_step';  //flooring
+    if (choices && choices.service) {
+      let total_step = choices.service + '_step';  //flooring
       if (selectedOptions) {
 
         Object.keys(selectedOptions).map((option_name, option_key) => {
@@ -128,7 +133,7 @@ function App() {
                   if (!newPdfRows[option_name]) newPdfRows[option_name] = [];
                   
                   newPdfRows[option_name] = { 'id': option_name, 'key': service_data_key, 'name': data_item.q_text + ' (' + amount + 'sq. meters)', 'amount': (parseInt(data_item[sub_option_name]) * amount) };
-                  console.log(newPdfRows);
+                  // console.log(newPdfRows);
                   setPdfRows(newPdfRows);
                 } else {
                   if (data_item[service_data_key]) {
@@ -173,13 +178,23 @@ function App() {
     let v_nextButtonState = false;
 
     if (forcedStep <= 3) { // Next Button
-      if (step === 1 && choices[1]) v_nextButtonState = true;
+      if (step === 1 && choices && choices.service) v_nextButtonState = true;
+      
       if (step === 2 ) v_nextButtonState = true;
       if (step === 3 ) v_nextButtonState = true;
     }
 
     if (forcedStep > 1) { // Prev Button
       v_prevButtonState = true;
+    }
+
+    
+    if (choices.rooms) {
+      if ((Object.keys(choices.rooms).length + 1) > Object.keys(choices.servicerooms).length) {
+        sethasFreeRooms(true);
+      } else {
+        sethasFreeRooms(false);
+      }
     }
 
     setState({ prevButtonState: v_prevButtonState, nextButtonState: v_nextButtonState });
@@ -193,7 +208,7 @@ function App() {
       <Steps state={ state } step={step} nextStep={nextStep} prevStep={ prevStep } />
       <div className="cnt">
         {step === 1 && (<IndexStep nextStep={nextStep} data={data} getImageURL={getImageURL} step={step} handleChoices={handleChoices} choices={ choices } />)}
-        {step === 2 && (<OptionsStep nextStep={nextStep} data={data} getImageURL={getImageURL} step={step} handleSelectedOptions={handleSelectedOptions} selectedOptions={ selectedOptions} />)}
+        {step === 2 && (<OptionsStep nextStep={nextStep} data={data} getImageURL={getImageURL} step={step} handleSelectedOptions={handleSelectedOptions} selectedOptions={selectedOptions} handleChoices={handleChoices} choices={choices} hasFreeRooms={ hasFreeRooms } />)}
         {step === 33 && (<FormStep data={data} getImageURL={getImageURL} />)}
         {step === 3 && (<PdfStep getImageURL={getImageURL} pdfRows={pdfRows} total={ total } />)}
       </div>
@@ -202,7 +217,7 @@ function App() {
         <pre> !!!DEV DATA!!! </pre>
         <pre>Price : <strong>{JSON.stringify(total, null, 2)}€</strong> </pre>
         <pre>{JSON.stringify(pdfRows, null, 2)}</pre>
-        {/* <pre>{JSON.stringify(choices, null, 2)}</pre> */}
+        <pre>{JSON.stringify(choices, null, 2)}</pre>
         <pre>{JSON.stringify(selectedOptions, null, 2)}</pre>
       </footer>
     </div>

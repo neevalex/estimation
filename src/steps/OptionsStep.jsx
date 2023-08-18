@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Flooring from "./questions/Flooring";
+import RoomsSelector from "./questions/RoomsSelector";
 
-function OptionsStep({ nextStep, data, step, getImageURL, handleSelectedOptions, selectedOptions }) {
+function OptionsStep({ nextStep, data, step, getImageURL, handleSelectedOptions, selectedOptions, handleChoices, choices, hasFreeRooms }) {
     
   const handleChange = (type, q_id, value) => {
     let v = {
@@ -21,9 +22,17 @@ function OptionsStep({ nextStep, data, step, getImageURL, handleSelectedOptions,
 
   return (
     <div className="inner">
-      <Flooring data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={ handleChange } />
-    </div>
-    
+      <div className="step">
+        <RoomsSelector data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  handleChoices={ handleChoices } choices={choices} />
+        
+        <div className="separator">
+            <div className="pre"></div>
+            <div className="line"></div>
+        </div>
+        
+        <Flooring data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={ hasFreeRooms } />
+      </div>
+    </div>   
   )
 }
 

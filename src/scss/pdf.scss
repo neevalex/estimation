@@ -1,7 +1,26 @@
 .pdf {
     display: flex;
+    grid-gap: 30px;
+
+
+    .button {
+        @include button;
+        max-width: 180px;
+        margin: 0px;
+        text-align: center;
+        
+    }
+
     .message {
-        flex: 1 0 40%;
+        flex: 1 0 30%;
+        font-size: 14px;
+        background: #f9f5f0;
+        padding: 30px;
+
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
     }
     iframe {
         flex: 1 0 60%;

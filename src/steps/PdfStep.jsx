@@ -283,7 +283,17 @@ const App = ({ getImageURL, pdfRows, total }) => {
 
   return (
     <div className="pdf">
-     <div className="message">123123123</div>
+      <div className="message">
+        <img src="/assets/img/renovationsupport.jpg" alt="Close" />
+      
+        <h1>Some Title Here</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+        <div className="button"  >
+               Get Support
+        </div>
+
+     </div>
       <PDFViewer scale={0.56}>
         <MyDocument getImageURL={getImageURL} pdfRows={pdfRows} total={total} vat={vat} total_ttc={ total_ttc } />
       </PDFViewer>
