@@ -17,7 +17,7 @@ function App() {
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
   const getData = async () => {
-    const url = 'http://localhost:3001';
+    const url = 'http://localhost:8000';
 
     fetch(url)
     .then(res => res.json())
