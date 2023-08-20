@@ -12,12 +12,13 @@ import './scss/index.scss';
 import React from 'react';
 import 'tippy.js/dist/tippy.css'; // optional
 
+
 function App() {
 
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
   const getData = async () => {
-    const url = 'http://localhost:8000';
+    const url = process.env.REACT_APP_BACKEND_HOST;
 
     fetch(url)
     .then(res => res.json())
