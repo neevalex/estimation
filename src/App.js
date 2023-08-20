@@ -118,6 +118,8 @@ function App() {
             if(Number.isInteger(service_data_key)) service_data_key = sub_option_name; // value is not text, so take it's key name instead of value
             //console.log(service_data_key);
 
+            if(!data[total_step]) return false;
+
             data[total_step].map((data_item, datakey) => {
               if (data_item === null) return false;
               
