@@ -1,3 +1,6 @@
+$mobile: 1024px;
+$mobilexs: 768px;
+
 @mixin layout {
     max-width: 1270px;
     margin: auto;

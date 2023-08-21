@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import Flooring from "./questions/Flooring";
 import RoomsSelector from "./questions/RoomsSelector";
 import WallCovering from "./questions/WallCovering";

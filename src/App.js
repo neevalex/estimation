@@ -102,7 +102,7 @@ function App() {
   }
 
   const calculateTotals = () => { 
-    console.log('ct');
+
     let final_total = 0;
     if (choices && choices.service) {
       let total_step = choices.service + '_step';  //flooring

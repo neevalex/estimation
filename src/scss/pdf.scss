@@ -2,6 +2,10 @@
     display: flex;
     grid-gap: 30px;
 
+    @media (max-width: $mobile) {
+        flex-wrap: wrap;
+    }
+
 
     .button {
         @include button;
@@ -17,6 +21,10 @@
         background: #f9f5f0;
         padding: 30px;
 
+        @media (max-width: $mobile) {
+            flex: 1 0 100%;
+        }
+
         img {
             max-width: 100%;
             border-radius: 10px;
@@ -28,5 +36,9 @@
         min-height: 600px;
         border: 0;
 
+
+        @media (max-width: $mobile) {
+            flex: 1 0 100%;
+        }
     }
 }

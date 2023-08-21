@@ -13,4 +13,8 @@ body {
 .cnt {
     @include layout;
     padding: 40px 0;
+
+    @media (max-width: $mobile) {
+        padding: 40px 20px;
+    }
 }
