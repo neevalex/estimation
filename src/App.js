@@ -42,6 +42,19 @@ function App() {
     nextButtonState: false
   });
 
+
+
+  function useForceUpdate() {
+    const [value, setValue] = useState(0); // integer state
+    return () => setValue(value => value + 1); // update state to force render
+    // A function that increment 👆🏻 the previous state like here 
+    // is better than directly setting `setValue(value + 1)`
+  }
+
+  const forceUpdate = useForceUpdate();
+
+
+
   const checkState = (forcedStep) => { 
     
     //console.log(choices);
@@ -107,45 +120,49 @@ function App() {
     if (choices && choices.service) {
       let total_step = choices.service + '_step';  //flooring
       if (selectedOptions) {
-
         Object.keys(selectedOptions).map((option_name, option_key) => {
-          // console.log(option_name);
-          Object.keys(selectedOptions[option_name]).map((sub_option_name, sub_option_key) => { 
-            let amount = selectedOptions[option_name]['price_per_m'];
-            //console.log(amount);
-            let service_data_key = selectedOptions[option_name][sub_option_name];
+          // console.log(selectedOptions[option_name]);
+          Object.keys(selectedOptions[option_name]).map((a_index, sub_option_key) => {
+            let amount = selectedOptions[option_name][a_index]['price_per_m'];
 
-            if(Number.isInteger(service_data_key)) service_data_key = sub_option_name; // value is not text, so take it's key name instead of value
-            //console.log(service_data_key);
+            Object.keys(selectedOptions[option_name][a_index]).map((data_key, service_index) => { 
 
-            if(!data[total_step]) return false;
+              let service_data_key = selectedOptions[option_name][a_index][data_key];
+              
+              if (Number.isInteger(service_data_key)) service_data_key = 'price_per_m'; // selectedOptions[option_name][a_index]; // value is not text, so take it's key name instead of value
+              
+              console.log(service_data_key);
+              
+            if (!data[total_step]) return false;
 
-            data[total_step].map((data_item, datakey) => {
+              data[total_step].map((data_item, datakey) => {
+              
+                //console.log(option_name);
               if (data_item === null) return false;
               
               if (data_item.q_id === option_name) {
-        
+                
                 if (service_data_key === 'price_per_m') {
-                  final_total += (parseInt(data_item[sub_option_name]) * amount);
-
+                  final_total += (parseInt(data_item[service_data_key]) * amount);
+                  
                   // let newLine = [];
                   // newLine[option_name] = { 'id': option_name, 'key': service_data_key, 'name': data_item.q_text + ' (' + amount + 'sq. meters)', 'amount': (parseInt(data_item[sub_option_name]) * amount) }
 
-                  let newPdfRows = pdfRows; 
-                  if(!newPdfRows) newPdfRows = [];
+                  let newPdfRows = pdfRows;
+                  if (!newPdfRows) newPdfRows = [];
                   if (!newPdfRows[option_name]) newPdfRows[option_name] = [];
                   
-                  newPdfRows[option_name] = { 'id': option_name, 'key': service_data_key, 'name': data_item.q_text + ' (' + amount + 'sq. meters)', 'amount': (parseInt(data_item[sub_option_name]) * amount) };
+                  newPdfRows[option_name] = { 'id': option_name, 'key': service_data_key, 'name': data_item.q_text + ' (' + amount + 'sq. meters)', 'amount': (parseInt(data_item[service_data_key]) * amount) };
                   // console.log(newPdfRows);
                   setPdfRows(newPdfRows);
                 } else {
+                  // console.log(data_item);
                   if (data_item[service_data_key]) {
-                  
+                    
                     final_total += (parseInt(data_item[service_data_key]) * amount);
 
                     let newAdditional = pdfRows[option_name]['additional'];
                     if (!newAdditional) newAdditional = [];
-
 
                     let newLine = [];
                     newLine[service_data_key] = { 'key': service_data_key, 'amount': (parseInt(data_item[service_data_key]) * amount) };
@@ -161,6 +178,8 @@ function App() {
               }
 
             });
+          });
+
 
           });
         });
@@ -192,8 +211,9 @@ function App() {
     }
 
     
-    if (choices.rooms) {
-      if ((Object.keys(choices.rooms).length + 1) > Object.keys(choices.servicerooms).length) {
+    if (choices.rooms ) {
+
+      if (Object.keys(choices.rooms).length > 0) {
         sethasFreeRooms(true);
       } else {
         sethasFreeRooms(false);
@@ -211,7 +231,7 @@ function App() {
       <Steps state={ state } step={step} nextStep={nextStep} prevStep={ prevStep } />
       <div className="cnt">
         {step === 1 && (<IndexStep nextStep={nextStep} data={data} getImageURL={getImageURL} step={step} handleChoices={handleChoices} choices={ choices } />)}
-        {step === 2 && (<OptionsStep nextStep={nextStep} data={data} getImageURL={getImageURL} step={step} handleSelectedOptions={handleSelectedOptions} selectedOptions={selectedOptions} handleChoices={handleChoices} choices={choices} hasFreeRooms={ hasFreeRooms } />)}
+        {step === 2 && (<OptionsStep nextStep={nextStep} forceUpdate={forceUpdate }  data={data} getImageURL={getImageURL} step={step} handleSelectedOptions={handleSelectedOptions} selectedOptions={selectedOptions} handleChoices={handleChoices} choices={choices} hasFreeRooms={ hasFreeRooms } />)}
         {step === 33 && (<FormStep data={data} getImageURL={getImageURL} />)}
         {step === 3 && (<PdfStep getImageURL={getImageURL} pdfRows={pdfRows} total={ total } />)}
       </div>

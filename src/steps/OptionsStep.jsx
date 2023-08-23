@@ -1,17 +1,29 @@
 import Flooring from "./questions/Flooring";
 import RoomsSelector from "./questions/RoomsSelector";
 import WallCovering from "./questions/WallCovering";
+import { useState, useEffect } from "react";
+
 
 function OptionsStep({ nextStep, data, step, getImageURL, handleSelectedOptions, selectedOptions, handleChoices, choices, hasFreeRooms }) {
-    
-  const handleChange = (type, q_id, value) => {
+  
+
+  
+
+  const handleChange = (type, q_id, value, sp_index) => {
     let v = {
       ...selectedOptions,
     };
 
-    if (!v.hasOwnProperty(q_id))  v[q_id] = {};
-    v[q_id][type] = value;
-    handleSelectedOptions({...selectedOptions, ...v});
+    //console.log("handleChange", q_id, type, value, sp_index);
+  
+    if (!v.hasOwnProperty(q_id)) v[q_id] = [];
+    if (!v[q_id][sp_index]) v[q_id][sp_index] = {};
+    if (!v[q_id][sp_index][type]) v[q_id][sp_index][type] = {};
+   
+    v[q_id][sp_index][type] = value;
+
+    handleSelectedOptions({ ...selectedOptions, ...v });
+
   }
 
 
@@ -25,7 +37,7 @@ function OptionsStep({ nextStep, data, step, getImageURL, handleSelectedOptions,
       
       {choices && choices.service && choices.service === "flooring" && (
         <div className="step">
-          <RoomsSelector data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} />
+          <RoomsSelector data={data}  getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} />
         
           <div className="separator">
             <div className="pre"></div>
