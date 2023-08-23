@@ -131,7 +131,7 @@ function App() {
               
               if (Number.isInteger(service_data_key)) service_data_key = 'price_per_m'; // selectedOptions[option_name][a_index]; // value is not text, so take it's key name instead of value
               
-              console.log(service_data_key);
+              //console.log(service_data_key);
               
             if (!data[total_step]) return false;
 
@@ -141,18 +141,17 @@ function App() {
               if (data_item === null) return false;
               
               if (data_item.q_id === option_name) {
-                
+                let room = choices.servicerooms[option_name][a_index];
+
                 if (service_data_key === 'price_per_m') {
                   final_total += (parseInt(data_item[service_data_key]) * amount);
                   
-                  // let newLine = [];
-                  // newLine[option_name] = { 'id': option_name, 'key': service_data_key, 'name': data_item.q_text + ' (' + amount + 'sq. meters)', 'amount': (parseInt(data_item[sub_option_name]) * amount) }
-
                   let newPdfRows = pdfRows;
-                  if (!newPdfRows) newPdfRows = [];
-                  if (!newPdfRows[option_name]) newPdfRows[option_name] = [];
-                  
-                  newPdfRows[option_name] = { 'id': option_name, 'key': service_data_key, 'name': data_item.q_text + ' (' + amount + 'sq. meters)', 'amount': (parseInt(data_item[service_data_key]) * amount) };
+                  if (!newPdfRows) newPdfRows = {};
+                  if (!newPdfRows[room]) newPdfRows[room] = [];
+                  //if (!newPdfRows[room][option_name]) newPdfRows[room][option_name] = [];
+
+                  newPdfRows[room][a_index] = { 'id': option_name, 'key': service_data_key, 'room': room,'name': data_item.q_text + ' (' + amount + 'sq. meters)', 'amount': (parseInt(data_item[service_data_key]) * amount) };
                   // console.log(newPdfRows);
                   setPdfRows(newPdfRows);
                 } else {
@@ -161,7 +160,7 @@ function App() {
                     
                     final_total += (parseInt(data_item[service_data_key]) * amount);
 
-                    let newAdditional = pdfRows[option_name]['additional'];
+                    let newAdditional = pdfRows[room][a_index]['additional'];
                     if (!newAdditional) newAdditional = [];
 
                     let newLine = [];
@@ -170,7 +169,7 @@ function App() {
                     newAdditional = { ...newAdditional, ...newLine };
 
                     let newPdfRows = pdfRows;
-                    newPdfRows[option_name]['additional'] = newAdditional;
+                    newPdfRows[room][a_index]['additional'] = newAdditional;
 
                     // setPdfRows(newPdfRows);
                   }
@@ -237,11 +236,11 @@ function App() {
       </div>
       <BottomNavigation state={ state } step={step} nextStep={nextStep} prevStep={ prevStep } />
       <footer>
-        <pre> !!!DEV DATA!!! </pre>
-        <pre>Price : <strong>{JSON.stringify(total, null, 2)}€</strong> </pre>
-        <pre>{JSON.stringify(pdfRows, null, 2)}</pre>
-        <pre>{JSON.stringify(choices, null, 2)}</pre>
-        <pre>{JSON.stringify(selectedOptions, null, 2)}</pre>
+        {/* <pre> !!!DEV DATA!!! </pre> */}
+        {/* <pre>Price : <strong>{JSON.stringify(total, null, 2)}€</strong> </pre> */}
+        {/* <pre>{JSON.stringify(pdfRows, null, 2)}</pre> */}
+        {/* <pre>{JSON.stringify(choices, null, 2)}</pre> */}
+        {/* <pre>{JSON.stringify(selectedOptions, null, 2)}</pre> */}
       </footer>
     </div>
   );
