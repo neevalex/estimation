@@ -115,7 +115,7 @@ function App() {
   }
 
   const calculateTotals = () => { 
-
+    let newPdfRows = {};
     let final_total = 0;
     if (choices && choices.service) {
       let total_step = choices.service + '_step';  //flooring
@@ -146,12 +146,10 @@ function App() {
                 if (service_data_key === 'price_per_m') {
                   final_total += (parseInt(data_item[service_data_key]) * amount);
                   
-                  let newPdfRows = pdfRows;
-                  if (!newPdfRows) newPdfRows = {};
                   if (!newPdfRows[room]) newPdfRows[room] = [];
                   //if (!newPdfRows[room][option_name]) newPdfRows[room][option_name] = [];
 
-                  newPdfRows[room][a_index] = { 'id': option_name, 'key': service_data_key, 'room': room,'name': data_item.q_text + ' (' + amount + 'sq. meters)', 'amount': (parseInt(data_item[service_data_key]) * amount) };
+                  newPdfRows[room].push({ 'id': option_name, 'key': service_data_key, 'room': room,'name': data_item.q_text + ' (' + amount + 'sq. meters)', 'amount': (parseInt(data_item[service_data_key]) * amount) });
                   // console.log(newPdfRows);
                   setPdfRows(newPdfRows);
                 } else {
@@ -238,9 +236,9 @@ function App() {
       <footer>
         {/* <pre> !!!DEV DATA!!! </pre> */}
         {/* <pre>Price : <strong>{JSON.stringify(total, null, 2)}€</strong> </pre> */}
-        {/* <pre>{JSON.stringify(pdfRows, null, 2)}</pre> */}
-        {/* <pre>{JSON.stringify(choices, null, 2)}</pre> */}
-        {/* <pre>{JSON.stringify(selectedOptions, null, 2)}</pre> */}
+        <pre>{JSON.stringify(pdfRows, null, 2)}</pre>
+        <pre>{JSON.stringify(choices, null, 2)}</pre>
+        <pre>{JSON.stringify(selectedOptions, null, 2)}</pre>
       </footer>
     </div>
   );
