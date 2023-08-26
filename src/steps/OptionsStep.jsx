@@ -1,6 +1,7 @@
 import Flooring from "./questions/Flooring";
 import RoomsSelector from "./questions/RoomsSelector";
 import WallCovering from "./questions/WallCovering";
+import InteriorPainting from "./questions/InteriorPainting";
 import { useState, useEffect } from "react";
 
 
@@ -59,6 +60,20 @@ function OptionsStep({ nextStep, data, step, getImageURL, handleSelectedOptions,
           </div>
         
           <WallCovering data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} />
+        
+        </div>)}
+      
+
+        {choices && choices.service && choices.service === "interiorpainting" && (
+        <div className="step">
+          <RoomsSelector data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} />
+        
+          <div className="separator">
+            <div className="pre"></div>
+            <div className="line"></div>
+          </div>
+        
+          <InteriorPainting data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} />
         
         </div>)}
       

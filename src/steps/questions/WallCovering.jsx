@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import NumberPicker from "react-widgets/NumberPicker";
 import Tippy from '@tippyjs/react';
+import SubQuestion from "./elements/SubQuestion";
 
 function WallCovering({ data, getImageURL, selectedOptions, handleChange, choices, handleChoices, hasFreeRooms }) {
 
-  const conditions = {
+  const wallsneedpreparation = {
     'wallsneedpreparationyes': 'Yes',
     'wallsneedpreparationno' : 'No',
   };
@@ -188,63 +189,12 @@ function WallCovering({ data, getImageURL, selectedOptions, handleChange, choice
 
                   <div className={selectedOptions[item.q_id] && selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['price_per_m'] > 0 ? "subitems active" : 'subitems'}>
 
-                    <div className='row spoiler' >
-                      <div className="title">Walls need preparation
-                        <Tippy content="Preparation text here">
-                          <button className="tip">?</button>
-                        </Tippy>
-                      </div>
-                      <div className="inputs noradio">
-                        <img className="smallicon" src={getImageURL('wall.svg')} alt="Walls need preparation?" title="Walls need preparation?" />
-                        {Object.keys(conditions).map((condition, key) => {
-                          return (
-                            <div key={item.q_id +'_'+sp_index+ '_wallsneedpreparation_radio_' + key}>
-                              <input type="radio" name={item.q_id +'_'+sp_index+ '_wallsneedpreparation'} className={item.q_id + '_wallsneedpreparation'} value={condition} onChange={value => handleChange('wallsneedpreparation', item.q_id, value.target.value, sp_index)} id={item.q_id +'_'+sp_index+ '_wallsneedpreparation_' + key} checked={selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['wallsneedpreparation'] === condition ? 'checked' : ''} />
-                              <label htmlFor={item.q_id +'_'+sp_index+ '_wallsneedpreparation_' + key}>{conditions[condition]}</label>
-                            </div>
-                          )
-                        })}
-                      </div>
-                    </div>
 
-                     <div className='row spoiler' >
-                      <div className="title">Remove old wallpapers
-                        <Tippy content="Remove old wallpapers">
-                          <button className="tip">?</button>
-                        </Tippy>
-                      </div>
-                      <div className="inputs noradio">
-                        <img className="smallicon" src={getImageURL('cut.svg')} alt="Furniture" title="Furniture" />
-                        {Object.keys(removewallcovering).map((condition, key) => {
-                          return (
-                            <div key={item.q_id +'_'+sp_index+ '_removewallcovering_radio_' + key} >
-                              <input type="radio" name={item.q_id +'_'+sp_index+ '_removewallcovering'} className={item.q_id + '_removewallcovering'} value={condition} onChange={value => handleChange('removewallcovering', item.q_id, value.target.value, sp_index)} id={item.q_id +'_'+sp_index+ '_removewallcovering_' + key} checked={selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['removewallcovering'] === condition ? 'checked' : ''} />
-                              <label htmlFor={item.q_id +'_'+sp_index+ '_removewallcovering_' + key}>{removewallcovering[condition]}</label>
-                            </div>
-                          )
-                        })}
-                      </div>
-                    </div>
+                    <SubQuestion subData={wallsneedpreparation} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Walls need preparation" tipText="Walls need preparation" icon="wall.svg" keyword="wallsneedpreparation" />
 
+                    <SubQuestion subData={removewallcovering} sp_index={sp_index} item={ item } handleChange={ handleChange } selectedOptions={ selectedOptions } getImageURL={getImageURL} text="Remove old wallpapers" tipText="Remove old wallpapers" icon="cut.svg" keyword="removewallcovering" />
 
-                    <div className='row spoiler' >
-                      <div className="title">Supply furniture
-                        <Tippy content="Furniture text here">
-                          <button className="tip">?</button>
-                        </Tippy>
-                      </div>
-                      <div className="inputs noradio">
-                        <img className="smallicon" src={getImageURL('furniture.svg')} alt="Furniture" title="Furniture" />
-                        {Object.keys(furniture).map((condition, key) => {
-                          return (
-                            <div key={item.q_id +'_'+sp_index+ '_furniture_radio_' + key} >
-                              <input type="radio" name={item.q_id +'_'+sp_index+ '_furniture'} className={item.q_id + '_furniture'} value={condition} onChange={value => handleChange('furniture', item.q_id, value.target.value, sp_index)} id={item.q_id +'_'+sp_index+ '_furniture_' + key} checked={selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['furniture'] === condition ? 'checked' : ''} />
-                              <label htmlFor={item.q_id +'_'+sp_index+ '_furniture_' + key}>{furniture[condition]}</label>
-                            </div>
-                          )
-                        })}
-                      </div>
-                    </div>
+                    <SubQuestion subData={furniture} sp_index={sp_index} item={ item } handleChange={ handleChange } selectedOptions={ selectedOptions } getImageURL={getImageURL} text="Supply furniture" tipText="Furniture text here" icon="furniture.svg" keyword="furniture" />
 
                   </div>
   

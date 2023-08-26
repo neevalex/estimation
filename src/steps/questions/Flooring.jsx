@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import NumberPicker from "react-widgets/NumberPicker";
 import Tippy from '@tippyjs/react';
+import SubQuestion from "./elements/SubQuestion";
 
 function Flooring({ data, getImageURL, selectedOptions, handleChange, choices, handleChoices, hasFreeRooms }) {
 
@@ -192,86 +193,17 @@ function Flooring({ data, getImageURL, selectedOptions, handleChange, choices, h
 
                   <div className={selectedOptions[item.q_id] && selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['price_per_m'] > 0 ? "subitems active" : 'subitems'}>
 
-                    <div className='row spoiler' >
-                      <div className="title">Remove old coating
-                        <Tippy content="Coating text here">
-                          <button className="tip">?</button>
-                        </Tippy>
-                      </div>
-                      <div className="inputs noradio">
-                        <img className="smallicon" src={getImageURL('crowbar.svg')} alt="Remove old coating?" title="Remove old coating?" />
-                        {Object.keys(conditions).map((condition, key) => {
-                          return (
-                            <div key={item.q_id +'_'+sp_index+ '_removeoldcoating_radio_' + key}>
-                              <input type="radio" name={item.q_id +'_'+sp_index+ '_removeoldcoating'} className={item.q_id + '_removeoldcoating'} value={condition} onChange={value => handleChange('removeoldcoating', item.q_id, value.target.value, sp_index)} id={item.q_id +'_'+sp_index+ '_removeoldcoating_' + key} checked={selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['removeoldcoating'] === condition ? 'checked' : ''} />
-                              <label htmlFor={item.q_id +'_'+sp_index+ '_removeoldcoating_' + key}>{conditions[condition]}</label>
-                            </div>
-                          )
-                        })}
-                      </div>
-                    </div>
+                    <SubQuestion subData={conditions} sp_index={sp_index} item={ item } handleChange={ handleChange } selectedOptions={ selectedOptions } getImageURL={getImageURL} text="Remove old coating" tipText="Remove old coating" icon="crowbar.svg" keyword="removeoldcoating" />
 
                     {selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['removeoldcoating'] === 'removeoldcoatingyes' && (
-                      <div className='row spoiler'>
-                        <div className="title">Regreage needed
-                      
-                          <Tippy content="Regreage text here">
-                            <button className="tip">?</button>
-                          </Tippy>
-                    
-                        </div>
-                        <div className="inputs noradio">
-                          <img className="smallicon" src={getImageURL('level.svg')} alt="Regreage needed?" title="Regreage needed?" />
-                          {Object.keys(regreage).map((condition, key) => {
-                            return (
-                              <div key={item.q_id +'_'+sp_index+ '_regreage_radio_' + key} >
-                                <input type="radio" name={item.q_id +'_'+sp_index+ '_regreage'} className={item.q_id + '_regreage'} value={condition} onChange={value => handleChange('regreage', item.q_id, value.target.value, sp_index)} id={item.q_id +'_'+sp_index+ '_regreage_' + key} checked={selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['regreage'] === condition ? 'checked' : ''} />
-                                <label htmlFor={item.q_id +'_'+sp_index+ '_regreage_' + key}>{regreage[condition]}</label>
-                              </div>
-                            )
-                          })}
-                        </div>
-                      </div>
+  
+                      <SubQuestion subData={regreage} sp_index={sp_index} item={ item } handleChange={ handleChange } selectedOptions={ selectedOptions } getImageURL={getImageURL} text="Regreage needed" tipText="Regreage text here" icon="level.svg" keyword="regreage" />
+
                     )}
 
+                    <SubQuestion subData={skirtingboards} sp_index={sp_index} item={ item } handleChange={ handleChange } selectedOptions={ selectedOptions } getImageURL={getImageURL} text="Skirting boards" tipText="Skirting text here" icon="board-wood.svg" keyword="skirtingboards" />
 
-                    <div className='row spoiler' >
-                      <div className="title">Skirting boards
-                        <Tippy content="Skirting text here">
-                          <button className="tip" >?</button>
-                        </Tippy>
-                      </div>
-                      <div className="inputs noradio">
-                        <img className="smallicon" src={getImageURL('board-wood.svg')} alt="Skirting boards" title="Skirting boards" />
-                        {Object.keys(skirtingboards).map((condition, key) => {
-                          return (
-                            <div key={item.q_id +'_'+sp_index+ '_skirting_radio_' + key} >
-                              <input type="radio" name={item.q_id +'_'+sp_index+ '_skirtingboards'} className={item.q_id + '_skirtingboards'} value={condition} onChange={value => handleChange('skirtingboards', item.q_id, value.target.value, sp_index)} id={item.q_id +'_'+sp_index+ '_skirtingboards_' + key} checked={selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['skirtingboards'] === condition ? 'checked' : ''} />
-                              <label htmlFor={item.q_id +'_'+sp_index+ '_skirtingboards_' + key}>{skirtingboards[condition]}</label>
-                            </div>
-                          )
-                        })}
-                      </div>
-                    </div>
-
-                    <div className='row spoiler' >
-                      <div className="title">Supply furniture
-                        <Tippy content="Furniture text here">
-                          <button className="tip">?</button>
-                        </Tippy>
-                      </div>
-                      <div className="inputs noradio">
-                        <img className="smallicon" src={getImageURL('furniture.svg')} alt="Furniture" title="Furniture" />
-                        {Object.keys(furniture).map((condition, key) => {
-                          return (
-                            <div key={item.q_id +'_'+sp_index+ '_furniture_radio_' + key} >
-                              <input type="radio" name={item.q_id +'_'+sp_index+ '_furniture'} className={item.q_id + '_furniture'} value={condition} onChange={value => handleChange('furniture', item.q_id, value.target.value, sp_index)} id={item.q_id +'_'+sp_index+ '_furniture_' + key} checked={selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['furniture'] === condition ? 'checked' : ''} />
-                              <label htmlFor={item.q_id +'_'+sp_index+ '_furniture_' + key}>{furniture[condition]}</label>
-                            </div>
-                          )
-                        })}
-                      </div>
-                    </div>
+                    <SubQuestion subData={furniture} sp_index={sp_index} item={ item } handleChange={ handleChange } selectedOptions={ selectedOptions } getImageURL={getImageURL} text="Supply furniture" tipText="Furniture text here" icon="furniture.svg" keyword="furniture" />
 
 
 

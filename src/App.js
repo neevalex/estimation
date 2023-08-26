@@ -115,10 +115,14 @@ function App() {
   }
 
   const calculateTotals = () => { 
+
     let newPdfRows = {};
+    //if (!newPdfRows) newPdfRows = {};
+
     let final_total = 0;
     if (choices && choices.service) {
       let total_step = choices.service + '_step';  //flooring
+
       if (selectedOptions) {
         Object.keys(selectedOptions).map((option_name, option_key) => {
           // console.log(selectedOptions[option_name]);
@@ -131,10 +135,9 @@ function App() {
               
               if (Number.isInteger(service_data_key)) service_data_key = 'price_per_m'; // selectedOptions[option_name][a_index]; // value is not text, so take it's key name instead of value
               
-              //console.log(service_data_key);
               
             if (!data[total_step]) return false;
-
+              let lastArrKey = 0;
               data[total_step].map((data_item, datakey) => {
               
                 //console.log(option_name);
@@ -149,27 +152,24 @@ function App() {
                   if (!newPdfRows[room]) newPdfRows[room] = [];
                   //if (!newPdfRows[room][option_name]) newPdfRows[room][option_name] = [];
 
-                  newPdfRows[room].push({ 'id': option_name, 'key': service_data_key, 'room': room,'name': data_item.q_text + ' (' + amount + 'sq. meters)', 'amount': (parseInt(data_item[service_data_key]) * amount) });
+                  lastArrKey = newPdfRows[room].push({ 'id': option_name, 'key': service_data_key, 'room': room,'name': data_item.q_text + ' (' + amount + 'sq. meters)', 'amount': (parseInt(data_item[service_data_key]) * amount) });
                   // console.log(newPdfRows);
-                  setPdfRows(newPdfRows);
                 } else {
-                  // console.log(data_item);
+                  
                   if (data_item[service_data_key]) {
-                    
+                    console.log(service_data_key, newPdfRows[room].length-1);
                     final_total += (parseInt(data_item[service_data_key]) * amount);
 
-                    let newAdditional = pdfRows[room][a_index]['additional'];
+                    let newAdditional = newPdfRows[room][newPdfRows[room].length-1]['additional'];
                     if (!newAdditional) newAdditional = [];
 
-                    let newLine = [];
+                    let newLine = {};
                     newLine[service_data_key] = { 'key': service_data_key, 'amount': (parseInt(data_item[service_data_key]) * amount) };
-
+                    
                     newAdditional = { ...newAdditional, ...newLine };
+                    newPdfRows[room][newPdfRows[room].length-1]['additional'] = newAdditional;
 
-                    let newPdfRows = pdfRows;
-                    newPdfRows[room][a_index]['additional'] = newAdditional;
-
-                    // setPdfRows(newPdfRows);
+                    
                   }
                 }
               }
@@ -180,11 +180,14 @@ function App() {
 
           });
         });
+
+       
       }
 
     }
     //console.log(final_total);
     setTotal(final_total);
+    setPdfRows(newPdfRows);
   }
 
 
