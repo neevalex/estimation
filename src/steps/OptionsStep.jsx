@@ -1,16 +1,8 @@
-import Flooring from "./questions/Flooring";
 import RoomsSelector from "./questions/RoomsSelector";
-import WallCovering from "./questions/WallCovering";
-import InteriorPainting from "./questions/InteriorPainting";
 import Questions from "./questions/Questions";
-import { useState, useEffect } from "react";
-
 
 function OptionsStep({ nextStep, data, step, getImageURL, handleSelectedOptions, selectedOptions, handleChoices, choices, hasFreeRooms }) {
   
-
-  
-
   const handleChange = (type, q_id, value, sp_index) => {
     let v = {
       ...selectedOptions,
