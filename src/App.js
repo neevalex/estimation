@@ -236,7 +236,7 @@ function App() {
         {step === 3 && (<PdfStep getImageURL={getImageURL} pdfRows={pdfRows} total={ total } />)}
       </div>
       <BottomNavigation state={state} step={step} nextStep={nextStep} prevStep={prevStep} />
-      { process.env.REACT_APP_ENVIRONMENT }
+   
       {process.env.REACT_APP_ENVIRONMENT === 'development' && (
         <footer>
           <pre> !!!DEV DATA!!! </pre>

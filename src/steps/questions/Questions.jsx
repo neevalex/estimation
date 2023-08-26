@@ -4,7 +4,12 @@ import Tippy from '@tippyjs/react';
 import SubQuestion from "./elements/SubQuestion";
 
 
-function InteriorPainting({ data, getImageURL, selectedOptions, handleChange, choices, handleChoices, hasFreeRooms }) {
+function Questions({ data, getImageURL, selectedOptions, handleChange, choices, handleChoices, hasFreeRooms, dataSource, subItems }) {
+
+    const conditions = {
+        'removeoldcoatingyes': 'Yes',
+        'removeoldcoatingno' : 'No',
+      };
 
     const wallsneedpreparation = {
         'wallsneedpreparationyes': 'Yes',
@@ -21,11 +26,19 @@ function InteriorPainting({ data, getImageURL, selectedOptions, handleChange, ch
         'furnitureno': 'No',
     };
 
+    const regreage = {
+        'regreageyes': 'Yes',
+        'regreageno' : 'No',
+    };
+    
+    const skirtingboards = {
+        'skirtingboardsyes': 'Yes',
+        'skirtingboardsno' : 'No',
+    };
 
     const [selectedRooms, setSelectedRooms] = useState([]);
     const [selectiontoggle, setSelectionToggle] = useState({});
     const [servicesPool, setServicesPool] = useState([]);
-
 
     useEffect(() => {
 
@@ -34,14 +47,12 @@ function InteriorPainting({ data, getImageURL, selectedOptions, handleChange, ch
             if (!newSelected) newSelected = {};
             if (!newSelected[selectedRooms.id]) newSelected[selectedRooms.id] = [];
             newSelected[selectedRooms.id].push(selectedRooms.room);
-            //console.log(selectedRooms.room);
-
             handleChoices('servicerooms', newSelected);
         }
 
-        if (!servicesPool.length && data && data.interiorpainting_step) {
+        if (!servicesPool.length && data && dataSource) {
             let pool = [];
-            data.interiorpainting_step.map((item) => {
+            dataSource.map((item) => {
                 return pool.push(item.q_id);
             });
             setServicesPool(pool);
@@ -49,10 +60,7 @@ function InteriorPainting({ data, getImageURL, selectedOptions, handleChange, ch
 
         if (choices.servicesPool) setServicesPool(servicesPool => ({ ...servicesPool, ...choices.servicesPool }));
 
-
     }, [selectedRooms, selectiontoggle]);
-
-
 
     const selectServiceRoom = async (id, index) => {
 
@@ -68,7 +76,6 @@ function InteriorPainting({ data, getImageURL, selectedOptions, handleChange, ch
         console.log(nr);
         setSelectionToggle(nr);
         handleChoices('servicerooms', choices.servicerooms);
-
     }
 
     const setRoomservice = (id, room, sp_index) => {
@@ -83,8 +90,6 @@ function InteriorPainting({ data, getImageURL, selectedOptions, handleChange, ch
 
             if (sdata.q_id === room) {
                 if (sdata.default_size) {
-                    // console.log(sdata.default_size);
-                    // handleChange('room', id, room, sp_index);
                     handleChange('price_per_m', id, Number(sdata.default_size), sp_index);
                     let sp = servicesPool;
                     sp.push(id)
@@ -93,14 +98,11 @@ function InteriorPainting({ data, getImageURL, selectedOptions, handleChange, ch
                     handleChoices('servicespool', servicesPool);
                 }
             }
-
             return true;
 
         });
 
     }
-
-
 
 
     return (
@@ -117,8 +119,7 @@ function InteriorPainting({ data, getImageURL, selectedOptions, handleChange, ch
 
                 {!data.translations && (<h3>Loading...</h3>)}
 
-                {data && data.interiorpainting_step && servicesPool && data.interiorpainting_step.map((item) => {
-
+                {data && servicesPool && dataSource.map((item) => {
 
                     let sp_index_size = servicesPool.filter(x => x === item.q_id).length;
                     let output = [];
@@ -140,7 +141,6 @@ function InteriorPainting({ data, getImageURL, selectedOptions, handleChange, ch
                                         {choices.servicerooms[item.q_id][sp_index]}
                                     </div>)}
 
-
                                 <div className="roomselector">
                                     <div className="title">
                                         Which room you want to apply {item.q_text} for?
@@ -161,8 +161,6 @@ function InteriorPainting({ data, getImageURL, selectedOptions, handleChange, ch
                                     )}
 
                                 </div>
-
-
 
                                 <div className="image" style={{
                                     backgroundImage: `url("${getImageURL(item.q_picture)}")`
@@ -189,17 +187,24 @@ function InteriorPainting({ data, getImageURL, selectedOptions, handleChange, ch
                                     </div>
 
                                     <div className={selectedOptions[item.q_id] && selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['price_per_m'] > 0 ? "subitems active" : 'subitems'}>
+
+                                        {subItems && Object.values(subItems).indexOf('removeoldcoating') > -1 && (<SubQuestion subData={conditions} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Remove old coating" tipText="Remove old coating" icon="crowbar.svg" keyword="removeoldcoating" />)}
+
+                                        {subItems && Object.values(subItems).indexOf('regreage') > -1 && selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['removeoldcoating'] === 'removeoldcoatingyes' && (
+
+                                        <SubQuestion subData={regreage} sp_index={sp_index} item={ item } handleChange={ handleChange } selectedOptions={ selectedOptions } getImageURL={getImageURL} text="Regreage needed" tipText="Regreage text here" icon="level.svg" keyword="regreage" />
+
+                                        )}
+
+                                        {subItems && Object.values(subItems).indexOf('skirtingboards') > -1 && (<SubQuestion subData={skirtingboards} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Skirting boards" tipText="Skirting text here" icon="board-wood.svg" keyword="skirtingboards" />)}
                                         
-                                        <SubQuestion subData={wallsneedpreparation} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Walls need preparation" tipText="Walls need preparation" icon="wall.svg" keyword="wallsneedpreparation" />
+                                        {subItems && Object.values(subItems).indexOf('wallsneedpreparation') > -1 && (<SubQuestion subData={wallsneedpreparation} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Walls need preparation" tipText="Walls need preparation" icon="wall.svg" keyword="wallsneedpreparation" />)}
 
-                                        <SubQuestion subData={removewallcovering} sp_index={sp_index} item={ item } handleChange={ handleChange } selectedOptions={ selectedOptions } getImageURL={getImageURL} text="Remove old wallpapers" tipText="Remove old wallpapers" icon="cut.svg" keyword="removewallcovering" />
+                                        {subItems && Object.values(subItems).indexOf('removewallcovering') > -1 && (<SubQuestion subData={removewallcovering} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Remove old wallpapers" tipText="Remove old wallpapers" icon="cut.svg" keyword="removewallcovering" />)}
 
-                                        <SubQuestion subData={furniture} sp_index={sp_index} item={ item } handleChange={ handleChange } selectedOptions={ selectedOptions } getImageURL={getImageURL} text="Supply furniture" tipText="Furniture text here" icon="furniture.svg" keyword="furniture" />
+                                        {subItems && Object.values(subItems).indexOf('furniture') > -1 && (<SubQuestion subData={furniture} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Supply furniture" tipText="Furniture text here" icon="furniture.svg" keyword="furniture" />)}
 
                                     </div>
-
-
-
 
                                 </div>)}
                             </div>
@@ -208,13 +213,9 @@ function InteriorPainting({ data, getImageURL, selectedOptions, handleChange, ch
 
                     return output;
                 })}
-
             </div>
-
-
         </div>
-
     )
 }
 
-export default InteriorPainting
+export default Questions

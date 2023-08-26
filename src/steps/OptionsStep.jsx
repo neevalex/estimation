@@ -2,6 +2,7 @@ import Flooring from "./questions/Flooring";
 import RoomsSelector from "./questions/RoomsSelector";
 import WallCovering from "./questions/WallCovering";
 import InteriorPainting from "./questions/InteriorPainting";
+import Questions from "./questions/Questions";
 import { useState, useEffect } from "react";
 
 
@@ -44,13 +45,13 @@ function OptionsStep({ nextStep, data, step, getImageURL, handleSelectedOptions,
             <div className="pre"></div>
             <div className="line"></div>
           </div>
-        
-          <Flooring data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} />
+
+          <Questions data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.flooring_step} subItems={['furniture','removeoldcoating','regreage','skirtingboards']} />
         
         </div>)}
       
 
-        {choices && choices.service && choices.service === "wallcovering" && (
+        {data && choices && choices.service && choices.service === "wallcovering" && (
         <div className="step">
           <RoomsSelector data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} />
         
@@ -58,8 +59,8 @@ function OptionsStep({ nextStep, data, step, getImageURL, handleSelectedOptions,
             <div className="pre"></div>
             <div className="line"></div>
           </div>
-        
-          <WallCovering data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} />
+
+          <Questions data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.wallcovering_step} subItems={['furniture','removewallcovering','wallsneedpreparation']} />
         
         </div>)}
       
@@ -72,8 +73,8 @@ function OptionsStep({ nextStep, data, step, getImageURL, handleSelectedOptions,
             <div className="pre"></div>
             <div className="line"></div>
           </div>
-        
-          <InteriorPainting data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} />
+
+          <Questions data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.interiorpainting_step} subItems={['furniture','removewallcovering','wallsneedpreparation']} />
         
         </div>)}
       
