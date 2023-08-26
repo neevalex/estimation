@@ -235,7 +235,7 @@ function App() {
       <BottomNavigation state={ state } step={step} nextStep={nextStep} prevStep={ prevStep } />
       <footer>
         {/* <pre> !!!DEV DATA!!! </pre> */}
-        {/* <pre>Price : <strong>{JSON.stringify(total, null, 2)}€</strong> </pre> */}
+        <pre>Price : <strong>{JSON.stringify(total, null, 2)}€</strong> </pre>
         <pre>{JSON.stringify(pdfRows, null, 2)}</pre>
         <pre>{JSON.stringify(choices, null, 2)}</pre>
         <pre>{JSON.stringify(selectedOptions, null, 2)}</pre>

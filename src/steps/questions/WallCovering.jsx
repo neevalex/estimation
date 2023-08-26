@@ -9,6 +9,17 @@ function WallCovering({ data, getImageURL, selectedOptions, handleChange, choice
     'wallsneedpreparationno' : 'No',
   };
 
+  const removewallcovering = {
+    'removewallcoveringyes': 'Yes',
+    'removewallcoveringnno' : 'No',
+  };
+
+  const furniture = {
+    'furnitureyes': 'Yes',
+    'furnitureno' : 'No',
+  };
+
+
   const [selectedRooms, setSelectedRooms] = useState([]);
   const [selectiontoggle, setSelectionToggle] = useState({});
   const [servicesPool, setServicesPool] = useState([]);
@@ -190,6 +201,45 @@ function WallCovering({ data, getImageURL, selectedOptions, handleChange, choice
                             <div key={item.q_id +'_'+sp_index+ '_wallsneedpreparation_radio_' + key}>
                               <input type="radio" name={item.q_id +'_'+sp_index+ '_wallsneedpreparation'} className={item.q_id + '_wallsneedpreparation'} value={condition} onChange={value => handleChange('wallsneedpreparation', item.q_id, value.target.value, sp_index)} id={item.q_id +'_'+sp_index+ '_wallsneedpreparation_' + key} checked={selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['wallsneedpreparation'] === condition ? 'checked' : ''} />
                               <label htmlFor={item.q_id +'_'+sp_index+ '_wallsneedpreparation_' + key}>{conditions[condition]}</label>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+
+                     <div className='row spoiler' >
+                      <div className="title">Remove old wallpapers
+                        <Tippy content="Remove old wallpapers">
+                          <button className="tip">?</button>
+                        </Tippy>
+                      </div>
+                      <div className="inputs noradio">
+                        <img className="smallicon" src={getImageURL('cut.svg')} alt="Furniture" title="Furniture" />
+                        {Object.keys(removewallcovering).map((condition, key) => {
+                          return (
+                            <div key={item.q_id +'_'+sp_index+ '_removewallcovering_radio_' + key} >
+                              <input type="radio" name={item.q_id +'_'+sp_index+ '_removewallcovering'} className={item.q_id + '_removewallcovering'} value={condition} onChange={value => handleChange('removewallcovering', item.q_id, value.target.value, sp_index)} id={item.q_id +'_'+sp_index+ '_removewallcovering_' + key} checked={selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['removewallcovering'] === condition ? 'checked' : ''} />
+                              <label htmlFor={item.q_id +'_'+sp_index+ '_removewallcovering_' + key}>{removewallcovering[condition]}</label>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+
+
+                    <div className='row spoiler' >
+                      <div className="title">Supply furniture
+                        <Tippy content="Furniture text here">
+                          <button className="tip">?</button>
+                        </Tippy>
+                      </div>
+                      <div className="inputs noradio">
+                        <img className="smallicon" src={getImageURL('furniture.svg')} alt="Furniture" title="Furniture" />
+                        {Object.keys(furniture).map((condition, key) => {
+                          return (
+                            <div key={item.q_id +'_'+sp_index+ '_furniture_radio_' + key} >
+                              <input type="radio" name={item.q_id +'_'+sp_index+ '_furniture'} className={item.q_id + '_furniture'} value={condition} onChange={value => handleChange('furniture', item.q_id, value.target.value, sp_index)} id={item.q_id +'_'+sp_index+ '_furniture_' + key} checked={selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['furniture'] === condition ? 'checked' : ''} />
+                              <label htmlFor={item.q_id +'_'+sp_index+ '_furniture_' + key}>{furniture[condition]}</label>
                             </div>
                           )
                         })}
