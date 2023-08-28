@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function Rooms({ data, forceUpdate, getImageURL, handleChoices, choices }) {
+function Rooms({ data, forceUpdate, getImageURL, handleChoices, choices, rooms }) {
 
     const [selected, setSelected] = useState([]);
 
@@ -46,6 +46,10 @@ function Rooms({ data, forceUpdate, getImageURL, handleChoices, choices }) {
                 { !data.translations && (<h3>Loading...</h3>)}
                 
                 {data && data.rooms_step && data.rooms_step.map((item) => { 
+
+                    if (rooms && Object.values(rooms).indexOf(item.q_id) < 0) return;
+
+
                 return (
                     <div className={"question " + (selected && selected[item.q_id] ? 'hasnumbers' : '')} key={item.q_id} onClick={() => { handleSelection(item.q_id) }} >
 

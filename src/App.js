@@ -152,12 +152,12 @@ function App() {
                   if (!newPdfRows[room]) newPdfRows[room] = [];
                   //if (!newPdfRows[room][option_name]) newPdfRows[room][option_name] = [];
 
-                  lastArrKey = newPdfRows[room].push({ 'id': option_name, 'key': service_data_key, 'room': room,'name': data_item.q_text + ' (' + amount + 'sq. meters)', 'amount': (parseInt(data_item[service_data_key]) * amount) });
+                  lastArrKey = newPdfRows[room].push({ 'id': option_name, 'key': service_data_key, 'room': room,'name': data_item.q_text + ' ( ' + amount + ' )', 'amount': (parseInt(data_item[service_data_key]) * amount) });
                   // console.log(newPdfRows);
                 } else {
                   
                   if (data_item[service_data_key]) {
-                    console.log(service_data_key, newPdfRows[room].length-1);
+                    //console.log(service_data_key, newPdfRows[room].length-1);
                     final_total += (parseInt(data_item[service_data_key]) * amount);
 
                     let newAdditional = newPdfRows[room][newPdfRows[room].length-1]['additional'];
@@ -232,8 +232,8 @@ function App() {
       <div className="cnt">
         {step === 1 && (<IndexStep nextStep={nextStep} data={data} getImageURL={getImageURL} step={step} handleChoices={handleChoices} choices={ choices } />)}
         {step === 2 && (<OptionsStep nextStep={nextStep} forceUpdate={forceUpdate }  data={data} getImageURL={getImageURL} step={step} handleSelectedOptions={handleSelectedOptions} selectedOptions={selectedOptions} handleChoices={handleChoices} choices={choices} hasFreeRooms={ hasFreeRooms } />)}
-        {step === 33 && (<FormStep data={data} getImageURL={getImageURL} />)}
-        {step === 3 && (<PdfStep getImageURL={getImageURL} pdfRows={pdfRows} total={ total } />)}
+        {step === 3 && (<FormStep data={data} getImageURL={getImageURL} />)}
+        {step === 4 && (<PdfStep getImageURL={getImageURL} pdfRows={pdfRows} total={ total } />)}
       </div>
       <BottomNavigation state={state} step={step} nextStep={nextStep} prevStep={prevStep} />
    

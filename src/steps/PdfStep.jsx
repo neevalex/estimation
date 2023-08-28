@@ -208,11 +208,11 @@ const MyDocument = ({ getImageURL, pdfRows, total,vat, total_ttc  }) => (
             <Text style={[styles.room]}>{room}</Text>
             {pdfRows[room].map((row, index) => (
               <>
-                  {row.amount && row.amount > 0 && (
+                  { (
                     <View>
                       <View style={styles.estimrow}>
                         <Text style={[styles.estimrowleft]}>{index + 1}. {row.name}</Text>
-                        <Text style={[styles.estimrowright]}>{row.amount}€</Text>
+                        <Text style={[styles.estimrowright]}>{row.amount > 0 ? row.amount+'€': ''}</Text>
                       </View>
 
                       {row['additional'] && Object.keys(row['additional']).map((additional_key, index) => (

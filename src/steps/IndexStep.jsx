@@ -32,12 +32,13 @@ function IndexStep({ nextStep, data, step, getImageURL, handleChoices, choices }
                   return (
                     <div className={"question " + (item.q_id == selected ? 'hasnumbers' : '')} key={item.q_id} onClick={() => { handleSelection(item.q_id) }}  >
                       
-                      <div className="mark">
-                        <img className="sqm" src={getImageURL('check.svg')} alt="Square Meter" title="Square Meter" />
-                      </div>
+                      <div className="image" style={{backgroundImage: `url("${getImageURL(item.q_picture)}")`}}>
+                          <div className="mark">
+                            <img className="sqm" src={getImageURL('check.svg')} alt="Square Meter" title="Square Meter" />
+                          </div>
+                          <h4>{item.q_text}</h4>
+                      </div>  
 
-                      <img src={getImageURL(item.q_picture)} alt={item.q_text} title={item.q_text} />
-                      <h4>{item.q_text}</h4>
                     </div>
                   )
                 })}

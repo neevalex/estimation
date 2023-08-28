@@ -1,6 +1,7 @@
 .pdf {
     display: flex;
     grid-gap: 30px;
+    margin-bottom: 60px;
 
     @media (max-width: $mobile) {
         flex-wrap: wrap;

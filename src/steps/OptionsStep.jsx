@@ -20,12 +20,6 @@ function OptionsStep({ nextStep, data, step, getImageURL, handleSelectedOptions,
 
   }
 
-
-  // useEffect(() => { 
-  //   setOptions( selectedOptions );
-  // }, [selectedOptions]);
-
-
   return (
     <div className="inner">
       
@@ -38,7 +32,7 @@ function OptionsStep({ nextStep, data, step, getImageURL, handleSelectedOptions,
             <div className="line"></div>
           </div>
 
-          <Questions data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.flooring_step} subItems={['furniture','removeoldcoating','regreage','skirtingboards']} />
+          <Questions step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.flooring_step} subItems={['furniture','removeoldcoating','regreage','skirtingboards']} />
         
         </div>)}
       
@@ -52,7 +46,7 @@ function OptionsStep({ nextStep, data, step, getImageURL, handleSelectedOptions,
             <div className="line"></div>
           </div>
 
-          <Questions data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.wallcovering_step} subItems={['furniture','removewallcovering','wallsneedpreparation']} />
+          <Questions step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.wallcovering_step} subItems={['furniture','removewallcovering','wallsneedpreparation']} />
         
         </div>)}
       
@@ -66,11 +60,103 @@ function OptionsStep({ nextStep, data, step, getImageURL, handleSelectedOptions,
             <div className="line"></div>
           </div>
 
-          <Questions data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.interiorpainting_step} subItems={['furniture','removewallcovering','wallsneedpreparation']} />
+          <Questions step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.interiorpainting_step} subItems={['furniture','removewallcovering','wallsneedpreparation']} />
         
         </div>)}
       
+        {choices && choices.service && choices.service === "completerenovation" && (
+        <div className="step">
+          <RoomsSelector data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} />
         
+          <div className="separator">
+            <div className="pre"></div>
+            <div className="line"></div>
+          </div>
+
+          <Questions step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.completerenovation_step} subItems={['flooring','painting','plastering','wallcovering', 'electricity']} />
+        
+        </div>)}
+
+        {choices && choices.service && choices.service === "kitchen" && (
+          <div className="step">
+            <RoomsSelector data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} rooms={['kitchen']} />
+          
+            <div className="separator">
+              <div className="pre"></div>
+              <div className="line"></div>
+            </div>
+
+            <Questions step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.kitchen_step} subItems={['removeoldkitchen','kitchenhastobemounted']} />
+          
+          </div>)}
+      
+          {choices && choices.service && choices.service === "electricity" && (
+          <div className="step">
+            <RoomsSelector data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} />
+          
+            <div className="separator">
+              <div className="pre"></div>
+              <div className="line"></div>
+            </div>
+
+            <Questions step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.electricity_step} subItems={[]} />
+          
+          </div>)}
+      
+
+        {choices && choices.service && choices.service === "plumbing" && (
+          <div className="step">
+            <RoomsSelector data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices}  rooms={['bathroom','kitchen','toilet', 'other']}  />
+          
+            <div className="separator">
+              <div className="pre"></div>
+              <div className="line"></div>
+            </div>
+
+            <Questions step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.plumbing_step} />
+          
+          </div>)}
+
+      
+          {choices && choices.service && choices.service === "insulation" && (
+          <div className="step">
+            <RoomsSelector data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices}  rooms={['other']}  />
+          
+            <div className="separator">
+              <div className="pre"></div>
+              <div className="line"></div>
+            </div>
+
+            <Questions step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.insulation_step} />
+          
+          </div>)}
+      
+
+        {choices && choices.service && choices.service === "carpentry" && (
+          <div className="step">
+            <RoomsSelector data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices}  />
+          
+            <div className="separator">
+              <div className="pre"></div>
+              <div className="line"></div>
+            </div>
+
+            <Questions step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.carpentry_step} subItems={['furniture']} />
+          
+          </div>)}
+
+        {choices && choices.service && choices.service === "disaster" && (
+          <div className="step">
+            <RoomsSelector data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices}  />
+          
+            <div className="separator">
+              <div className="pre"></div>
+              <div className="line"></div>
+            </div>
+
+            <Questions step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.disaster_step} subItems={['furniture']} />
+          
+          </div>)}
       
 
     </div>   

@@ -36,6 +36,43 @@ function Questions({ data, getImageURL, selectedOptions, handleChange, choices, 
         'skirtingboardsno' : 'No',
     };
 
+    const flooring = {
+        'flooringyes': 'Yes',
+        'flooringno' : 'No',
+    };
+
+    const wallcovering = {
+        'wallcoveringyes': 'Yes',
+        'wallcoveringno' : 'No',
+    };
+
+    const painting = {
+        'paintingyes': 'Yes',
+        'paintingno' : 'No',
+    };
+
+    const plastering = {
+        'plasteringyes': 'Yes',
+        'plasteringno' : 'No',
+    };
+
+    const  electricity = {
+        'electricityyes': 'Yes',
+        'electricityno' : 'No',
+    };
+
+    const  kitchenhastobemounted = {
+        'kitchenhastobemountedyes': 'Yes',
+        'kitchenhastobemountedno' : 'No',
+    };
+
+    const  removeoldkitchen = {
+        'removeoldkitchenyes': 'Yes',
+        'removeoldkitchenno' : 'No',
+    };
+   
+
+
     const [selectedRooms, setSelectedRooms] = useState([]);
     const [selectiontoggle, setSelectionToggle] = useState({});
     const [servicesPool, setServicesPool] = useState([]);
@@ -78,7 +115,7 @@ function Questions({ data, getImageURL, selectedOptions, handleChange, choices, 
         handleChoices('servicerooms', choices.servicerooms);
     }
 
-    const setRoomservice = (id, room, sp_index) => {
+    const setRoomservice = (id, room, sp_index, force_size = null) => {
 
         let newChoices = choices;
         if (!newChoices.rooms) newChoices.rooms = [];
@@ -90,7 +127,14 @@ function Questions({ data, getImageURL, selectedOptions, handleChange, choices, 
 
             if (sdata.q_id === room) {
                 if (sdata.default_size) {
-                    handleChange('price_per_m', id, Number(sdata.default_size), sp_index);
+
+                    if (force_size) {
+                        handleChange('price_per_m', id, Number(force_size), sp_index)
+                    }
+                    else {
+                        handleChange('price_per_m', id, Number(sdata.default_size), sp_index);
+                    }
+                    
                     let sp = servicesPool;
                     sp.push(id)
                     setServicesPool(sp);
@@ -104,6 +148,25 @@ function Questions({ data, getImageURL, selectedOptions, handleChange, choices, 
 
     }
 
+    const isVisible = (optionsArray, itemId) => { 
+       
+        let dataStepName = choices.service + '_step';  //flooring
+        if (!data[dataStepName]) return false;
+        let result = false;
+
+        data[dataStepName].map((data_item, datakey) => { 
+            if (data_item.q_id === itemId) { 
+                
+                if (data_item[Object.keys(optionsArray)[0]] > 0) {
+                   // console.log(Object.keys(optionsArray)[0]);
+                    result =  true;
+                }
+            }
+        });
+
+        return result;
+    };
+
 
     return (
 
@@ -116,7 +179,6 @@ function Questions({ data, getImageURL, selectedOptions, handleChange, choices, 
             </div>
 
             <div className="inner">
-
                 {!data.translations && (<h3>Loading...</h3>)}
 
                 {data && servicesPool && dataSource.map((item) => {
@@ -153,7 +215,7 @@ function Questions({ data, getImageURL, selectedOptions, handleChange, choices, 
                                             {Object.keys(choices.rooms).map((room, key) => {
                                                 if (choices.servicerooms && Object.values(choices.servicerooms).indexOf(room) > -1) return;
                                                 return (
-                                                    <div className="room" onClick={() => { setSelectedRooms({ 'id': item.q_id, 'room': room, 'index': sp_index }); setRoomservice(item.q_id, room, sp_index); }}>{room}</div>
+                                                    <div className="room" onClick={() => { setSelectedRooms({ 'id': item.q_id, 'room': room, 'index': sp_index }); setRoomservice(item.q_id, room, sp_index, item.force_size); }}>{room}</div>
                                                 )
                                             })}
 
@@ -172,14 +234,15 @@ function Questions({ data, getImageURL, selectedOptions, handleChange, choices, 
                                 {choices && choices.servicerooms && choices.servicerooms[item.q_id] && choices.servicerooms[item.q_id][sp_index] && (<div className="sub">
 
                                     <div className="row">
-                                        <p>Area size in sq. meters
+                                        <p>
+                                            {item.custom_service_name ? item.custom_service_name : 'Area size in sq. meters'}
                                             <Tippy content="Some text here">
                                                 <button className="tip">?</button>
                                             </Tippy>
                                         </p>
 
                                         <div className="right">
-                                            <img className="sqm" src={getImageURL('sqmeter.png')} alt="sq. meters" title="sq. meters" />
+                                            <img className="sqm" src={item.custom_service_icon ? getImageURL(item.custom_service_icon) : getImageURL('sqmeter.png')} alt="sq. meters" title="sq. meters" />
 
                                             <NumberPicker min={0} step={1} value={selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['price_per_m'] > 0 ? selectedOptions[item.q_id][sp_index]['price_per_m'] : 0} onChange={value => handleChange('price_per_m', item.q_id, value, sp_index)} />
 
@@ -195,6 +258,24 @@ function Questions({ data, getImageURL, selectedOptions, handleChange, choices, 
                                         <SubQuestion subData={regreage} sp_index={sp_index} item={ item } handleChange={ handleChange } selectedOptions={ selectedOptions } getImageURL={getImageURL} text="Regreage needed" tipText="Regreage text here" icon="level.svg" keyword="regreage" />
 
                                         )}
+
+                                        {subItems && isVisible(flooring, item.q_id) && Object.values(subItems).indexOf('flooring') > -1 && (<SubQuestion subData={flooring} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Flooring" tipText="Flooring text here" icon="board-wood.svg" keyword="flooring" />)}
+
+                                        {subItems && isVisible(wallcovering, item.q_id) && Object.values(subItems).indexOf('wallcovering') > -1 && (<SubQuestion subData={wallcovering} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Wall Covering" tipText="wallcovering text here" icon="wall.svg" keyword="wallcovering" />)}
+
+
+                                        {subItems && isVisible(painting, item.q_id) && Object.values(subItems).indexOf('painting') > -1 && (<SubQuestion subData={painting} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Painting" tipText="painting text here" icon="paint-roll.svg" keyword="painting" />)}
+
+
+                                        {subItems && isVisible(plastering, item.q_id) && Object.values(subItems).indexOf('plastering') > -1 && (<SubQuestion subData={plastering} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Plastering" tipText="plastering text here" icon="trowel.svg" keyword="plastering" />)}
+
+
+                                        {subItems && isVisible(electricity, item.q_id) && Object.values(subItems).indexOf('electricity') > -1 && (<SubQuestion subData={electricity} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Electricity" tipText="electricity text here" icon="plug-fill.svg" keyword="electricity" />)}
+
+                                        {subItems && Object.values(subItems).indexOf('removeoldkitchen') > -1 && (<SubQuestion subData={removeoldkitchen} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Remove old kitchen" tipText="removeoldkitchen text here" icon="crowbar.svg" keyword="removeoldkitchen" />)}
+
+                                        {subItems && Object.values(subItems).indexOf('kitchenhastobemounted') > -1 && (<SubQuestion subData={kitchenhastobemounted} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Kitchen has to be mounted" tipText="kitchenhastobemounted text here" icon="mount.svg" keyword="kitchenhastobemounted" />)}
+
 
                                         {subItems && Object.values(subItems).indexOf('skirtingboards') > -1 && (<SubQuestion subData={skirtingboards} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Skirting boards" tipText="Skirting text here" icon="board-wood.svg" keyword="skirtingboards" />)}
                                         

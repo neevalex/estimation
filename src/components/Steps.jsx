@@ -6,9 +6,9 @@ function Steps({ state, step, nextStep, prevStep } ) {
 
         <div className="control">
 
-            <div className={"arrow prev " + (state.prevButtonState ? '' : 'disabled')} onClick={() => { prevStep(state.prevButtonState) } }>
+            {/* <div className={"arrow prev " + (state.prevButtonState ? '' : 'disabled')} onClick={() => { prevStep(state.prevButtonState) } }>
               <img src="/assets/img/arrow.svg" alt="back" />
-            </div>
+            </div> */}
           
             <div className="numsteps">
             
@@ -37,9 +37,9 @@ function Steps({ state, step, nextStep, prevStep } ) {
               </div>
             </div>
 
-          <div className={"arrow next " + (state.nextButtonState ? '' : 'disabled')} onClick={() => { nextStep(state.nextButtonState) } } >
+            {/* <div className={"arrow next " + (state.nextButtonState ? '' : 'disabled')} onClick={() => { nextStep(state.nextButtonState) } } >
               <img src="/assets/img/arrow.svg" alt="back" />
-            </div>
+            </div> */}
           
         </div>
 
