@@ -83,7 +83,7 @@ function App() {
     if (step < 4) {
       setStep(newStep);
     }
-   
+    window.scrollTo(0, 0);
     checkState(newStep);
   }
 

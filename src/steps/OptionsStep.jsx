@@ -86,7 +86,7 @@ function OptionsStep({ nextStep, data, step, getImageURL, handleSelectedOptions,
               <div className="line"></div>
             </div>
 
-            <Questions step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.kitchen_step} subItems={['removeoldkitchen','kitchenhastobemounted']} />
+            <Questions step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.kitchen_step} subItems={[]} />
           
           </div>)}
       
