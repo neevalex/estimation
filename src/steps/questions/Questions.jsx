@@ -4,7 +4,7 @@ import Tippy from '@tippyjs/react';
 import SubQuestion from "./elements/SubQuestion";
 
 
-function Questions({ data, getImageURL, selectedOptions, handleChange, choices, handleChoices, hasFreeRooms, dataSource, subItems }) {
+function Questions({ getTranslation, data, getImageURL, selectedOptions, handleChange, choices, handleChoices, hasFreeRooms, dataSource, subItems }) {
 
     const conditions = {
         'removeoldcoatingyes': 'Yes',
@@ -205,7 +205,7 @@ function Questions({ data, getImageURL, selectedOptions, handleChange, choices, 
 
                                 <div className="roomselector">
                                     <div className="title">
-                                        Which room you want to apply {item.q_text} for?
+                                    { getTranslation('which_room') } {item.q_text} { getTranslation('for') }
                                     </div>
 
 
@@ -235,14 +235,14 @@ function Questions({ data, getImageURL, selectedOptions, handleChange, choices, 
 
                                     <div className="row">
                                         <p>
-                                            {item.custom_service_name ? item.custom_service_name : 'Area size in sq. meters'}
-                                            <Tippy content="Some text here">
+                                            {item.custom_service_name ? item.custom_service_name : getTranslation('area_size_sqm')}
+                                            <Tippy content={getTranslation('area_size_sqm_description')}>
                                                 <button className="tip">?</button>
                                             </Tippy>
                                         </p>
 
                                         <div className="right">
-                                            <img className={item.custom_service_icon ? 'sqm small':'sqm'} src={item.custom_service_icon ? getImageURL(item.custom_service_icon) : getImageURL('sqmeter.png')} alt="sq. meters" title="sq. meters" />
+                                            <img className={item.custom_service_icon ? 'sqm small':'sqm'} src={item.custom_service_icon ? getImageURL(item.custom_service_icon) : getImageURL('sqmeter.png')} alt={ getTranslation('sq_meter')} title={ getTranslation('sq_meter')} />
 
                                             <NumberPicker min={0} step={1} value={selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['price_per_m'] > 0 ? selectedOptions[item.q_id][sp_index]['price_per_m'] : 0} onChange={value => handleChange('price_per_m', item.q_id, value, sp_index)} />
 
@@ -251,39 +251,39 @@ function Questions({ data, getImageURL, selectedOptions, handleChange, choices, 
 
                                     <div className={selectedOptions[item.q_id] && selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['price_per_m'] > 0 ? "subitems active" : 'subitems'}>
 
-                                        {subItems && Object.values(subItems).indexOf('removeoldcoating') > -1 && (<SubQuestion subData={conditions} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Remove old coating" tipText="Remove old coating" icon="crowbar.svg" keyword="removeoldcoating" />)}
+                                        {subItems && Object.values(subItems).indexOf('removeoldcoating') > -1 && (<SubQuestion subData={conditions} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text={ getTranslation('remove_old_coating')} tipText={ getTranslation('remove_old_coating_tip')} icon="crowbar.svg" keyword="removeoldcoating" />)}
 
                                         {subItems && Object.values(subItems).indexOf('regreage') > -1 && selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['removeoldcoating'] === 'removeoldcoatingyes' && (
 
-                                        <SubQuestion subData={regreage} sp_index={sp_index} item={ item } handleChange={ handleChange } selectedOptions={ selectedOptions } getImageURL={getImageURL} text="Regreage needed" tipText="Regreage text here" icon="level.svg" keyword="regreage" />
+                                        <SubQuestion subData={regreage} sp_index={sp_index} item={ item } handleChange={ handleChange } selectedOptions={ selectedOptions } getImageURL={getImageURL} text={ getTranslation('regreage')} tipText={ getTranslation('regreage_tip')} icon="level.svg" keyword="regreage" />
 
                                         )}
 
-                                        {subItems && isVisible(flooring, item.q_id) && Object.values(subItems).indexOf('flooring') > -1 && (<SubQuestion subData={flooring} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Flooring" tipText="Flooring text here" icon="board-wood.svg" keyword="flooring" />)}
+                                        {subItems && isVisible(flooring, item.q_id) && Object.values(subItems).indexOf('flooring') > -1 && (<SubQuestion subData={flooring} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text={ getTranslation('flooring')} tipText={ getTranslation('flooring_tip')} icon="board-wood.svg" keyword="flooring" />)}
 
-                                        {subItems && isVisible(wallcovering, item.q_id) && Object.values(subItems).indexOf('wallcovering') > -1 && (<SubQuestion subData={wallcovering} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Wall Covering" tipText="wallcovering text here" icon="wall.svg" keyword="wallcovering" />)}
-
-
-                                        {subItems && isVisible(painting, item.q_id) && Object.values(subItems).indexOf('painting') > -1 && (<SubQuestion subData={painting} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Painting" tipText="painting text here" icon="paint-roll.svg" keyword="painting" />)}
+                                        {subItems && isVisible(wallcovering, item.q_id) && Object.values(subItems).indexOf('wallcovering') > -1 && (<SubQuestion subData={wallcovering} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text={ getTranslation('wall_covering')} tipText={ getTranslation('wall_covering_tip')} icon="wall.svg" keyword="wallcovering" />)}
 
 
-                                        {subItems && isVisible(plastering, item.q_id) && Object.values(subItems).indexOf('plastering') > -1 && (<SubQuestion subData={plastering} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Plastering" tipText="plastering text here" icon="trowel.svg" keyword="plastering" />)}
+                                        {subItems && isVisible(painting, item.q_id) && Object.values(subItems).indexOf('painting') > -1 && (<SubQuestion subData={painting} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text={ getTranslation('painting')} tipText={ getTranslation('painting_tip')} icon="paint-roll.svg" keyword="painting" />)}
 
 
-                                        {subItems && isVisible(electricity, item.q_id) && Object.values(subItems).indexOf('electricity') > -1 && (<SubQuestion subData={electricity} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Electricity" tipText="electricity text here" icon="plug-fill.svg" keyword="electricity" />)}
-
-                                        {subItems && Object.values(subItems).indexOf('removeoldkitchen') > -1 && (<SubQuestion subData={removeoldkitchen} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Remove old kitchen" tipText="removeoldkitchen text here" icon="crowbar.svg" keyword="removeoldkitchen" />)}
-
-                                        {subItems && Object.values(subItems).indexOf('kitchenhastobemounted') > -1 && (<SubQuestion subData={kitchenhastobemounted} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Kitchen has to be mounted" tipText="kitchenhastobemounted text here" icon="mount.svg" keyword="kitchenhastobemounted" />)}
+                                        {subItems && isVisible(plastering, item.q_id) && Object.values(subItems).indexOf('plastering') > -1 && (<SubQuestion subData={plastering} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text={ getTranslation('plastering')} tipText={ getTranslation('plastering_tip')} icon="trowel.svg" keyword="plastering" />)}
 
 
-                                        {subItems && Object.values(subItems).indexOf('skirtingboards') > -1 && (<SubQuestion subData={skirtingboards} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Skirting boards" tipText="Skirting text here" icon="board-wood.svg" keyword="skirtingboards" />)}
+                                        {subItems && isVisible(electricity, item.q_id) && Object.values(subItems).indexOf('electricity') > -1 && (<SubQuestion subData={electricity} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text={ getTranslation('electricity')} tipText={ getTranslation('electricity_tip')} icon="plug-fill.svg" keyword="electricity" />)}
+
+                                        {subItems && Object.values(subItems).indexOf('removeoldkitchen') > -1 && (<SubQuestion subData={removeoldkitchen} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text={ getTranslation('r_old_kitchen')} tipText={ getTranslation('r_old_kitchen_tip')} icon="crowbar.svg" keyword="removeoldkitchen" />)}
+
+                                        {subItems && Object.values(subItems).indexOf('kitchenhastobemounted') > -1 && (<SubQuestion subData={kitchenhastobemounted} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text={ getTranslation('kitchen_mount')} tipText={ getTranslation('kitchen_mount_tip')} icon="mount.svg" keyword="kitchenhastobemounted" />)}
+
+
+                                        {subItems && Object.values(subItems).indexOf('skirtingboards') > -1 && (<SubQuestion subData={skirtingboards} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text={ getTranslation('skirting_boards')} tipText={ getTranslation('skirting_boards_tip')} icon="board-wood.svg" keyword="skirtingboards" />)}
                                         
-                                        {subItems && Object.values(subItems).indexOf('wallsneedpreparation') > -1 && (<SubQuestion subData={wallsneedpreparation} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Walls need preparation" tipText="Walls need preparation" icon="wall.svg" keyword="wallsneedpreparation" />)}
+                                        {subItems && Object.values(subItems).indexOf('wallsneedpreparation') > -1 && (<SubQuestion subData={wallsneedpreparation} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text={ getTranslation('walls_need_prep')} tipText={ getTranslation('walls_need_prep_tip')} icon="wall.svg" keyword="wallsneedpreparation" />)}
 
-                                        {subItems && Object.values(subItems).indexOf('removewallcovering') > -1 && (<SubQuestion subData={removewallcovering} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Remove old wallpapers" tipText="Remove old wallpapers" icon="cut.svg" keyword="removewallcovering" />)}
+                                        {subItems && Object.values(subItems).indexOf('removewallcovering') > -1 && (<SubQuestion subData={removewallcovering} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text={ getTranslation('remove_wallpapers')} tipText={ getTranslation('remove_wallpapers_tip')} icon="cut.svg" keyword="removewallcovering" />)}
 
-                                        {subItems && Object.values(subItems).indexOf('furniture') > -1 && (<SubQuestion subData={furniture} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text="Supply furniture" tipText="Furniture text here" icon="furniture.svg" keyword="furniture" />)}
+                                        {subItems && Object.values(subItems).indexOf('furniture') > -1 && (<SubQuestion subData={furniture} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text={ getTranslation('supply_furniture')} tipText={ getTranslation('supply_furniture_tip')} icon="furniture.svg" keyword="furniture" />)}
 
                                     </div>
 

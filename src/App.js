@@ -114,6 +114,15 @@ function App() {
     //console.log(selectedOptions);
   }
 
+  const getTranslation = (keyword) => {
+    if (!data) return keyword;
+    if (!data.translations) return keyword;
+    if (data.translations.hasOwnProperty(keyword)) {
+      return data.translations[keyword];
+    }
+    return keyword;
+  }
+
   const calculateTotals = () => { 
 
     let newPdfRows = {};
@@ -240,11 +249,11 @@ function App() {
       <Steps state={ state } step={step} nextStep={nextStep} prevStep={ prevStep } />
       <div className="cnt">
         {step === 1 && (<IndexStep nextStep={nextStep} data={data} getImageURL={getImageURL} step={step} handleChoices={handleChoices} choices={ choices } />)}
-        {step === 2 && (<OptionsStep nextStep={nextStep} forceUpdate={forceUpdate }  data={data} getImageURL={getImageURL} step={step} handleSelectedOptions={handleSelectedOptions} selectedOptions={selectedOptions} handleChoices={handleChoices} choices={choices} hasFreeRooms={ hasFreeRooms } />)}
-        {step === 3 && (<FormStep data={data} getImageURL={getImageURL} />)}
-        {step === 4 && (<PdfStep getImageURL={getImageURL} pdfRows={pdfRows} total={ total } />)}
+        {step === 2 && (<OptionsStep getTranslation={ getTranslation } nextStep={nextStep} forceUpdate={forceUpdate }  data={data} getImageURL={getImageURL} step={step} handleSelectedOptions={handleSelectedOptions} selectedOptions={selectedOptions} handleChoices={handleChoices} choices={choices} hasFreeRooms={ hasFreeRooms } />)}
+        {step === 3 && (<FormStep getTranslation={ getTranslation } data={data} getImageURL={getImageURL} />)}
+        {step === 4 && (<PdfStep getTranslation={ getTranslation } getImageURL={getImageURL} pdfRows={pdfRows} total={ total } />)}
       </div>
-      <BottomNavigation state={state} step={step} nextStep={nextStep} prevStep={prevStep} />
+      <BottomNavigation getTranslation={ getTranslation } state={state} step={step} nextStep={nextStep} prevStep={prevStep} />
    
       {process.env.REACT_APP_ENVIRONMENT === 'development' && (
         <footer>

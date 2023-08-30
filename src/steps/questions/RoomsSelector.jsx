@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function Rooms({ data, forceUpdate, getImageURL, handleChoices, choices, rooms }) {
+function Rooms({ getTranslation, data, forceUpdate, getImageURL, handleChoices, choices, rooms }) {
 
     const [selected, setSelected] = useState([]);
 
@@ -43,7 +43,7 @@ function Rooms({ data, forceUpdate, getImageURL, handleChoices, choices, rooms }
         
             <div className="inner">
             
-                { !data.translations && (<h3>Loading...</h3>)}
+                {!data.translations && (<h3>{ getTranslation('loading') }</h3>)}
                 
                 {data && data.rooms_step && data.rooms_step.map((item) => { 
 
@@ -60,7 +60,7 @@ function Rooms({ data, forceUpdate, getImageURL, handleChoices, choices, rooms }
                      */}
                         
                         <div className="mark">
-                            <img className="sqm" src={getImageURL('check.svg')} alt="Square Meter" title="Square Meter" />
+                            <img className="sqm" src={getImageURL('check.svg')} alt={ item.q_text } title={ item.q_text } />
                         </div>
                         
                         <div className="image" style={{ 

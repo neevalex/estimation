@@ -1,5 +1,5 @@
 
-function BottomNavigation({ state, step, nextStep, prevStep } ) {
+function BottomNavigation({ getTranslation, state, step, nextStep, prevStep } ) {
     return (
       <div className="bottom-navigation">
         <div className="inner">
@@ -11,7 +11,7 @@ function BottomNavigation({ state, step, nextStep, prevStep } ) {
               </div> */}
             
               <div className={"button " + (state.nextButtonState ? '' : 'disabled')} onClick={() => { nextStep(state.nextButtonState) } } >
-               Proceed
+              { getTranslation('proceed') }
               </div>
             
           </div>

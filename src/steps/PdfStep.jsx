@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const MyDocument = ({ getImageURL, pdfRows, total,vat, total_ttc  }) => (
+const MyDocument = ({ getTranslation, getImageURL, pdfRows, total,vat, total_ttc  }) => (
   <Document>
     <Page style={styles.body}>
       
@@ -164,18 +164,18 @@ const MyDocument = ({ getImageURL, pdfRows, total,vat, total_ttc  }) => (
           />
 
           <Text style={[{ height: '20' }]}></Text>
-          <Text style={styles.textbold}>BEL AIR</Text>
-          <Text style={[styles.textrowsmall]}>48 Av. d'Enghien</Text>
-          <Text style={[styles.textrowsmall]}>93800 Épinay-sur-Seine</Text>
-          <Text style={[styles.textrowsmall]}>Site internet : https://www.entreprisebelair.com/ </Text>
-          <Text style={[styles.textrowsmall]}>Email : contact@entreprisebelair.com</Text>
-          <Text style={[styles.textrowsmall]}>Tél. : 09 77 95 14 45</Text>
+          <Text style={styles.textbold}>{ getTranslation('company_name')}</Text>
+          <Text style={[styles.textrowsmall]}>{ getTranslation('address1')}</Text>
+          <Text style={[styles.textrowsmall]}>{ getTranslation('address2')}</Text>
+          <Text style={[styles.textrowsmall]}>{ getTranslation('address3')}</Text>
+          <Text style={[styles.textrowsmall]}>{ getTranslation('address4')}</Text>
+          <Text style={[styles.textrowsmall]}>{ getTranslation('address5')}</Text>
           <Text style={[{ height: '10' }]}></Text>
-          <Text style={[styles.textrowsmallgray]}>Sas au capital de 10 000 €</Text>
-          <Text style={[styles.textrowsmallgray]}>Siret : 90119729300011</Text>
-          <Text style={[styles.textrowsmallgray]}>RCS Bobigny - Siren : 901197293</Text>
-          <Text style={[styles.textrowsmallgray]}>No TVA : FR34901197293</Text>
-          <Text style={[styles.textrowsmallgray]}>IBAN : FR76 1020 7001 5123 2104 1679 534 BIC : CCBPFRPPMTG</Text>
+          <Text style={[styles.textrowsmallgray]}>{ getTranslation('company1')}</Text>
+          <Text style={[styles.textrowsmallgray]}>{ getTranslation('company2')}</Text>
+          <Text style={[styles.textrowsmallgray]}>{ getTranslation('company3')}</Text>
+          <Text style={[styles.textrowsmallgray]}>{ getTranslation('company4')}</Text>
+          <Text style={[styles.textrowsmallgray]}>{ getTranslation('company5')}</Text>
 
         </View>
         <View style={styles.right}>
@@ -192,16 +192,16 @@ const MyDocument = ({ getImageURL, pdfRows, total,vat, total_ttc  }) => (
       </View>
       
       <Text style={[{ height: '20' }]}></Text>
-      <Text style={styles.heading}>Travaux de renovation</Text>
+      <Text style={styles.heading}>{ getTranslation('text1')}</Text>
       <Text style={[{ height: '1' }]}></Text>
-      <Text style={styles.text}>Madame, Monsieur,</Text>
-      <Text style={styles.text}>Voici notre devis qui comporte l'intégralité des prestations de fournitures et main d'oeuvre.  </Text>
-      <Text style={styles.text}>Nous restons à votre disposition pour toute question ou modification du devis, et espérons que notre entreprise vous apportera entière satisfaction.  </Text>
-      <Text style={styles.text}>Nous vous prions d'agréer, Madame, Monsieur, nos sincères salutations.  </Text>
+      <Text style={styles.text}>{ getTranslation('text2')}</Text>
+      <Text style={styles.text}>{ getTranslation('text3')}</Text>
+      <Text style={styles.text}>{ getTranslation('text4')} </Text>
+      <Text style={styles.text}>{ getTranslation('text5')} </Text>
       <Text style={[{ height: '20' }]}></Text>
 
       <View style={styles.graybox}>
-        <Text style={[styles.textbold]}>Récapitulatif des lots</Text>
+        <Text style={[styles.textbold]}>{ getTranslation('text6')}</Text>
 
         {pdfRows && Object.keys(pdfRows).map((room, roomindex) => (
           <>
@@ -230,7 +230,7 @@ const MyDocument = ({ getImageURL, pdfRows, total,vat, total_ttc  }) => (
                     )}
                 
                     <View style={styles.estimrow}>
-                      <Text style={[styles.estimrowleft]}>+ Installation protection and cleansing</Text>
+                      <Text style={[styles.estimrowleft]}>{ getTranslation('installation_text')}</Text>
                       <Text style={[styles.estimrowright]}>60€</Text>
                     </View>
                     <Text style={[{ height: '10' }]}></Text>
@@ -248,26 +248,26 @@ const MyDocument = ({ getImageURL, pdfRows, total,vat, total_ttc  }) => (
         <Text style={[{ height: '20' }]}></Text>
 
         <View style={ styles.estimrow }>
-          <Text style={[styles.estimrowleft ]}>Total works excluding tax</Text>
+          <Text style={[styles.estimrowleft ]}>{ getTranslation('total1')}</Text>
           <Text style={[styles.estimrowright]}>{ total.toFixed(2) }€</Text>
         </View>
 
 
         <View style={ styles.estimrow }>
-          <Text style={[styles.estimrowleft]}>10% VAT on the basis of €{ total }</Text>
+          <Text style={[styles.estimrowleft]}>{ getTranslation('total2')}{ total }</Text>
           <Text style={[styles.estimrowright]}>{ vat.toFixed(2) }€</Text>
         </View>
 
 
         <View style={ styles.estimrow }>
-          <Text style={[styles.estimrowleft ]}>Total works including VAT</Text>
+          <Text style={[styles.estimrowleft ]}>{ getTranslation('total3')}</Text>
           <Text style={[styles.estimrowright]}>{ total_ttc.toFixed(2)  }€</Text>
         </View>
 
         <Text style={[{ height: '20' }]}></Text>
 
         <View style={[ styles.estimrow , { fontSize: 12, fontFamily:'OpenSansBold' }]}>
-          <Text style={[styles.estimrowleft ]}>Total TTC</Text>
+          <Text style={[styles.estimrowleft ]}>{ getTranslation('total4')}</Text>
           <Text style={[styles.estimrowright]}>{ total_ttc.toFixed(2)  }€</Text>
         </View>
       </View>
@@ -275,10 +275,9 @@ const MyDocument = ({ getImageURL, pdfRows, total,vat, total_ttc  }) => (
       
 
       <Text style={[{ height: '40' }]}></Text>
-      <Text style={styles.heading}>Médiateur de la consommation</Text>
+      <Text style={styles.heading}>{ getTranslation('text7')}</Text>
       <Text style={[{ height: '1' }]}></Text>
-      <Text style={styles.text}>En cas de différend qui pourrait apparaître pour l’exécution du contrat, le client et l’entreprise privilégieront la recherche d’une solution amiable après une réclamation écrite du client auprès de l’entreprise. Si aucune solution amiable n’est trouvée, le client peut soumettre le différend au médiateur de la consommation: CM2C, 14 Rue Saint-Jean-Baptiste de la Salle, 75006 Paris, France, 01 89 47 00 14
-, https://www.cm2c.net/</Text>
+      <Text style={styles.text}>{ getTranslation('text7')}</Text>
 
 
  
@@ -294,7 +293,7 @@ const MyDocument = ({ getImageURL, pdfRows, total,vat, total_ttc  }) => (
 
 
 
-const App = ({ getImageURL, pdfRows, total }) => {
+const App = ({ getTranslation, getImageURL, pdfRows, total }) => {
   
 
   let vat = total * 0.1;
@@ -305,16 +304,16 @@ const App = ({ getImageURL, pdfRows, total }) => {
       <div className="message">
         <img src="/assets/img/renovationsupport.jpg" alt="Close" />
       
-        <h1>Some Title Here</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <h1>{ getTranslation('schedule1')}</h1>
+        <p>{ getTranslation('schedule2')}</p>
 
         <div className="button"  >
-               Get Support
+        { getTranslation('get_support')} 
         </div>
 
      </div>
       <PDFViewer scale={0.56}>
-        <MyDocument getImageURL={getImageURL} pdfRows={pdfRows} total={total} vat={vat} total_ttc={ total_ttc } />
+        <MyDocument getTranslation={ getTranslation } getImageURL={getImageURL} pdfRows={pdfRows} total={total} vat={vat} total_ttc={ total_ttc } />
       </PDFViewer>
     
     </div>
