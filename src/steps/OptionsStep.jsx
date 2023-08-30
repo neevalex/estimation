@@ -154,7 +154,7 @@ function OptionsStep({ nextStep, data, step, getImageURL, handleSelectedOptions,
               <div className="line"></div>
             </div>
 
-            <Questions step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.disaster_step} subItems={['furniture']} />
+            <Questions step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.disaster_step} subItems={[]} />
           
           </div>)}
       
