@@ -205,30 +205,40 @@ const MyDocument = ({ getImageURL, pdfRows, total,vat, total_ttc  }) => (
 
         {pdfRows && Object.keys(pdfRows).map((room, roomindex) => (
           <>
-            <Text style={[styles.room]}>{room}</Text>
             {pdfRows[room].map((row, index) => (
-              <>
-                  { (
-                    <View>
-                      <View style={styles.estimrow}>
-                        <Text style={[styles.estimrowleft]}>{index + 1}. {row.name}</Text>
-                        <Text style={[styles.estimrowright]}>{row.amount > 0 ? row.amount+'€': ''}</Text>
-                      </View>
-
-                      {row['additional'] && Object.keys(row['additional']).map((additional_key, index) => (
-                        <View style={styles.estimrowsub}>
-                          <Text style={[styles.estimrowleft]}>- {row['additional'][additional_key].key}</Text>
-                          <Text style={[styles.estimrowright]}>{row['additional'][additional_key].amount}€</Text>
+            <>
+                {row.roomTotal && row.roomTotal > 0 && (
+                  <>
+                    <Text style={[styles.room]}>{room + ' ' + (index + 1)}</Text>
+                    {(
+                      <View>
+                        <View style={styles.estimrow}>
+                          <Text style={[styles.estimrowleft]}>{index + 1}. {row.name}</Text>
+                          <Text style={[styles.estimrowright]}>{row.amount > 0 ? row.amount + '€' : ''}</Text>
                         </View>
-                      ))}
+
+                        {row['additional'] && Object.keys(row['additional']).map((additional_key, index) => (
+                          <View style={styles.estimrowsub}>
+                            <Text style={[styles.estimrowleft]}>- {row['additional'][additional_key].key}</Text>
+                            <Text style={[styles.estimrowright]}>{row['additional'][additional_key].amount}€</Text>
+                          </View>
+                        ))}
                 
-                      <Text style={[{ height: '2' }]}></Text>
+                        <Text style={[{ height: '2' }]}></Text>
+                      </View>
+                
+                    )}
+                
+                    <View style={styles.estimrow}>
+                      <Text style={[styles.estimrowleft]}>+ Installation protection and cleansing</Text>
+                      <Text style={[styles.estimrowright]}>60€</Text>
                     </View>
-                
-                  )}
-              </>
+                    <Text style={[{ height: '10' }]}></Text>
+                  </>)}
+                </>
             ))}
-            <Text style={[{ height: '10' }]}></Text>
+            
+            
           </>
          ))}
     

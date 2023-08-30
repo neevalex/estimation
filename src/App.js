@@ -136,8 +136,9 @@ function App() {
               if (Number.isInteger(service_data_key)) service_data_key = 'price_per_m'; // selectedOptions[option_name][a_index]; // value is not text, so take it's key name instead of value
               
               
-            if (!data[total_step]) return false;
+              if (!data[total_step]) return false;
               let lastArrKey = 0;
+              let roomTotal = 0;
               data[total_step].map((data_item, datakey) => {
               
                 //console.log(option_name);
@@ -147,19 +148,24 @@ function App() {
                 let room = choices.servicerooms[option_name][a_index];
 
                 if (service_data_key === 'price_per_m') {
-                  final_total += (parseInt(data_item[service_data_key]) * amount);
+
+                  if (amount > 0) {
+                    final_total += (parseInt(data_item[service_data_key]) * amount) + 60;
+                    roomTotal += (parseInt(data_item[service_data_key]) * amount);
+                  }
                   
                   if (!newPdfRows[room]) newPdfRows[room] = [];
                   //if (!newPdfRows[room][option_name]) newPdfRows[room][option_name] = [];
 
-                  lastArrKey = newPdfRows[room].push({ 'id': option_name, 'key': service_data_key, 'room': room,'name': data_item.q_text + ' ( ' + amount + ' )', 'amount': (parseInt(data_item[service_data_key]) * amount) });
+                  lastArrKey = newPdfRows[room].push({ 'id': option_name, 'key': service_data_key, 'room': room, 'name': data_item.q_text + ' ( ' + amount + ' )', 'amount': (parseInt(data_item[service_data_key]) * amount) });
+                  roomTotal += (parseInt(data_item[service_data_key]) * amount);
                   // console.log(newPdfRows);
                 } else {
                   
                   if (data_item[service_data_key]) {
                     //console.log(service_data_key, newPdfRows[room].length-1);
                     final_total += (parseInt(data_item[service_data_key]) * amount);
-
+                    roomTotal += (parseInt(data_item[service_data_key]) * amount);
                     let newAdditional = newPdfRows[room][newPdfRows[room].length-1]['additional'];
                     if (!newAdditional) newAdditional = [];
 
@@ -168,11 +174,14 @@ function App() {
                     
                     newAdditional = { ...newAdditional, ...newLine };
                     newPdfRows[room][newPdfRows[room].length-1]['additional'] = newAdditional;
-
-                    
                   }
                 }
+                if (roomTotal > 0) {
+                  newPdfRows[room][newPdfRows[room].length-1]['roomTotal'] = roomTotal;
+                }
               }
+                
+                
 
             });
           });

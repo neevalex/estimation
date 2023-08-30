@@ -110,7 +110,7 @@ function Questions({ data, getImageURL, selectedOptions, handleChange, choices, 
         if (!nr[id][index]) nr[id][index] = false;
 
         nr[id][index] = !selectiontoggle[id][index];
-        console.log(nr);
+        //console.log(nr);
         setSelectionToggle(nr);
         handleChoices('servicerooms', choices.servicerooms);
     }
@@ -138,7 +138,7 @@ function Questions({ data, getImageURL, selectedOptions, handleChange, choices, 
                     let sp = servicesPool;
                     sp.push(id)
                     setServicesPool(sp);
-                    console.log(servicesPool);
+                    //console.log(servicesPool);
                     handleChoices('servicespool', servicesPool);
                 }
             }
@@ -242,7 +242,7 @@ function Questions({ data, getImageURL, selectedOptions, handleChange, choices, 
                                         </p>
 
                                         <div className="right">
-                                            <img className="sqm" src={item.custom_service_icon ? getImageURL(item.custom_service_icon) : getImageURL('sqmeter.png')} alt="sq. meters" title="sq. meters" />
+                                            <img className={item.custom_service_icon ? 'sqm small':'sqm'} src={item.custom_service_icon ? getImageURL(item.custom_service_icon) : getImageURL('sqmeter.png')} alt="sq. meters" title="sq. meters" />
 
                                             <NumberPicker min={0} step={1} value={selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['price_per_m'] > 0 ? selectedOptions[item.q_id][sp_index]['price_per_m'] : 0} onChange={value => handleChange('price_per_m', item.q_id, value, sp_index)} />
 
