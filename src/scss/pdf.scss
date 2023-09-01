@@ -13,7 +13,7 @@
         max-width: 180px;
         margin: 0px;
         text-align: center;
-        
+       
     }
 
     .message {
@@ -30,6 +30,19 @@
             max-width: 100%;
             border-radius: 10px;
         }
+
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            img {
+                max-height: 20px;
+                margin-right: 5px;
+                width: auto;
+                filter: invert(1);
+            }
+        }
     }
     iframe {
         flex: 1 0 60%;
@@ -41,5 +54,66 @@
         @media (max-width: $mobile) {
             flex: 1 0 100%;
         }
+    }
+
+ 
+}
+
+.modl {
+    min-height: 40vh;
+    padding: 30px;
+
+
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 32px;
+        z-index: 22;
+        line-height: 12px;
+    }
+
+    .dates {
+        display: flex;
+        justify-content: flex-start;
+        align-content: flex-start;
+        column-gap: 20px;
+
+
+        .rw-date-picker {
+            width: 40%;
+            margin-bottom: 20px;
+        } 
+
+        .rw-time-input {
+            max-height: 40px;
+        }
+    }
+
+
+    .button {
+        @include button;
+        max-width: 220px;
+        margin: 0px;
+        text-align: center;
+        display: inline-block;
+        margin-right: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        max-height: 42px;
+
+        img {
+            max-height: 20px;
+            margin-right: 5px;
+            width: auto;
+            filter: invert(1);
+        }
+    }
+
+    .buttons {
+
+        display: flex;
     }
 }

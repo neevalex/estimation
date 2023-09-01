@@ -4,6 +4,16 @@ import ReactPDF from '@react-pdf/renderer';
 import ReactDOM from 'react-dom';
 import { PDFViewer } from '@react-pdf/renderer';
 
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import "react-widgets/styles.css";
+import DatePicker from "react-widgets/DatePicker";
+import TimeInput from "react-widgets/TimeInput";
+import Localization from "react-widgets/Localization";
+import { DateLocalizer } from 'react-widgets/IntlLocalizer';
+import { useEffect, useState } from "react";
+
+
 // Create styles
 
 
@@ -287,6 +297,10 @@ const MyDocument = ({ getTranslation, getImageURL, pdfRows, total,vat, total_ttc
 
 const App = ({ getTranslation, getImageURL, pdfRows, total, cfData }) => {
   
+  const [open, setOpen] = useState(false);
+  const closeModal = () => { setOpen(false); setmodalStep('init'); };
+  const [modalStep, setmodalStep] = useState('init');
+
 
   let vat = total * 0.1;
   let total_ttc = total + vat;
@@ -297,11 +311,73 @@ const App = ({ getTranslation, getImageURL, pdfRows, total, cfData }) => {
         <img src="/assets/img/renovationsupport.jpg" alt="Close" />
       
         <h1>{ getTranslation('schedule1')}</h1>
-        <p>{ getTranslation('schedule2')}</p>
+        <p>{getTranslation('schedule2')}</p>
+        <button className="button" type="button" className="button" onClick={() => setOpen(o => !o)} ><img src="/assets/img/phone.svg" alt="Call us" /> Schedule a call</button>
 
-        <div className="button"  >
-        { getTranslation('get_support')} 
-        </div>
+        <Popup open={open} closeOnDocumentClick onClose={closeModal} modal>
+          <div className='modl'>
+
+            <a className="close" onClick={closeModal}>
+              &times;
+            </a>
+
+            {modalStep === 'init' && (
+              <>
+                <h2>How can we help you?</h2>
+                
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, corporis ea incidunt aspernatur repellendus provident explicabo distinctio tenetur excepturi maxime. Delectus facilis non inventore quas rem! Voluptatem quia a nobis.</p>
+                
+                <div className="buttons">
+                <button className="button" onClick={() => setmodalStep('success')}><img src="/assets/img/phone.svg" alt="Call us" /> Please call me ASAP</button>
+                <button className="button" onClick={() => setmodalStep('schedule')}><img src="/assets/img/calendar.svg" alt="Call us" /> Shedule a call</button>
+                </div>
+              
+              </>
+            )}
+
+            {modalStep === 'schedule' && (
+              <>
+                <h3>Shedule a call</h3>
+
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, corporis ea incidunt aspernatur repellendus provident explicabo distinctio tenetur excepturi maxime. Delectus facilis non inventore quas rem! Voluptatem quia a nobis.</p>
+
+                <div className="dates">
+                <Localization  date={new DateLocalizer({ culture: 'fr-FR', firstOfWeek: 1 })} >
+                  <DatePicker
+                  defaultValue={new Date()}
+                    />
+
+                  <TimeInput
+                    defaultValue={new Date()}
+                  />
+                  </Localization>
+                  
+                </div>
+                
+                <button className="button" onClick={() => setmodalStep('success')}><img src="/assets/img/calendar.svg" alt="Call us" /> Shedule a call</button>
+              </>
+            )}
+            
+
+            {modalStep === 'success' && (
+              <>
+                <h3>Thank you! We will contact you soon!</h3>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta culpa qui quae molestias provident dolore natus ex ipsum, vel recusandae. Natus excepturi perspiciatis laboriosam quibusdam quos rerum, quo ab quae.
+                </p>
+                <button className="button" onClick={closeModal}>Close</button>
+              
+              </>
+            )}
+
+            
+
+            
+            </div>
+            
+           
+        </Popup>
+
 
      </div>
       <PDFViewer scale={0.56}>
