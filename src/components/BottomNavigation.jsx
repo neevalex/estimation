@@ -6,9 +6,9 @@ function BottomNavigation({ getTranslation, state, step, nextStep, prevStep } ) 
   
           <div className="control">
   
-              {/* <div className={"button " + (state.prevButtonState ? '' : 'disabled')} onClick={() => { prevStep(state.prevButtonState) } }>
-                Go back
-              </div> */}
+            {process.env.REACT_APP_ENVIRONMENT === 'development' && (<div className={"button " + (state.prevButtonState ? '' : 'disabled')} onClick={() => { prevStep(state.prevButtonState) }}>
+              Go back
+            </div>)} 
             
               <div className={"button " + (state.nextButtonState ? '' : 'disabled')} onClick={() => { nextStep(state.nextButtonState) } } >
               { getTranslation('proceed') }

@@ -30,7 +30,8 @@ function App() {
     });
 
   }
-
+  const [cfData, setcfData] = useState({});
+  const [cfError, setcfError] = useState('');
   const [data, setData] = useState({});
   const [step, setStep] = useState(1);
   const [choices, setChoices] = useState({});
@@ -47,8 +48,6 @@ function App() {
   function useForceUpdate() {
     const [value, setValue] = useState(0); // integer state
     return () => setValue(value => value + 1); // update state to force render
-    // A function that increment 👆🏻 the previous state like here 
-    // is better than directly setting `setValue(value + 1)`
   }
 
   const forceUpdate = useForceUpdate();
@@ -57,21 +56,19 @@ function App() {
 
   const checkState = (forcedStep) => { 
     
-    //console.log(choices);
+   // console.log(forcedStep);
     let v_prevButtonState = false;
     let v_nextButtonState = false;
 
-    if (forcedStep <= 3) { // Next Button
-      if(step === 1 && choices && choices.service ) v_nextButtonState = true;
-    }
 
 
+    // if (forcedStep <= 3) { // Next Button
+    //   if(step === 1 && choices && choices.service ) v_nextButtonState = true;
+    // }
 
     if (forcedStep > 1) { // Prev Button
       v_prevButtonState = true;
     }
-
-  
 
     setState({ prevButtonState: v_prevButtonState, nextButtonState: v_nextButtonState });
 
@@ -80,9 +77,36 @@ function App() {
   const nextStep = (enabled) => {
     if (!enabled) return false;
     let newStep = step + 1;
+
+    if (step === 3 && checkFormInputs()) {
+      console.log(cfData);  
+      let url = process.env.REACT_APP_BACKEND_HOST + '/email.php';
+
+      fetch( url , {
+         method: 'POST', mode: 'cors', 
+         body: JSON.stringify({
+            action: 'send',
+            email: cfData,
+            pdf: pdfRows
+            
+         }),
+         headers: {
+            'Content-type': 'Content-Type: application/x-www-form-urlencoded; charset=utf-8',
+         },
+      })
+        .then((res) =>
+          console.log(res.json()))
+         .catch((err) => {
+            console.log(err);
+         });
+      
+      
+    }
+
     if (step < 4) {
       setStep(newStep);
     }
+
     window.scrollTo(0, 0);
     checkState(newStep);
   }
@@ -208,6 +232,59 @@ function App() {
     setPdfRows(newPdfRows);
   }
 
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
+  const checkFormInputs = () => { 
+    let verdict = true;
+    setcfError(''); 
+
+    if (!cfData) return false;
+    if (!cfData.hasOwnProperty('name')) {
+      verdict = false;
+      setcfError(getTranslation('error1'));
+    } else if (cfData.name.length < 3) {
+      verdict = false;
+      setcfError(getTranslation('error2'));
+    }
+
+    if (!cfData.hasOwnProperty('email')) {
+      verdict = false;
+      setcfError(getTranslation('error3'));
+    } else if(!validateEmail(cfData.email)) {
+        verdict = false;
+        setcfError(getTranslation('error4'));
+      
+    }
+
+    if (!cfData.hasOwnProperty('phone')) {
+      verdict = false;
+      setcfError(getTranslation('error5'));
+    } else if (cfData.phone.length < 3) {
+      verdict = false;
+      setcfError(getTranslation('error6'));
+    }
+
+    if (!cfData.hasOwnProperty('address')) {
+      verdict = false;
+      setcfError(getTranslation('error7'));
+    } else if (cfData.address.length < 8) {
+      verdict = false;
+      setcfError(getTranslation('error8'));
+    }
+
+    if (!cfData.hasOwnProperty('urgent')) {
+      verdict = false;
+      setcfError(getTranslation('error9'));
+    }
+
+    return verdict;
+  }
 
   useEffect( () => {
     getData();
@@ -219,9 +296,8 @@ function App() {
 
     if (forcedStep <= 3) { // Next Button
       if (step === 1 && choices && choices.service) v_nextButtonState = true;
-      
+      if (step === 3 && checkFormInputs()) v_nextButtonState = true;
       if (step === 2 ) v_nextButtonState = true;
-      if (step === 3 ) v_nextButtonState = true;
     }
 
     if (forcedStep > 1) { // Prev Button
@@ -241,7 +317,7 @@ function App() {
     setState({ prevButtonState: v_prevButtonState, nextButtonState: v_nextButtonState });
     calculateTotals();
 
-  }, [step, choices, selectedOptions]);
+  }, [step, cfData, choices, selectedOptions]);
 
   return (
     <div className="App">
@@ -250,8 +326,8 @@ function App() {
       <div className="cnt">
         {step === 1 && (<IndexStep nextStep={nextStep} data={data} getImageURL={getImageURL} step={step} handleChoices={handleChoices} choices={ choices } />)}
         {step === 2 && (<OptionsStep getTranslation={ getTranslation } nextStep={nextStep} forceUpdate={forceUpdate }  data={data} getImageURL={getImageURL} step={step} handleSelectedOptions={handleSelectedOptions} selectedOptions={selectedOptions} handleChoices={handleChoices} choices={choices} hasFreeRooms={ hasFreeRooms } />)}
-        {step === 3 && (<FormStep getTranslation={ getTranslation } data={data} getImageURL={getImageURL} />)}
-        {step === 4 && (<PdfStep getTranslation={ getTranslation } getImageURL={getImageURL} pdfRows={pdfRows} total={ total } />)}
+        {step === 3 && (<FormStep cfError={cfError } cfData={cfData} setcfData={ setcfData } getTranslation={ getTranslation } data={data} getImageURL={getImageURL} />)}
+        {step === 4 && (<PdfStep getTranslation={getTranslation} getImageURL={getImageURL} pdfRows={pdfRows} total={total} cfData={ cfData } />)}
       </div>
       <BottomNavigation getTranslation={ getTranslation } state={state} step={step} nextStep={nextStep} prevStep={prevStep} />
    

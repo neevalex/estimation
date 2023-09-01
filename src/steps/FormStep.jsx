@@ -1,45 +1,50 @@
 import React, { useState } from 'react';
 
-const App = () => {
+const App = ({cfError, cfData, setcfData, getTranslation}) => {
 
     const [ name, setName ] = useState('')
-    const [email, setEmail] = useState('')
+    const [ email, setEmail ] = useState('')
     const [ phone, setPhone ] = useState('')
-    const [message, setMessage] = useState('')
+    const [ address, setMessage ] = useState('')
+    const [urgent, setUrgent] = useState('')
     
-    const options = ['In a week', 'In a month', 'This year', 'Hard to tell'];
-    const onOptionChangeHandler = (event) => {
-        console.log("User Selected Value - ", event.target.value)
-    }
+   
 
-    function handleSubmit(e) {
-        e.preventDefault()
-        console.log(name, email, message)
+    const cfChangeHandler = (event) => { 
+        setcfData({...cfData, [event.target.name]: event.target.value})
+    }
+    
+    
+    const options = [ getTranslation('urgent1'), getTranslation('urgent2'), getTranslation('urgent3'), getTranslation('urgent4')];
+
+    const onOptionChangeHandler = (event) => {
+        setcfData({...cfData, 'urgent': event.target.value})
     }
 
     return (
         <div className="step-form">
-            <h1>Your estimate is ready!</h1>
-            <p className='subtitle'>To complete and discover your estimate, please fill in the information below.</p>
+            {/* <pre><strong>{JSON.stringify(cfData, null, 2)}</strong> </pre> */}
+            <h1>{ getTranslation('estimate_ready')}</h1>
+            <p className='subtitle'>{ getTranslation('to_complete')}</p>
             <form className="form">
                 <div>
-                    <label htmlFor="name">Name</label>
-                    <input type="text" id="name" name="name" value={name} onChange={e => setName(e.target.value)}/>
+                    <label htmlFor="name">{ getTranslation('name')}</label>
+                    <input type="text" id="name" name="name" value={cfData && cfData.name ? cfData.name : ''} onChange={e => cfChangeHandler(e)} />
                 </div>
 
                 <div>
-                    <label htmlFor="email">Email</label>
-                    <input type="email" id="email" name="email" value={email} onChange={e => setEmail(e.target.value)}/>
+                    <label htmlFor="email">{ getTranslation('email')}</label>
+                    <input type="email" id="email" name="email" value={cfData && cfData.email ? cfData.email : ''} onChange={e => cfChangeHandler(e)} />
                 </div>
                     
                 <div>
-                    <label htmlFor="phone">Phone</label>
-                    <input type="text" id="phone" name="phone" value={phone} onChange={e => setPhone(e.target.value)}/>
+                    <label htmlFor="phone">{ getTranslation('phone')}</label>
+                    <input type="text" id="phone" name="phone" value={cfData && cfData.phone ? cfData.phone : ''} onChange={e => cfChangeHandler(e)} />
                 </div>
                     
                 <div>
-                    <label htmlFor="select">How urgently?</label>
-                    <select id="select" onChange={onOptionChangeHandler}>
+                    <label htmlFor="select">{ getTranslation('how_urgent')}</label>
+                    <select id="select" value={cfData && cfData.urgent ? cfData.urgent : ''} onChange={onOptionChangeHandler}>
 
                     <option>Please choose</option>
                     {options.map((option, index) => {
@@ -53,12 +58,12 @@ const App = () => {
                     
 
                 <div>
-                    <label htmlFor="message">Project Address</label>
-                    <textarea id="message" name="message" value={message} onChange={e => setMessage(e.target.value)}/>
+                    <label htmlFor="message">{ getTranslation('project_address')}</label>
+                    <textarea id="message" name="address" value={cfData && cfData.address ? cfData.address : ''} onChange={e => cfChangeHandler(e)} />
                 </div>
-                
 
-                {/* <button type="submit" onClick={handleSubmit}>Submit</button> */}
+                <div className='error'>{ cfError }</div>
+                
             </form>
         </div>
     )

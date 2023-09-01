@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const MyDocument = ({ getTranslation, getImageURL, pdfRows, total,vat, total_ttc  }) => (
+const MyDocument = ({ getTranslation, getImageURL, pdfRows, total,vat, total_ttc, cfData  }) => (
   <Document>
     <Page style={styles.body}>
       
@@ -184,8 +184,7 @@ const MyDocument = ({ getTranslation, getImageURL, pdfRows, total,vat, total_ttc
               A l'attention de :
             </Text>
             <Text style={[ styles.textsmall , { textAlign: 'right' }]}>
-              Leila Auvray
-              22 Rue Frémicourt 75015 Paris
+              { cfData.address }
             </Text>
           </View>
         </View>
@@ -243,8 +242,6 @@ const MyDocument = ({ getTranslation, getImageURL, pdfRows, total,vat, total_ttc
          ))}
     
 
-        
-
         <Text style={[{ height: '20' }]}></Text>
 
         <View style={ styles.estimrow }>
@@ -272,16 +269,11 @@ const MyDocument = ({ getTranslation, getImageURL, pdfRows, total,vat, total_ttc
         </View>
       </View>
 
-      
 
       <Text style={[{ height: '40' }]}></Text>
       <Text style={styles.heading}>{ getTranslation('text7')}</Text>
       <Text style={[{ height: '1' }]}></Text>
       <Text style={styles.text}>{ getTranslation('text7')}</Text>
-
-
- 
-    
     
     <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (
       `${pageNumber} / ${totalPages}`
@@ -293,7 +285,7 @@ const MyDocument = ({ getTranslation, getImageURL, pdfRows, total,vat, total_ttc
 
 
 
-const App = ({ getTranslation, getImageURL, pdfRows, total }) => {
+const App = ({ getTranslation, getImageURL, pdfRows, total, cfData }) => {
   
 
   let vat = total * 0.1;
@@ -313,7 +305,7 @@ const App = ({ getTranslation, getImageURL, pdfRows, total }) => {
 
      </div>
       <PDFViewer scale={0.56}>
-        <MyDocument getTranslation={ getTranslation } getImageURL={getImageURL} pdfRows={pdfRows} total={total} vat={vat} total_ttc={ total_ttc } />
+        <MyDocument cfData={ cfData } getTranslation={ getTranslation } getImageURL={getImageURL} pdfRows={pdfRows} total={total} vat={vat} total_ttc={ total_ttc } />
       </PDFViewer>
     
     </div>
