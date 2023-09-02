@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     flexGrow: 1,
-    maxHeight: 280,
+    maxHeight: 220,
   },
   left: {
     // width: '33%',//<- working alternative
@@ -295,12 +295,21 @@ const MyDocument = ({ getTranslation, getImageURL, pdfRows, total,vat, total_ttc
 
 
 
-const App = ({ getTranslation, getImageURL, pdfRows, total, cfData }) => {
+const App = ({ getTranslation, getImageURL, pdfRows, total, cfData, sendData }) => {
   
   const [open, setOpen] = useState(false);
   const closeModal = () => { setOpen(false); setmodalStep('init'); };
   const [modalStep, setmodalStep] = useState('init');
 
+  const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState(new Date());
+
+  const sheduleCall = () => { 
+
+    sendData({'action' : 'shedulecall', email: cfData, pdf: pdfRows, date: date.toDateString() + ' | ' + time.getHours() + ':' + time.getMinutes()});
+    setmodalStep('success');
+    
+  }
 
   let vat = total * 0.1;
   let total_ttc = total + vat;
@@ -309,7 +318,7 @@ const App = ({ getTranslation, getImageURL, pdfRows, total, cfData }) => {
     <div className="pdf">
       <div className="message">
         <img src="/assets/img/renovationsupport.jpg" alt="Close" />
-      
+
         <h1>{ getTranslation('schedule1')}</h1>
         <p>{getTranslation('schedule2')}</p>
         <button className="button" type="button" className="button" onClick={() => setOpen(o => !o)} ><img src="/assets/img/phone.svg" alt="Call us" /> Schedule a call</button>
@@ -328,7 +337,7 @@ const App = ({ getTranslation, getImageURL, pdfRows, total, cfData }) => {
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, corporis ea incidunt aspernatur repellendus provident explicabo distinctio tenetur excepturi maxime. Delectus facilis non inventore quas rem! Voluptatem quia a nobis.</p>
                 
                 <div className="buttons">
-                <button className="button" onClick={() => setmodalStep('success')}><img src="/assets/img/phone.svg" alt="Call us" /> Please call me ASAP</button>
+                  <button className="button" onClick={() => { setmodalStep('success'); sendData({'action' : 'callus', email: cfData, pdf: pdfRows }); }}><img src="/assets/img/phone.svg" alt="Call us" /> Please call me ASAP</button>
                 <button className="button" onClick={() => setmodalStep('schedule')}><img src="/assets/img/calendar.svg" alt="Call us" /> Shedule a call</button>
                 </div>
               
@@ -344,21 +353,22 @@ const App = ({ getTranslation, getImageURL, pdfRows, total, cfData }) => {
                 <div className="dates">
                 <Localization  date={new DateLocalizer({ culture: 'fr-FR', firstOfWeek: 1 })} >
                   <DatePicker
-                  defaultValue={new Date()}
+                      defaultValue={new Date()}
+                      onChange={value => setDate(value)}
                     />
 
                   <TimeInput
-                    defaultValue={new Date()}
+                      defaultValue={new Date()}
+                      onChange={value => setTime(value)}
                   />
                   </Localization>
                   
                 </div>
                 
-                <button className="button" onClick={() => setmodalStep('success')}><img src="/assets/img/calendar.svg" alt="Call us" /> Shedule a call</button>
+                <button className="button" onClick={() => { sheduleCall(); }}><img src="/assets/img/calendar.svg" alt="Call us" /> Shedule a call</button>
               </>
             )}
             
-
             {modalStep === 'success' && (
               <>
                 <h3>Thank you! We will contact you soon!</h3>
@@ -370,9 +380,6 @@ const App = ({ getTranslation, getImageURL, pdfRows, total, cfData }) => {
               </>
             )}
 
-            
-
-            
             </div>
             
            

@@ -43,8 +43,6 @@ function App() {
     nextButtonState: false
   });
 
-
-
   function useForceUpdate() {
     const [value, setValue] = useState(0); // integer state
     return () => setValue(value => value + 1); // update state to force render
@@ -52,15 +50,11 @@ function App() {
 
   const forceUpdate = useForceUpdate();
 
-
-
   const checkState = (forcedStep) => { 
     
    // console.log(forcedStep);
     let v_prevButtonState = false;
     let v_nextButtonState = false;
-
-
 
     // if (forcedStep <= 3) { // Next Button
     //   if(step === 1 && choices && choices.service ) v_nextButtonState = true;
@@ -74,33 +68,29 @@ function App() {
 
   }
 
+  const sendData = async (data) => { 
+    let url = process.env.REACT_APP_BACKEND_HOST + '/email.php';
+    fetch( url , {
+      method: 'POST', mode: 'cors', 
+      body: JSON.stringify(data),
+      headers: {
+         'Content-type': 'Content-Type: application/x-www-form-urlencoded; charset=utf-8',
+      },
+   })
+     .then((res) =>
+       console.log(res.json()))
+      .catch((err) => {
+         console.log(err);
+      });
+  }
+
   const nextStep = (enabled) => {
     if (!enabled) return false;
     let newStep = step + 1;
 
     if (step === 3 && checkFormInputs()) {
       console.log(cfData);  
-      let url = process.env.REACT_APP_BACKEND_HOST + '/email.php';
-
-      fetch( url , {
-         method: 'POST', mode: 'cors', 
-         body: JSON.stringify({
-            action: 'send',
-            email: cfData,
-            pdf: pdfRows
-            
-         }),
-         headers: {
-            'Content-type': 'Content-Type: application/x-www-form-urlencoded; charset=utf-8',
-         },
-      })
-        .then((res) =>
-          console.log(res.json()))
-         .catch((err) => {
-            console.log(err);
-         });
-      
-      
+      sendData({ action: 'send', email: cfData, pdf: pdfRows });
     }
 
     if (step < 4) {
@@ -324,10 +314,10 @@ function App() {
       <Header setStep={ setStep } />
       <Steps state={ state } step={step} nextStep={nextStep} prevStep={ prevStep } />
       <div className="cnt">
-        {step === 11 && (<IndexStep nextStep={nextStep} data={data} getImageURL={getImageURL} step={step} handleChoices={handleChoices} choices={ choices } />)}
+        {step === 1 && (<IndexStep nextStep={nextStep} data={data} getImageURL={getImageURL} step={step} handleChoices={handleChoices} choices={ choices } />)}
         {step === 2 && (<OptionsStep getTranslation={ getTranslation } nextStep={nextStep} forceUpdate={forceUpdate }  data={data} getImageURL={getImageURL} step={step} handleSelectedOptions={handleSelectedOptions} selectedOptions={selectedOptions} handleChoices={handleChoices} choices={choices} hasFreeRooms={ hasFreeRooms } />)}
         {step === 3 && (<FormStep cfError={cfError } cfData={cfData} setcfData={ setcfData } getTranslation={ getTranslation } data={data} getImageURL={getImageURL} />)}
-        {step === 1 && (<PdfStep getTranslation={getTranslation} getImageURL={getImageURL} pdfRows={pdfRows} total={total} cfData={ cfData } />)}
+        {step === 4 && (<PdfStep getTranslation={getTranslation} getImageURL={getImageURL} pdfRows={pdfRows} total={total} cfData={cfData} sendData={sendData} />)}
       </div>
       <BottomNavigation getTranslation={ getTranslation } state={state} step={step} nextStep={nextStep} prevStep={prevStep} />
    
