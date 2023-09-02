@@ -46,7 +46,7 @@ function OptionsStep({ getTranslation, data, step, getImageURL, handleSelectedOp
             <div className="line"></div>
           </div>
 
-          <Questions step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.wallcovering_step} subItems={['furniture','removewallcovering','wallsneedpreparation']} />
+          <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.wallcovering_step} subItems={['furniture','removewallcovering','wallsneedpreparation']} />
         
         </div>)}
       
@@ -60,7 +60,7 @@ function OptionsStep({ getTranslation, data, step, getImageURL, handleSelectedOp
             <div className="line"></div>
           </div>
 
-          <Questions step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.interiorpainting_step} subItems={['furniture','removewallcovering','wallsneedpreparation']} />
+          <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.interiorpainting_step} subItems={['furniture','removewallcovering','wallsneedpreparation']} />
         
         </div>)}
       
