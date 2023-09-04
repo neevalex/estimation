@@ -69,6 +69,8 @@ function App() {
   }
 
   const sendData = async (data) => { 
+    console.log(data);
+    
     let url = process.env.REACT_APP_BACKEND_HOST + '/email.php';
     fetch( url , {
       method: 'POST', mode: 'cors', 
