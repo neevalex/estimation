@@ -243,6 +243,11 @@ function App() {
       setcfError(getTranslation('error2'));
     }
 
+    if (!cfData.hasOwnProperty('pro')) {
+      verdict = false;
+      setcfError(getTranslation('error10'));
+    }
+
     if (!cfData.hasOwnProperty('email')) {
       verdict = false;
       setcfError(getTranslation('error3'));

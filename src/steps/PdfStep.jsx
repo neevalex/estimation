@@ -260,8 +260,9 @@ const MyDocument = ({ getTranslation, getImageURL, pdfRows, total,vat, total_ttc
         </View>
 
 
-        <View style={ styles.estimrow }>
-          <Text style={[styles.estimrowleft]}>{ getTranslation('total2')}{ total }</Text>
+        <View style={styles.estimrow}>
+          {cfData && cfData.pro && cfData.pro === 'pro' ? (
+            <Text style={[styles.estimrowleft]}>{getTranslation('total22')}{total}</Text>) : (<Text style={[styles.estimrowleft]}>{getTranslation('total2')}{total}</Text>)}
           <Text style={[styles.estimrowright]}>{ vat.toFixed(2) }€</Text>
         </View>
 
@@ -312,6 +313,10 @@ const App = ({ getTranslation, getImageURL, pdfRows, total, cfData, sendData }) 
   }
 
   let vat = total * 0.1;
+  if (cfData && cfData.pro && cfData.pro === 'pro') {
+    vat = total * 0.2;
+  }
+
   let total_ttc = total + vat;
 
   return (
@@ -332,13 +337,13 @@ const App = ({ getTranslation, getImageURL, pdfRows, total, cfData, sendData }) 
 
             {modalStep === 'init' && (
               <>
-                <h2>How can we help you?</h2>
+                <h2>{ getTranslation('estimate1')}</h2>
                 
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, corporis ea incidunt aspernatur repellendus provident explicabo distinctio tenetur excepturi maxime. Delectus facilis non inventore quas rem! Voluptatem quia a nobis.</p>
+                <p>{ getTranslation('estimate2')}</p>
                 
                 <div className="buttons">
-                  <button className="button" onClick={() => { setmodalStep('success'); sendData({'action' : 'callus', email: cfData, pdf: pdfRows }); }}><img src="/assets/img/phone.svg" alt="Call us" /> Please call me ASAP</button>
-                <button className="button" onClick={() => setmodalStep('schedule')}><img src="/assets/img/calendar.svg" alt="Call us" /> Shedule a call</button>
+                  <button className="button" onClick={() => { setmodalStep('success'); sendData({'action' : 'callus', email: cfData, pdf: pdfRows }); }}><img src="/assets/img/phone.svg" alt={ getTranslation('estimate4')} />{ getTranslation('estimate3')}</button>
+                <button className="button" onClick={() => setmodalStep('schedule')}><img src="/assets/img/calendar.svg" alt={ getTranslation('estimate4')} />{ getTranslation('estimate4')}</button>
                 </div>
               
               </>
@@ -346,9 +351,9 @@ const App = ({ getTranslation, getImageURL, pdfRows, total, cfData, sendData }) 
 
             {modalStep === 'schedule' && (
               <>
-                <h3>Shedule a call</h3>
+                <h3>{ getTranslation('estimate4')}</h3>
 
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, corporis ea incidunt aspernatur repellendus provident explicabo distinctio tenetur excepturi maxime. Delectus facilis non inventore quas rem! Voluptatem quia a nobis.</p>
+                <p>{ getTranslation('estimate5')}</p>
 
                 <div className="dates">
                 <Localization  date={new DateLocalizer({ culture: 'fr-FR', firstOfWeek: 1 })} >
@@ -365,17 +370,15 @@ const App = ({ getTranslation, getImageURL, pdfRows, total, cfData, sendData }) 
                   
                 </div>
                 
-                <button className="button" onClick={() => { sheduleCall(); }}><img src="/assets/img/calendar.svg" alt="Call us" /> Shedule a call</button>
+                <button className="button" onClick={() => { sheduleCall(); }}><img src="/assets/img/calendar.svg" alt={ getTranslation('estimate4')} />{ getTranslation('estimate4')}</button>
               </>
             )}
             
             {modalStep === 'success' && (
               <>
-                <h3>Thank you! We will contact you soon!</h3>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta culpa qui quae molestias provident dolore natus ex ipsum, vel recusandae. Natus excepturi perspiciatis laboriosam quibusdam quos rerum, quo ab quae.
-                </p>
-                <button className="button" onClick={closeModal}>Close</button>
+                <h3>{ getTranslation('estimate6')}</h3>
+                <p>{ getTranslation('estimate7')}</p>
+                <button className="button" onClick={closeModal}>{ getTranslation('estimate8')}</button>
               
               </>
             )}

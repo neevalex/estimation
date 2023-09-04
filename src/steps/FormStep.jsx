@@ -13,7 +13,7 @@ const App = ({cfError, cfData, setcfData, getTranslation}) => {
     const cfChangeHandler = (event) => { 
         setcfData({...cfData, [event.target.name]: event.target.value})
     }
-    
+
     
     const options = [ getTranslation('urgent1'), getTranslation('urgent2'), getTranslation('urgent3'), getTranslation('urgent4')];
 
@@ -53,9 +53,30 @@ const App = ({cfError, cfData, setcfData, getTranslation}) => {
                         </option>
                     })}
                     </select>    
-                </div>   
+                </div>  
+                
+                <div className='radios'>
+                    <label>{ getTranslation('are_you_pro')}</label>
+                    <input
+                        type="radio"
+                        name="pro"
+                        value="pro"
+                        id="regular"
+                        checked={cfData && cfData.pro && cfData.pro === "pro"}
+                        onChange={e => cfChangeHandler(e)}
+                    />
+                    <label htmlFor="regular">{ getTranslation('pro')}</label>
 
-                    
+                    <input
+                        type="radio"
+                        name="pro"
+                        value="normal"
+                        id="medium"
+                        checked={cfData && cfData.pro && cfData.pro === "normal"}
+                        onChange={e => cfChangeHandler(e)}
+                    />
+                    <label htmlFor="medium">{ getTranslation('regular')}</label>
+                </div>  
 
                 <div>
                     <label htmlFor="message">{ getTranslation('project_address')}</label>

@@ -52,4 +52,15 @@
         @include button;
     }
 
+    .radios {
+        input {
+            width: auto;
+            margin-left: 10px;
+        }
+
+        label {
+            width: auto;
+        }
+    }
+
 }
