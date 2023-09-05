@@ -259,7 +259,7 @@ function Questions({ getTranslation, data, getImageURL, selectedOptions, handleC
 
                                 <div className="roomselector">
                                     <div className="title">
-                                    { getTranslation('which_room') } {item.q_text} { getTranslation('for') }
+                                    { getTranslation('which_room') } {item.q_text}
                                     </div>
 
 
