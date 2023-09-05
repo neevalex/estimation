@@ -69,7 +69,7 @@ function App() {
   }
 
   const sendData = async (data) => { 
-    console.log(data);
+    //console.log(data);
     
     let url = process.env.REACT_APP_BACKEND_HOST + '/email.php';
     fetch( url , {
@@ -169,7 +169,7 @@ function App() {
                 //console.log(option_name);
               if (data_item === null) return false;
               
-              if (data_item.q_id === option_name) {
+              if (choices.servicerooms[option_name] && choices.servicerooms[option_name][a_index] && data_item.q_id === option_name) {
                 let room = choices.servicerooms[option_name][a_index];
 
                 if (service_data_key === 'price_per_m') {

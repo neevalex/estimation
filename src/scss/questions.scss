@@ -160,6 +160,20 @@
                 background: white;
                 border-bottom-left-radius: 10px;
             }
+
+            .close {
+                display: none;
+            }
+
+            &:hover {
+                .sqm {
+                    display: none;
+                }
+                .close {
+                    display: block;
+                    cursor: pointer;
+                }
+            }
         }
 
         .subitems {

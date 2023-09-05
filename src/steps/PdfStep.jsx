@@ -218,7 +218,7 @@ const MyDocument = ({ getTranslation, getImageURL, pdfRows, total,vat, total_ttc
             <>
                 {row.roomTotal && row.roomTotal > 0 && (
                   <>
-                    <Text style={[styles.room]}>{room + ' ' + (index + 1)}</Text>
+                    <Text style={[styles.room]}>{getTranslation(room) + ' ' + (index + 1)}</Text>
                     {(
                       <View>
                         <View style={styles.estimrow}>
@@ -228,7 +228,7 @@ const MyDocument = ({ getTranslation, getImageURL, pdfRows, total,vat, total_ttc
 
                         {row['additional'] && Object.keys(row['additional']).map((additional_key, index) => (
                           <View style={styles.estimrowsub}>
-                            <Text style={[styles.estimrowleft]}>- {row['additional'][additional_key].key}</Text>
+                            <Text style={[styles.estimrowleft]}>- {getTranslation(row['additional'][additional_key].key)}</Text>
                             <Text style={[styles.estimrowright]}>{row['additional'][additional_key].amount}€</Text>
                           </View>
                         ))}

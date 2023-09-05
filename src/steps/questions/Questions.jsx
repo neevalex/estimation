@@ -4,7 +4,7 @@ import Tippy from '@tippyjs/react';
 import SubQuestion from "./elements/SubQuestion";
 
 
-function Questions({ getTranslation, data, getImageURL, selectedOptions, handleChange, choices, handleChoices, hasFreeRooms, dataSource, subItems }) {
+function Questions({ getTranslation, data, getImageURL, selectedOptions, handleChange, deletehandleChange, choices, handleChoices, hasFreeRooms, dataSource, subItems }) {
 
     const conditions = {
         'removeoldcoatingyes': 'Yes',
@@ -148,6 +148,55 @@ function Questions({ getTranslation, data, getImageURL, selectedOptions, handleC
 
     }
 
+    const removeRoomservice = (id, room, sp_index, force_size = null) => { 
+            
+            let newChoices = choices;
+            if (!newChoices.rooms) newChoices.rooms = [];
+            if (!newChoices.rooms[room]) newChoices.rooms[room] = [];
+            let index = newChoices.rooms[room].indexOf(id);
+            if (index > -1) {
+                newChoices.rooms[room].splice(index, 1);
+            }
+            handleChoices(newChoices);
+    
+            data['rooms_step'].map((sdata) => {
+    
+                if (sdata.q_id === room) {
+                    if (sdata.default_size) {
+                        handleChange('price_per_m', id, Number(sdata.default_size), sp_index);
+                        let sp = servicesPool;
+                        let index = sp.indexOf(id);
+                        if (index > -1) {
+                            sp.splice(index, 1);
+                        }
+                        setServicesPool(sp);
+                        handleChoices('servicespool', servicesPool);
+                    }
+                }
+                return true;
+    
+            });
+        
+            let newSelected = choices.servicerooms;
+        
+            let ind = newSelected[id].indexOf(room);
+            if (ind !== -1) {
+                newSelected[id].splice(index, 1);
+            }
+        
+            if(Object.keys( newSelected[id] ).length < 1) delete newSelected[id];
+
+        handleChoices('servicerooms', newSelected);
+        
+        deletehandleChange(id, sp_index);
+
+        let nr = selectiontoggle;
+        nr[id][index] = !selectiontoggle[id][index];
+        //console.log(nr);
+        setSelectionToggle(nr);
+    
+    }
+
     const isVisible = (optionsArray, itemId) => { 
        
         let dataStepName = choices.service + '_step';  //flooring
@@ -168,6 +217,7 @@ function Questions({ getTranslation, data, getImageURL, selectedOptions, handleC
     };
 
 
+
     return (
 
         <div className="questions">
@@ -177,7 +227,7 @@ function Questions({ getTranslation, data, getImageURL, selectedOptions, handleC
                     Services
                 </div>
             </div>
-
+            {/* <pre>{JSON.stringify(selectedRooms, null, 2)}</pre> */}
             <div className="inner">
                 {!data.translations && (<h3>Loading...</h3>)}
 
@@ -196,11 +246,15 @@ function Questions({ getTranslation, data, getImageURL, selectedOptions, handleC
 
                                 <div className="mark">
                                     <img className="sqm" src={getImageURL('check.svg')} alt="Checked" title="Checked" />
+
+                                    {choices && choices.servicerooms && choices.servicerooms[item.q_id] && choices.servicerooms[item.q_id][sp_index] && (<img className="close" src={getImageURL('close.svg')} alt="Close" title="Close" onClick={() => { removeRoomservice(item.q_id, choices.servicerooms[item.q_id][sp_index], sp_index, item.force_size); }} /> )}
+
+
                                 </div>
 
                                 {choices && choices.servicerooms && choices.servicerooms[item.q_id] && (
                                     <div className="selectedroom">
-                                        {choices.servicerooms[item.q_id][sp_index]}
+                                        {getTranslation( choices.servicerooms[item.q_id][sp_index])}
                                     </div>)}
 
                                 <div className="roomselector">
@@ -215,7 +269,7 @@ function Questions({ getTranslation, data, getImageURL, selectedOptions, handleC
                                             {Object.keys(choices.rooms).map((room, key) => {
                                                 if (choices.servicerooms && Object.values(choices.servicerooms).indexOf(room) > -1) return;
                                                 return (
-                                                    <div className="room" onClick={() => { setSelectedRooms({ 'id': item.q_id, 'room': room, 'index': sp_index }); setRoomservice(item.q_id, room, sp_index, item.force_size); }}>{room}</div>
+                                                    <div className="room" onClick={() => { setSelectedRooms({ 'id': item.q_id, 'room': room, 'index': sp_index }); setRoomservice(item.q_id, room, sp_index, item.force_size); }}>{getTranslation(room)}</div>
                                                 )
                                             })}
 

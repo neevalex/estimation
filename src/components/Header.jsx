@@ -8,7 +8,7 @@ function Header({ setStep }) {
                     </a>
                 </div>
                 <div className="buttons">
-                    <a href="#" onClick={() => { setStep(1) }} >
+                    <a href="#" onClick={() => { window.location.reload(); }} >
                         <img src="/assets/img/reload.svg" alt="Call us" />
                     </a>
                     <a href="tel:12345">
