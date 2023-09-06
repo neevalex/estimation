@@ -130,3 +130,23 @@
 .popup-overlay {
     background: rgba(0,0,0,.8);
 }
+
+
+.pdf-viewer {
+    display: flex;
+    flex-wrap: wrap;
+
+    .ui {
+        display: block;
+        width: 100%; 
+        padding: 20px;
+        textarea {
+            width: 100%;
+            min-height: 100px;
+        }
+    }
+    .pdf-window {
+        display: block;
+        width: 100%;
+    }
+}

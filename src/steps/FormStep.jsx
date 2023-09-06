@@ -6,7 +6,7 @@ const App = ({cfError, cfData, setcfData, getTranslation}) => {
     const [ email, setEmail ] = useState('')
     const [ phone, setPhone ] = useState('')
     const [ address, setMessage ] = useState('')
-    const [urgent, setUrgent] = useState('')
+    const [ urgent, setUrgent ] = useState('')
     
    
 

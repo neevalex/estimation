@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import Header from "./components/Header";
 import getImageURL from "./functions/getImageURL";
 import Steps from "./components/Steps";
@@ -13,26 +14,14 @@ import React from 'react';
 import 'tippy.js/dist/tippy.css'; // optional
 
 
-function App() {
+function App({ getTranslation, getData , data }) {
 
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-  const getData = async () => {
-    const url = process.env.REACT_APP_BACKEND_HOST;
 
-    fetch(url)
-    .then(res => res.json())
-    .then(data => {
-      if( data ) setData( data );
-    })
-    .catch(rejected => {
-        console.log(rejected);
-    });
-
-  }
   const [cfData, setcfData] = useState({});
   const [cfError, setcfError] = useState('');
-  const [data, setData] = useState({});
+
   const [step, setStep] = useState(1);
   const [choices, setChoices] = useState({});
   const [total, setTotal] = useState(0);
@@ -92,7 +81,7 @@ function App() {
 
     if (step === 3 && checkFormInputs()) {
       console.log(cfData);  
-      sendData({ action: 'send', email: cfData, pdf: pdfRows });
+      sendData({ action: 'send', email: cfData, pdf: {'cfData': cfData, 'pdfRows' : pdfRows, 'total': total } });
     }
 
     if (step < 4) {
@@ -130,14 +119,7 @@ function App() {
     //console.log(selectedOptions);
   }
 
-  const getTranslation = (keyword) => {
-    if (!data) return keyword;
-    if (!data.translations) return keyword;
-    if (data.translations.hasOwnProperty(keyword)) {
-      return data.translations[keyword];
-    }
-    return keyword;
-  }
+
 
   const calculateTotals = () => { 
 
@@ -284,7 +266,6 @@ function App() {
   }
 
   useEffect( () => {
-    getData();
     
     let forcedStep = step;
     //console.log(choices);
@@ -318,14 +299,15 @@ function App() {
 
   return (
     <div className="App">
-      <Header setStep={ setStep } />
-      <Steps state={ state } step={step} nextStep={nextStep} prevStep={ prevStep } />
-      <div className="cnt">
-        {step === 1 && (<IndexStep nextStep={nextStep} data={data} getImageURL={getImageURL} step={step} handleChoices={handleChoices} choices={ choices } />)}
-        {step === 2 && (<OptionsStep getTranslation={ getTranslation } nextStep={nextStep} forceUpdate={forceUpdate }  data={data} getImageURL={getImageURL} step={step} handleSelectedOptions={handleSelectedOptions} selectedOptions={selectedOptions} handleChoices={handleChoices} choices={choices} hasFreeRooms={ hasFreeRooms } />)}
-        {step === 3 && (<FormStep cfError={cfError } cfData={cfData} setcfData={ setcfData } getTranslation={ getTranslation } data={data} getImageURL={getImageURL} />)}
-        {step === 4 && (<PdfStep getTranslation={getTranslation} getImageURL={getImageURL} pdfRows={pdfRows} total={total} cfData={cfData} sendData={sendData} />)}
-      </div>
+      <Header setStep={setStep} />
+
+        <Steps state={ state } step={step} nextStep={nextStep} prevStep={ prevStep } />
+        <div className="cnt">
+          {step === 1 && (<IndexStep nextStep={nextStep} data={data} getImageURL={getImageURL} step={step} handleChoices={handleChoices} choices={ choices } />)}
+          {step === 2 && (<OptionsStep getTranslation={ getTranslation } nextStep={nextStep} forceUpdate={forceUpdate }  data={data} getImageURL={getImageURL} step={step} handleSelectedOptions={handleSelectedOptions} selectedOptions={selectedOptions} handleChoices={handleChoices} choices={choices} hasFreeRooms={ hasFreeRooms } />)}
+          {step === 3 && (<FormStep cfError={cfError } cfData={cfData} setcfData={ setcfData } getTranslation={ getTranslation } data={data} getImageURL={getImageURL} />)}
+          {step === 4 && (<PdfStep getTranslation={getTranslation} getImageURL={getImageURL} pdfRows={pdfRows} total={total} cfData={cfData} sendData={sendData} />)}
+        </div>
       <BottomNavigation getTranslation={ getTranslation } state={state} step={step} nextStep={nextStep} prevStep={prevStep} />
    
       {process.env.REACT_APP_ENVIRONMENT === 'development' && (

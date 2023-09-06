@@ -3,16 +3,9 @@ import { Page, Text, View, Document, StyleSheet, Image, Font } from '@react-pdf/
 import ReactPDF from '@react-pdf/renderer';
 import ReactDOM from 'react-dom';
 import { PDFViewer } from '@react-pdf/renderer';
-
-import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import "react-widgets/styles.css";
-import DatePicker from "react-widgets/DatePicker";
-import TimeInput from "react-widgets/TimeInput";
-import Localization from "react-widgets/Localization";
-import { DateLocalizer } from 'react-widgets/IntlLocalizer';
 import { useEffect, useState } from "react";
-
 
 // Create styles
 
@@ -293,107 +286,59 @@ const MyDocument = ({ getTranslation, getImageURL, pdfRows, total,vat, total_ttc
 </Document>
 );
 
+const isJson = (str) => {
+  try{
+     JSON.parse(str);
+  }catch (e){
+     //Error
+     //JSON is not okay
+     return false;
+  }
+
+ return true;
+}
 
 
+const App = ({ getTranslation, getImageURL, pdfRows, total }) => {
 
-const App = ({ getTranslation, getImageURL, pdfRows, total, cfData, sendData }) => {
-  
-  const [open, setOpen] = useState(false);
-  const closeModal = () => { setOpen(false); setmodalStep('init'); };
-  const [modalStep, setmodalStep] = useState('init');
+  let cfData = {};
+  const [textData, setTextData] = useState('');
+  const [realData, setRealData] = useState({});
+  const [vat, setVat] = useState(0);
+  const [total_ttc, setTTC] = useState(0);
 
-  const [date, setDate] = useState(new Date());
-  const [time, setTime] = useState(new Date());
+  useEffect(() => {
+    if (isJson(textData)) {
 
-  const sheduleCall = () => { 
+      let rd = JSON.parse(textData)
+      if (rd && rd.cfData) {
+        setVat(rd.total * 0.1);
+        setTTC(rd.total + vat);
+      
+        if (rd.cfData.pro && rd.cfData.pro === 'pro') {
+          setVat(rd.total * 0.2);
+          setTTC(rd.total + vat);
+        }
+      }
 
-    sendData({'action' : 'shedulecall', email: cfData, pdf: {'cfData': cfData, 'pdfRows' : pdfRows, 'total': total }, date: date.toDateString() + ' | ' + time.getHours() + ':' + time.getMinutes()});
-    setmodalStep('success');
+      setRealData( rd );
+    }
     
-  }
+  }, [ textData ]);
 
-  let vat = total * 0.1;
-  if (cfData && cfData.pro && cfData.pro === 'pro') {
-    vat = total * 0.2;
-  }
-
-  let total_ttc = total + vat;
 
   return (
-    <div className="pdf">
-      <div className="message">
-        <img src="/assets/img/renovationsupport.jpg" alt="Close" />
-
-        <h1>{ getTranslation('schedule1')}</h1>
-        <p>{getTranslation('schedule2')}</p>
-        <button className="button" type="button" className="button" onClick={() => setOpen(o => !o)} ><img src="/assets/img/phone.svg" alt="Call us" /> Schedule a call</button>
-
-        <Popup open={open} closeOnDocumentClick onClose={closeModal} modal>
-          <div className='modl'>
-
-            <a className="close" onClick={closeModal}>
-              &times;
-            </a>
-
-            {modalStep === 'init' && (
-              <>
-                <h2>{ getTranslation('estimate1')}</h2>
-                
-                <p>{ getTranslation('estimate2')}</p>
-                
-                <div className="buttons">
-                  <button className="button" onClick={() => { setmodalStep('success'); sendData({'action' : 'callus', email: cfData, pdf: {'cfData': cfData, 'pdfRows' : pdfRows, 'total': total } }); }}><img src="/assets/img/phone.svg" alt={ getTranslation('estimate4')} />{ getTranslation('estimate3')}</button>
-                <button className="button" onClick={() => setmodalStep('schedule')}><img src="/assets/img/calendar.svg" alt={ getTranslation('estimate4')} />{ getTranslation('estimate4')}</button>
-                </div>
-              
-              </>
-            )}
-
-            {modalStep === 'schedule' && (
-              <>
-                <h3>{ getTranslation('estimate4')}</h3>
-
-                <p>{ getTranslation('estimate5')}</p>
-
-                <div className="dates">
-                <Localization  date={new DateLocalizer({ culture: 'fr-FR', firstOfWeek: 1 })} >
-                  <DatePicker
-                      defaultValue={new Date()}
-                      onChange={value => setDate(value)}
-                    />
-
-                  <TimeInput
-                      defaultValue={new Date()}
-                      onChange={value => setTime(value)}
-                  />
-                  </Localization>
-                  
-                </div>
-                
-                <button className="button" onClick={() => { sheduleCall(); }}><img src="/assets/img/calendar.svg" alt={ getTranslation('estimate4')} />{ getTranslation('estimate4')}</button>
-              </>
-            )}
-            
-            {modalStep === 'success' && (
-              <>
-                <h3>{ getTranslation('estimate6')}</h3>
-                <p>{ getTranslation('estimate7')}</p>
-                <button className="button" onClick={closeModal}>{ getTranslation('estimate8')}</button>
-              
-              </>
-            )}
-
-            </div>
-            
-           
-        </Popup>
-
-
-     </div>
-      <PDFViewer scale={0.56}>
-        <MyDocument cfData={ cfData } getTranslation={ getTranslation } getImageURL={getImageURL} pdfRows={pdfRows} total={total} vat={vat} total_ttc={ total_ttc } />
-      </PDFViewer>
-    
+    <div className="pdf pdf-viewer">
+      <div className="ui">
+        <textarea id="pdfData" value={textData} onChange={e => setTextData(e.target.value)}></textarea>
+      </div>
+      <div className="pdf-window">
+        {textData && realData && realData.cfData && vat && total_ttc && (
+          <PDFViewer scale={0.56}>
+            <MyDocument cfData={realData.cfData} getTranslation={getTranslation} getImageURL={getImageURL} pdfRows={realData.pdfRows} total={realData.total} vat={vat} total_ttc={total_ttc} />
+          </PDFViewer>)
+        }
+      </div>
     </div>
   );
 };
