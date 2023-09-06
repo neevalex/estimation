@@ -313,11 +313,11 @@ const App = ({ getTranslation, getImageURL, pdfRows, total }) => {
       let rd = JSON.parse(textData)
       if (rd && rd.cfData) {
         setVat(rd.total * 0.1);
-        setTTC(rd.total + vat);
+        setTTC(rd.total + (rd.total * 0.1) );
       
         if (rd.cfData.pro && rd.cfData.pro === 'pro') {
           setVat(rd.total * 0.2);
-          setTTC(rd.total + vat);
+          setTTC(rd.total + (rd.total * 0.2) );
         }
       }
 
