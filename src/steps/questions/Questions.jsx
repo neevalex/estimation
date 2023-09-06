@@ -229,7 +229,7 @@ function Questions({ getTranslation, data, getImageURL, selectedOptions, handleC
             </div>
             {/* <pre>{JSON.stringify(selectedRooms, null, 2)}</pre> */}
             <div className="inner">
-                {!data.translations && (<h3>Loading...</h3>)}
+                {!data.translations && (<h3>{getTranslation('loading')}</h3>)}
 
                 {data && servicesPool && dataSource.map((item) => {
 
@@ -240,8 +240,8 @@ function Questions({ getTranslation, data, getImageURL, selectedOptions, handleC
                         output[sp_index] = (
                             <div key={'q_' + sp_index + '_' + item.q_id} id={'q_' + sp_index + '_' + item.q_id} className={"question sqmselect " + (selectedOptions[item.q_id] && selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['price_per_m'] != null ? 'hasnumbers hasroom' : '') + (selectiontoggle && selectiontoggle[item.q_id] && selectiontoggle[item.q_id][sp_index] ? ' hasselectionprocess' : '')}  >
                                 <div className="message">
-                                    {hasFreeRooms && (<>Click to choose rooms</>)}
-                                    {!hasFreeRooms && (<>Please choose some rooms first</>)}
+                                    {hasFreeRooms && (<>{getTranslation('please1')}</>)}
+                                    {!hasFreeRooms && (<>{getTranslation('please2')}</>)}
                                 </div>
 
                                 <div className="mark">
