@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 
-function IndexStep({ nextStep, data, step, getImageURL, handleChoices, choices }) {
+function IndexStep({ getTranslation,  nextStep, data, step, getImageURL, handleChoices, choices }) {
 
   const [selected, setSelected] = useState({});
 
@@ -20,7 +20,7 @@ function IndexStep({ nextStep, data, step, getImageURL, handleChoices, choices }
 
     <div className="side">
                 <div className="label">
-                    SERVICES
+                  { getTranslation('services') }
                 </div>
             </div>
         

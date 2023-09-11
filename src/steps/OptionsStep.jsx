@@ -63,7 +63,7 @@ function OptionsStep({ getTranslation, data, step, getImageURL, handleSelectedOp
 
         {choices && choices.service && choices.service === "interiorpainting" && (
         <div className="step">
-          <RoomsSelector data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} />
+          <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} />
         
           <div className="separator">
             <div className="pre"></div>
@@ -76,7 +76,7 @@ function OptionsStep({ getTranslation, data, step, getImageURL, handleSelectedOp
       
         {choices && choices.service && choices.service === "completerenovation" && (
         <div className="step">
-          <RoomsSelector data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} />
+          <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} />
         
           <div className="separator">
             <div className="pre"></div>

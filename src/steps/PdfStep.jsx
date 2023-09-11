@@ -196,6 +196,15 @@ const MyDocument = ({ getTranslation, getImageURL, pdfRows, total,vat, total_ttc
             <Text style={[ styles.textsmall , { textAlign: 'right' }]}>
               { cfData.address }
             </Text>
+            <Text style={[ styles.textsmall , { textAlign: 'right' }]}>
+              { cfData.name }
+            </Text>
+            <Text style={[ styles.textsmall , { textAlign: 'right' }]}>
+              { cfData.email }
+            </Text>
+            <Text style={[ styles.textsmall , { textAlign: 'right' }]}>
+              { cfData.phone }
+            </Text>
           </View>
         </View>
       </View>
@@ -284,7 +293,7 @@ const MyDocument = ({ getTranslation, getImageURL, pdfRows, total,vat, total_ttc
       <Text style={[{ height: '40' }]}></Text>
       <Text style={styles.heading}>{ getTranslation('text7')}</Text>
       <Text style={[{ height: '1' }]}></Text>
-      <Text style={styles.text}>{ getTranslation('text7')}</Text>
+      <Text style={styles.text}>{ getTranslation('text8')}</Text>
     
     <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (
       `${pageNumber} / ${totalPages}`

@@ -37,7 +37,7 @@ function Rooms({ getTranslation, data, forceUpdate, getImageURL, handleChoices, 
         <div className="questions rooms five">
             <div className="side">
                 <div className="label">
-                    Rooms 
+                    { getTranslation('rooms') }
                 </div>
             </div>
         

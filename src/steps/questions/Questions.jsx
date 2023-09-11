@@ -7,68 +7,68 @@ import SubQuestion from "./elements/SubQuestion";
 function Questions({ getTranslation, data, getImageURL, selectedOptions, handleChange, deletehandleChange, choices, handleChoices, hasFreeRooms, dataSource, subItems }) {
 
     const conditions = {
-        'removeoldcoatingyes': 'Yes',
-        'removeoldcoatingno' : 'No',
+        'removeoldcoatingyes':  getTranslation('yes'),
+        'removeoldcoatingno' : getTranslation('no'),
       };
 
     const wallsneedpreparation = {
         'wallsneedpreparationyes': 'Yes',
-        'wallsneedpreparationno': 'No',
+        'wallsneedpreparationno': getTranslation('no'),
     };
 
     const removewallcovering = {
-        'removewallcoveringyes': 'Yes',
-        'removewallcoveringnno': 'No',
+        'removewallcoveringyes': getTranslation('yes'),
+        'removewallcoveringnno': getTranslation('no'),
     };
 
     const furniture = {
-        'furnitureyes': 'Yes',
-        'furnitureno': 'No',
+        'furnitureyes': getTranslation('yes'),
+        'furnitureno': getTranslation('no'),
     };
 
     const regreage = {
-        'regreageyes': 'Yes',
-        'regreageno' : 'No',
+        'regreageyes': getTranslation('yes'),
+        'regreageno' : getTranslation('no'),
     };
     
     const skirtingboards = {
-        'skirtingboardsyes': 'Yes',
-        'skirtingboardsno' : 'No',
+        'skirtingboardsyes': getTranslation('yes'),
+        'skirtingboardsno' : getTranslation('no'),
     };
 
     const flooring = {
-        'flooringyes': 'Yes',
-        'flooringno' : 'No',
+        'flooringyes': getTranslation('yes'),
+        'flooringno' : getTranslation('no'),
     };
 
     const wallcovering = {
-        'wallcoveringyes': 'Yes',
-        'wallcoveringno' : 'No',
+        'wallcoveringyes': getTranslation('yes'),
+        'wallcoveringno' : getTranslation('no'),
     };
 
     const painting = {
-        'paintingyes': 'Yes',
-        'paintingno' : 'No',
+        'paintingyes': getTranslation('yes'),
+        'paintingno' : getTranslation('no'),
     };
 
     const plastering = {
-        'plasteringyes': 'Yes',
-        'plasteringno' : 'No',
+        'plasteringyes': getTranslation('yes'),
+        'plasteringno' : getTranslation('no'),
     };
 
     const  electricity = {
-        'electricityyes': 'Yes',
-        'electricityno' : 'No',
+        'electricityyes': getTranslation('yes'),
+        'electricityno' : getTranslation('no'),
     };
 
     const  kitchenhastobemounted = {
-        'kitchenhastobemountedyes': 'Yes',
-        'kitchenhastobemountedno' : 'No',
+        'kitchenhastobemountedyes': getTranslation('yes'),
+        'kitchenhastobemountedno' : getTranslation('no'),
     };
 
     const  removeoldkitchen = {
-        'removeoldkitchenyes': 'Yes',
-        'removeoldkitchenno' : 'No',
+        'removeoldkitchenyes': getTranslation('yes'),
+        'removeoldkitchenno' : getTranslation(getTranslation('no')),
     };
    
 
@@ -224,7 +224,7 @@ function Questions({ getTranslation, data, getImageURL, selectedOptions, handleC
 
             <div className="side">
                 <div className="label">
-                    Services
+                    { getTranslation('services') }
                 </div>
             </div>
             {/* <pre>{JSON.stringify(selectedRooms, null, 2)}</pre> */}
@@ -290,9 +290,9 @@ function Questions({ getTranslation, data, getImageURL, selectedOptions, handleC
                                     <div className="row">
                                         <p>
                                             {item.custom_service_name ? item.custom_service_name : getTranslation('area_size_sqm')}
-                                            <Tippy content={getTranslation('area_size_sqm_description')}>
+                                            {item.tip && (<Tippy content={ item.tip }>
                                                 <button className="tip">?</button>
-                                            </Tippy>
+                                            </Tippy>)}
                                         </p>
 
                                         <div className="right">
@@ -304,7 +304,7 @@ function Questions({ getTranslation, data, getImageURL, selectedOptions, handleC
                                     </div>
 
                                     <div className={selectedOptions[item.q_id] && selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['price_per_m'] > 0 ? "subitems active" : 'subitems'}>
-
+                                    
                                         {subItems && Object.values(subItems).indexOf('removeoldcoating') > -1 && (<SubQuestion subData={conditions} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text={ getTranslation('remove_old_coating')} tipText={ getTranslation('remove_old_coating_tip')} icon="crowbar.svg" keyword="removeoldcoating" />)}
 
                                         {subItems && Object.values(subItems).indexOf('regreage') > -1 && selectedOptions[item.q_id][sp_index] && selectedOptions[item.q_id][sp_index]['removeoldcoating'] === 'removeoldcoatingyes' && (
