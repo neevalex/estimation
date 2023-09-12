@@ -135,6 +135,7 @@ function App({ getTranslation, getData , data }) {
           // console.log(selectedOptions[option_name]);
           Object.keys(selectedOptions[option_name]).map((a_index, sub_option_key) => {
             let amount = selectedOptions[option_name][a_index]['price_per_m'];
+            
 
             Object.keys(selectedOptions[option_name][a_index]).map((data_key, service_index) => { 
 
@@ -160,11 +161,16 @@ function App({ getTranslation, getData , data }) {
                     final_total += (parseInt(data_item[service_data_key]) * amount) + 60;
                     roomTotal += (parseInt(data_item[service_data_key]) * amount);
                   }
+
+                  let csn = data_item['custom_service_name'];
                   
                   if (!newPdfRows[room]) newPdfRows[room] = [];
                   //if (!newPdfRows[room][option_name]) newPdfRows[room][option_name] = [];
 
-                  lastArrKey = newPdfRows[room].push({ 'id': option_name, 'key': service_data_key, 'room': room, 'name': data_item.q_text + ' ( ' + amount + ' )', 'amount': (parseInt(data_item[service_data_key]) * amount) });
+                  let am = ' (' + amount + ' '+getTranslation('sq_meter')+')';
+                    if (csn) am = ' (' + amount + ' '+csn+')';
+              
+                  lastArrKey = newPdfRows[room].push({ 'id': option_name, 'key': service_data_key, 'room': room, 'name': getTranslation(option_name+'_pdf') + am, 'amount': (parseInt(data_item[service_data_key]) * amount) });
                   roomTotal += (parseInt(data_item[service_data_key]) * amount);
                   // console.log(newPdfRows);
                 } else {

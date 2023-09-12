@@ -20,9 +20,12 @@
             font-size: 32px;
             text-transform: uppercase;
 
-
             @media (max-width: $mobile) {
                 transform: rotate(0deg);
+            }
+
+            &.higher {
+                margin-left: -40px;
             }
         }
     }

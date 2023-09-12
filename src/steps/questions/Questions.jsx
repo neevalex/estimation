@@ -223,7 +223,7 @@ function Questions({ getTranslation, data, getImageURL, selectedOptions, handleC
         <div className="questions">
 
             <div className="side">
-                <div className="label">
+                <div className="label higher">
                     { getTranslation('services') }
                 </div>
             </div>
