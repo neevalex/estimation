@@ -62,7 +62,7 @@ function App({ getTranslation, getData , data }) {
     
     let url = process.env.REACT_APP_BACKEND_HOST + '/email.php';
     fetch( url , {
-      method: 'POST', mode: 'cors', 
+      method: 'POST',
       body: JSON.stringify(data),
       headers: {
          'Content-type': 'Content-Type: application/x-www-form-urlencoded; charset=utf-8',
