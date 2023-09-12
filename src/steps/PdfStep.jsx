@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page, Text, View, Document, StyleSheet, Image, Font } from '@react-pdf/renderer';
+import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, Image, Font } from '@react-pdf/renderer';
 import ReactPDF from '@react-pdf/renderer';
 import ReactDOM from 'react-dom';
 import { PDFViewer } from '@react-pdf/renderer';
@@ -328,6 +328,7 @@ const App = ({ getTranslation, getImageURL, pdfRows, total, cfData, sendData }) 
 
   let total_ttc = total + vat;
 
+
   return (
     <div className="pdf">
       <div className="message">
@@ -398,10 +399,19 @@ const App = ({ getTranslation, getImageURL, pdfRows, total, cfData, sendData }) 
         </Popup>
 
 
-     </div>
+      </div>
+
+      <div className="pdf-window">
       <PDFViewer scale={0.56}>
         <MyDocument cfData={ cfData } getTranslation={ getTranslation } getImageURL={getImageURL} pdfRows={pdfRows} total={total} vat={vat} total_ttc={ total_ttc } />
       </PDFViewer>
+      </div>
+
+      <div className="pdf-download">
+      <PDFDownloadLink document={<MyDocument cfData={ cfData } getTranslation={ getTranslation } getImageURL={getImageURL} pdfRows={pdfRows} total={total} vat={vat} total_ttc={ total_ttc } />} fileName="estimate.pdf">
+          <img src={ getImageURL('pdf.png')} alt={ getTranslation('download_pdf')} /><button className="button" onClick={closeModal}>{ getTranslation('download_pdf')}</button>
+        </PDFDownloadLink>
+      </div>
     
     </div>
   );

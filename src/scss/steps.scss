@@ -120,6 +120,10 @@
         grid-template-columns: 100px 1fr;
         grid-gap: 30px;
 
+        @media (max-width: $mobile) {
+            grid-template-columns: 0px 1fr;
+        }
+
         
         .line {
             border-top: 3px dashed #e0ddd8;

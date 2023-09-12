@@ -113,6 +113,10 @@
         max-height: 42px;
         margin-top: 20px;
 
+        @media (max-width: $mobile) {
+            font-size: 13px;
+        }
+
         img {
             max-height: 20px;
             margin-right: 5px;
@@ -122,8 +126,8 @@
     }
 
     .buttons {
-
         display: flex;
+        flex-wrap: wrap;
     }
 }
 
@@ -148,5 +152,34 @@
     .pdf-window {
         display: block;
         width: 100%;
+    }
+}
+
+.pdf-window {
+    flex: 1 0 70%;
+    display: block;
+    @media (max-width: $mobile) {
+        display: none;
+    }
+}
+
+.pdf-download {
+    display: none;
+
+    @media (max-width: $mobile) {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    a {
+        display: flex;
+        justify-content: center;
+    }
+
+    img {
+        max-height: 50px;
+        border-radius: 6px;
+        margin-right: 20px;
     }
 }
