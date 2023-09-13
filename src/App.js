@@ -142,7 +142,8 @@ function App({ getOption, getTranslation, getData , data }) {
                   //if (!newPdfRows[room][option_name]) newPdfRows[room][option_name] = [];
 
                   let am = ' (' + amount + ' '+getTranslation('sq_meter')+')';
-                    if (csn) am = ' (' + amount + ' '+csn+')';
+                  if (csn) am = ' (' + amount + ' ' + csn + ')';
+                  if(data_item['walls_formula'])  am = ' (' + parseInt(amount * parseInt(getOption('walls_formula')) )  + ' ' + getTranslation('walls_formula') + ')';
               
                   lastArrKey = newPdfRows[room].push({ 'id': option_name, 'key': service_data_key, 'room': room, 'name': getTranslation(option_name+'_pdf') + am, 'amount': (parseInt(data_item[service_data_key]) * amount) });
                   roomTotal += (parseInt(data_item[service_data_key]) * amount);
