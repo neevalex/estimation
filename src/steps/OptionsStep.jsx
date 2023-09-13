@@ -20,6 +20,7 @@ function OptionsStep({ getTranslation, data, step, getImageURL, handleSelectedOp
 
   }
 
+
   const deletehandleChange = ( q_id, sp_index) => {
     let v = {
       ...selectedOptions,
@@ -35,136 +36,136 @@ function OptionsStep({ getTranslation, data, step, getImageURL, handleSelectedOp
       
       {choices && choices.service && choices.service === "flooring" && (
         <div className="step">
-          <RoomsSelector getTranslation={ getTranslation } data={data}  getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} />
+          <RoomsSelector getTranslation={ getTranslation } data={data}  getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} />
         
           <div className="separator">
             <div className="pre"></div>
             <div className="line"></div>
           </div>
 
-          <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.flooring_step} subItems={['furniture','removeoldcoating','regreage','skirtingboards']} />
+          <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.flooring_step} subItems={['furniture','removeoldcoating','regreage','skirtingboards']} />
         
         </div>)}
       
 
         {data && choices && choices.service && choices.service === "wallcovering" && (
         <div className="step">
-          <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} />
+          <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} />
         
           <div className="separator">
             <div className="pre"></div>
             <div className="line"></div>
           </div>
 
-          <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.wallcovering_step} subItems={['furniture','removewallcovering','wallsneedpreparation']} />
+          <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.wallcovering_step} subItems={['furniture','removewallcovering','wallsneedpreparation']} />
         
         </div>)}
       
 
         {choices && choices.service && choices.service === "interiorpainting" && (
         <div className="step">
-          <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} />
+          <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} />
         
           <div className="separator">
             <div className="pre"></div>
             <div className="line"></div>
           </div>
 
-          <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.interiorpainting_step} subItems={['furniture','removewallcovering','wallsneedpreparation']} />
+          <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.interiorpainting_step} subItems={['furniture','removewallcovering','wallsneedpreparation']} />
         
         </div>)}
       
         {choices && choices.service && choices.service === "completerenovation" && (
         <div className="step">
-          <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} />
+          <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} />
         
           <div className="separator">
             <div className="pre"></div>
             <div className="line"></div>
           </div>
 
-          <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.completerenovation_step} subItems={['flooring','painting','plastering','wallcovering', 'electricity']} />
+          <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.completerenovation_step} subItems={['flooring','painting','plastering','wallcovering', 'electricity']} />
         
         </div>)}
 
         {choices && choices.service && choices.service === "kitchen" && (
           <div className="step">
-            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} rooms={['kitchen']} />
+            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} rooms={['kitchen']} />
           
             <div className="separator">
               <div className="pre"></div>
               <div className="line"></div>
             </div>
 
-            <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.kitchen_step} subItems={[]} />
+            <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.kitchen_step} subItems={[]} />
           
           </div>)}
       
           {choices && choices.service && choices.service === "electricity" && (
           <div className="step">
-            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} />
+            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} />
           
             <div className="separator">
               <div className="pre"></div>
               <div className="line"></div>
             </div>
 
-            <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.electricity_step} subItems={[]} />
+            <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.electricity_step} subItems={[]} />
           
           </div>)}
       
 
         {choices && choices.service && choices.service === "plumbing" && (
           <div className="step">
-            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices}  rooms={['bathroom','kitchen','toilet', 'other']}  />
+            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices}  rooms={['bathroom','kitchen','toilet', 'other']}  />
           
             <div className="separator">
               <div className="pre"></div>
               <div className="line"></div>
             </div>
 
-            <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.plumbing_step} />
+            <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.plumbing_step} />
           
           </div>)}
 
       
           {choices && choices.service && choices.service === "insulation" && (
           <div className="step">
-            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices}  rooms={['other']}  />
+            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices}  rooms={['other']}  />
           
             <div className="separator">
               <div className="pre"></div>
               <div className="line"></div>
             </div>
 
-            <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.insulation_step} />
+            <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.insulation_step} />
           
           </div>)}
       
 
         {choices && choices.service && choices.service === "carpentry" && (
           <div className="step">
-            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices}  />
+            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices}  />
           
             <div className="separator">
               <div className="pre"></div>
               <div className="line"></div>
             </div>
 
-            <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.carpentry_step} subItems={['furniture']} />
+            <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.carpentry_step} subItems={['furniture']} />
           
           </div>)}
 
         {choices && choices.service && choices.service === "disaster" && (
           <div className="step">
-            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices}  />
+            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices}  />
           
             <div className="separator">
               <div className="pre"></div>
               <div className="line"></div>
             </div>
 
-            <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange} deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.disaster_step} subItems={[]} />
+            <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.disaster_step} subItems={[]} />
           
           </div>)}
       

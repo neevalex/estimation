@@ -77,6 +77,32 @@ function Questions({ getTranslation, data, getImageURL, selectedOptions, handleC
     const [selectiontoggle, setSelectionToggle] = useState({});
     const [servicesPool, setServicesPool] = useState([]);
 
+    const [wh, setWH] = useState([]);
+
+    const setWHfunction = (type, q_id, sp_index, value) => { 
+            
+            let newWH = wh;
+            if (!newWH[q_id]) newWH[q_id] = {};
+            if (!newWH[q_id][sp_index]) newWH[q_id][sp_index] = {};
+            newWH[q_id][sp_index][type] = value;
+            setWH(newWH);
+        
+            let v = 0;
+            let h = 0;
+        
+            if (newWH[q_id][sp_index]['w'] > 0) v = newWH[q_id][sp_index]['w'];
+            if (newWH[q_id][sp_index]['h'] > 0) h = newWH[q_id][sp_index]['h'];
+
+
+            let sqmValue = 0;
+            sqmValue = (v * h) * 4;
+        
+            handleChange('price_per_m', q_id, sqmValue, sp_index)
+
+        
+        console.log(wh);
+    }
+
     useEffect(() => {
 
         if (selectedRooms.id) {
@@ -287,7 +313,29 @@ function Questions({ getTranslation, data, getImageURL, selectedOptions, handleC
 
                                 {choices && choices.servicerooms && choices.servicerooms[item.q_id] && choices.servicerooms[item.q_id][sp_index] && (<div className="sub">
 
-                                    <div className="row">
+
+                                    {item.walls_formula && (<div className="row wallsize">
+                                        <p>
+                                            {getTranslation('area_walls_size')}
+                                        </p>
+
+                                        <div className="right newline">
+                                            <img className="sqm" src={getImageURL('wallssize.svg')} alt={getTranslation('sq_meter')} title={getTranslation('sq_meter')} />
+                                            
+                                            <div className="inpts">
+
+                                                <strong>W</strong><NumberPicker min={1} step={1}
+                                                    onChange={value => setWHfunction('w', item.q_id, sp_index, value)} />
+                                            
+                                                <strong>H</strong><NumberPicker min={1} step={1}
+                                                    onChange={value => setWHfunction('h', item.q_id, sp_index, value)} />
+                                            </div>
+
+                                        </div>
+                                    </div>)}
+                                    
+
+                                    <div className={item.walls_formula ? "row hidden" : "row"}>
                                         <p>
                                             {item.custom_service_name ? item.custom_service_name : getTranslation('area_size_sqm')}
                                             {item.tip && (<Tippy content={ item.tip }>

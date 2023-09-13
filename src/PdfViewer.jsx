@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const MyDocument = ({ getTranslation, getImageURL, pdfRows, total,vat, total_ttc, cfData  }) => (
+const MyDocument = ({ getOption, getTranslation, getImageURL, pdfRows, total,vat, total_ttc, cfData  }) => (
   <Document>
     <Page style={styles.body}>
       
@@ -245,7 +245,7 @@ const MyDocument = ({ getTranslation, getImageURL, pdfRows, total,vat, total_ttc
                 
                     <View style={styles.estimrow}>
                       <Text style={[styles.estimrowleft]}>{ getTranslation('installation_text')}</Text>
-                      <Text style={[styles.estimrowright]}>60€</Text>
+                      <Text style={[styles.estimrowright]}>{ getOption('protection_price') }€</Text>
                     </View>
                     <Text style={[{ height: '10' }]}></Text>
                   </>)}
@@ -310,7 +310,7 @@ const isJson = (str) => {
 }
 
 
-const App = ({ getTranslation, getImageURL, pdfRows, total }) => {
+const App = ({ getOption, getTranslation, getImageURL, pdfRows, total }) => {
 
   let cfData = {};
   const [textData, setTextData] = useState('');
@@ -346,7 +346,7 @@ const App = ({ getTranslation, getImageURL, pdfRows, total }) => {
       <div className="pdf-window">
         {textData && realData && realData.cfData && vat && total_ttc && (
           <PDFViewer scale={0.56}>
-            <MyDocument cfData={realData.cfData} getTranslation={getTranslation} getImageURL={getImageURL} pdfRows={realData.pdfRows} total={realData.total} vat={vat} total_ttc={total_ttc} />
+            <MyDocument getOption={ getOption } cfData={realData.cfData} getTranslation={getTranslation} getImageURL={getImageURL} pdfRows={realData.pdfRows} total={realData.total} vat={vat} total_ttc={total_ttc} />
           </PDFViewer>)
         }
       </div>

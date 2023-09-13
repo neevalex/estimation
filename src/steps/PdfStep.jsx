@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const MyDocument = ({ getTranslation, getImageURL, pdfRows, total,vat, total_ttc, cfData  }) => (
+const MyDocument = ({ getOption, getTranslation, getImageURL, pdfRows, total,vat, total_ttc, cfData  }) => (
   <Document>
     <Page style={styles.body}>
       
@@ -249,7 +249,7 @@ const MyDocument = ({ getTranslation, getImageURL, pdfRows, total,vat, total_ttc
                 
                     <View style={styles.estimrow}>
                       <Text style={[styles.estimrowleft]}>{ getTranslation('installation_text')}</Text>
-                      <Text style={[styles.estimrowright]}>60€</Text>
+                      <Text style={[styles.estimrowright]}>{getOption('protection_price')}€</Text>
                     </View>
                     <Text style={[{ height: '10' }]}></Text>
                   </>)}
@@ -305,7 +305,7 @@ const MyDocument = ({ getTranslation, getImageURL, pdfRows, total,vat, total_ttc
 
 
 
-const App = ({ getTranslation, getImageURL, pdfRows, total, cfData, sendData }) => {
+const App = ({ getOption, getTranslation, getImageURL, pdfRows, total, cfData, sendData }) => {
   
   const [open, setOpen] = useState(false);
   const closeModal = () => { setOpen(false); setmodalStep('init'); };
@@ -337,7 +337,7 @@ const App = ({ getTranslation, getImageURL, pdfRows, total, cfData, sendData }) 
 
         <h1>{ getTranslation('schedule1')}</h1>
         <p>{getTranslation('schedule2')}</p>
-        <button className="button" type="button" className="button" onClick={() => setOpen(o => !o)} ><img src="/assets/img/phone.svg" alt="Call us" /> Schedule a call</button>
+        <button className="button" type="button" className="button" onClick={() => setOpen(o => !o)} ><img src="/assets/img/phone.svg" alt="Call us" />{getTranslation('schedule_a_call')} </button>
 
         <Popup open={open} closeOnDocumentClick onClose={closeModal} modal>
           <div className='modl'>
@@ -404,13 +404,13 @@ const App = ({ getTranslation, getImageURL, pdfRows, total, cfData, sendData }) 
 
       <div className="pdf-window">
       <PDFViewer scale={0.56}>
-        <MyDocument cfData={ cfData } getTranslation={ getTranslation } getImageURL={getImageURL} pdfRows={pdfRows} total={total} vat={vat} total_ttc={ total_ttc } />
+        <MyDocument getOption={ getOption } cfData={ cfData } getTranslation={ getTranslation } getImageURL={getImageURL} pdfRows={pdfRows} total={total} vat={vat} total_ttc={ total_ttc } />
       </PDFViewer>
       </div>
       </div>
 
       <div className="pdf-download">
-      <PDFDownloadLink document={<MyDocument cfData={ cfData } getTranslation={ getTranslation } getImageURL={getImageURL} pdfRows={pdfRows} total={total} vat={vat} total_ttc={ total_ttc } />} fileName="estimate.pdf">
+      <PDFDownloadLink document={<MyDocument getOption={ getOption } cfData={ cfData } getTranslation={ getTranslation } getImageURL={getImageURL} pdfRows={pdfRows} total={total} vat={vat} total_ttc={ total_ttc } />} fileName="estimate.pdf">
           <img src={ getImageURL('pdf.png')} alt={ getTranslation('download_pdf')} /><button className="button" onClick={closeModal}>{ getTranslation('download_pdf')}</button>
         </PDFDownloadLink>
       </div>

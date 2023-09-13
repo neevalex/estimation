@@ -30,6 +30,15 @@ const RoutesPage = () => {
         return keyword;
     }
 
+    const getOption = (keyword) => {
+        if (!data) return keyword;
+        if (!data.options) return keyword;
+        if (data.options.hasOwnProperty(keyword)) {
+            return data.options[keyword];
+        }
+        return false;
+    }
+
     useEffect(() => {
         getData();
     }, []);
@@ -39,8 +48,8 @@ const RoutesPage = () => {
     return (
         <Router>
             {data && (<Routes>
-                <Route exact path="/" element={<App getData={getData} data={data} getTranslation={getTranslation} />} />
-                <Route path="/pdf" element={<PdfViewer data={data} getTranslation={getTranslation} />} />
+                <Route exact path="/" element={<App getOption={ getOption } getData={getData} data={data} getTranslation={getTranslation} />} />
+                <Route path="/pdf" element={<PdfViewer getOption={ getOption } data={data} getTranslation={getTranslation} />} />
             </Routes>)} 
         </Router>
     );

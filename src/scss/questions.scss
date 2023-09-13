@@ -417,6 +417,30 @@
                 flex: 1 0 40%;
             }
 
+            &.wallsize {
+                flex-wrap: wrap;
+            }
+            
+
+            .newline {
+                flex: 1 0 100%;
+                margin-top: 8px;
+                
+                .inpts {
+                    width: 100%;
+                    display: flex;
+                    align-content: center;
+                    align-items: center;
+                    justify-content: center;
+                    
+
+                    strong {
+                        margin-right: 5px;
+                        margin-left: 5px;
+                    }
+                }
+            }
+
 
             &.spoiler {
                 display: flex;
@@ -428,6 +452,10 @@
                     font-size: 14px;
                     padding-bottom: 0px;
                 }
+            }
+
+            &.hidden {
+                display: none;
             }
         }
 

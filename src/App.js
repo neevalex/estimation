@@ -14,7 +14,7 @@ import React from 'react';
 import 'tippy.js/dist/tippy.css'; // optional
 
 
-function App({ getTranslation, getData , data }) {
+function App({ getOption, getTranslation, getData , data }) {
 
   const [cfData, setcfData] = useState({});
   const [cfError, setcfError] = useState('');
@@ -132,7 +132,7 @@ function App({ getTranslation, getData , data }) {
                 if (service_data_key === 'price_per_m') {
 
                   if (amount > 0) {
-                    final_total += (parseInt(data_item[service_data_key]) * amount) + 60;
+                    final_total += (parseInt(data_item[service_data_key]) * amount) + parseInt(getOption('protection_price'));
                     roomTotal += (parseInt(data_item[service_data_key]) * amount);
                   }
 
@@ -286,7 +286,7 @@ function App({ getTranslation, getData , data }) {
           {step === 1 && (<IndexStep getTranslation={ getTranslation } nextStep={nextStep} data={data} getImageURL={getImageURL} step={step} handleChoices={handleChoices} choices={ choices } />)}
           {step === 2 && (<OptionsStep getTranslation={ getTranslation } nextStep={nextStep}  data={data} getImageURL={getImageURL} step={step} handleSelectedOptions={handleSelectedOptions} selectedOptions={selectedOptions} handleChoices={handleChoices} choices={choices} hasFreeRooms={ hasFreeRooms } />)}
           {step === 3 && (<FormStep cfError={cfError } cfData={cfData} setcfData={ setcfData } getTranslation={ getTranslation } data={data} getImageURL={getImageURL} />)}
-          {step === 4 && (<PdfStep getTranslation={getTranslation} getImageURL={getImageURL} pdfRows={pdfRows} total={total} cfData={cfData} sendData={sendData} />)}
+          {step === 4 && (<PdfStep getOption={ getOption } getTranslation={getTranslation} getImageURL={getImageURL} pdfRows={pdfRows} total={total} cfData={cfData} sendData={sendData} />)}
         </div>
       <BottomNavigation getTranslation={ getTranslation } state={state} step={step} nextStep={nextStep} prevStep={prevStep} />
    
