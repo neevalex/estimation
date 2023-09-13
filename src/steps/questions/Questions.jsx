@@ -12,7 +12,7 @@ function Questions({ getTranslation, data, getImageURL, selectedOptions, handleC
       };
 
     const wallsneedpreparation = {
-        'wallsneedpreparationyes': 'Yes',
+        'wallsneedpreparationyes': getTranslation('yes'),
         'wallsneedpreparationno': getTranslation('no'),
     };
 
