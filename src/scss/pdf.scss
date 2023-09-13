@@ -7,6 +7,7 @@
     
         @media (max-width: $mobile) {
             flex-wrap: wrap;
+            margin-bottom: 10px;
         }
     }
  
@@ -190,6 +191,7 @@
         display: block;
         width: 100%;
         text-align: center;
+        margin-bottom: 60px;
     }
 
     @media all and (device-width: 1024px){
