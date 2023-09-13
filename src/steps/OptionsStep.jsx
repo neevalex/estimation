@@ -84,7 +84,7 @@ function OptionsStep({ getTranslation, data, step, getImageURL, handleSelectedOp
             <div className="line"></div>
           </div>
 
-          <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.completerenovation_step} subItems={['flooring','painting','plastering','wallcovering', 'electricity']} />
+          <Questions getTranslation={ getTranslation } step={ step } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} hasFreeRooms={hasFreeRooms} dataSource={data.completerenovation_step} subItems={['flooring','painting','plastering','wallcovering', 'electricity', 'carpentry', 'plumbing', 'insulation']} />
         
         </div>)}
 

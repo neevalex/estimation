@@ -350,7 +350,12 @@ const App = ({ getOption, getTranslation, getImageURL, pdfRows, total, cfData, s
               <>
                 <h2>{ getTranslation('estimate1')}</h2>
                 
-                <p>{ getTranslation('estimate2')}</p>
+                <p>{getTranslation('estimate2')}</p>
+                  
+                  <p>{getTranslation('estimate_call_us_text')}
+                    <a href="mailto:contact@entreprisebelair.com"><img src="/assets/img/email.svg" alt="Call us" /> contact@entreprisebelair.com</a>
+                    <a href="tel:0977951445"><img src="/assets/img/phone.svg" alt="Call us" /> 09 77 95 14 45</a>
+                  </p>
                 
                 <div className="buttons">
                   <button className="button" onClick={() => { setmodalStep('success'); sendData({'action' : 'callus', email: cfData, pdf: {'cfData': cfData, 'pdfRows' : pdfRows, 'total': total } }); }}><img src="/assets/img/phone.svg" alt={ getTranslation('estimate4')} />{ getTranslation('estimate3')}</button>

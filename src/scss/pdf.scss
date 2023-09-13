@@ -133,6 +133,21 @@
         display: flex;
         flex-wrap: wrap;
     }
+
+    p {
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            text-decoration: none;
+
+            img {
+                max-height: 20px;
+                width: auto;
+                margin-right: 6px;
+            }
+        }
+    }
 }
 
 .popup-overlay {

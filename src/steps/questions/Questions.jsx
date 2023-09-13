@@ -68,9 +68,26 @@ function Questions({ getTranslation, data, getImageURL, selectedOptions, handleC
 
     const  removeoldkitchen = {
         'removeoldkitchenyes': getTranslation('yes'),
-        'removeoldkitchenno' : getTranslation(getTranslation('no')),
+        'removeoldkitchenno' : getTranslation('no'),
     };
    
+
+    const carpentry = {
+        'carpentryyes': getTranslation('yes'),
+        'carpentryno' : getTranslation('no'),
+    };
+
+    const insulation = {
+        'insulationyes': getTranslation('yes'),
+        'insulationno' : getTranslation('no'),
+    };
+
+    const plumbing = {
+        'plumbingyes': getTranslation('yes'),
+        'plumbingno' : getTranslation('no'),
+    };
+
+    
 
 
     const [selectedRooms, setSelectedRooms] = useState([]);
@@ -339,7 +356,14 @@ function Questions({ getTranslation, data, getImageURL, selectedOptions, handleC
 
                                         {subItems && Object.values(subItems).indexOf('removewallcovering') > -1 && (<SubQuestion subData={removewallcovering} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text={ getTranslation('remove_wallpapers')} tipText={ getTranslation('remove_wallpapers_tip')} icon="cut.svg" keyword="removewallcovering" />)}
 
-                                        {subItems && Object.values(subItems).indexOf('furniture') > -1 && (<SubQuestion subData={furniture} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text={ getTranslation('supply_furniture')} tipText={ getTranslation('supply_furniture_tip')} icon="furniture.svg" keyword="furniture" />)}
+                                        {subItems && Object.values(subItems).indexOf('furniture') > -1 && (<SubQuestion subData={furniture} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text={getTranslation('supply_furniture')} tipText={getTranslation('supply_furniture_tip')} icon="furniture.svg" keyword="furniture" />)}
+                                        
+
+                                        {subItems && Object.values(subItems).indexOf('carpentry') > -1 && (<SubQuestion subData={carpentry} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text={getTranslation('carpentry')} tipText={getTranslation('carpentry_tip')} icon="mount.svg" keyword="carpentry" />)}
+
+                                        {subItems && Object.values(subItems).indexOf('insulation') > -1 && (<SubQuestion subData={insulation} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text={getTranslation('insulation')} tipText={getTranslation('insulation_tip')} icon="insulation.svg" keyword="insulation" />)}
+
+                                        {subItems && Object.values(subItems).indexOf('plumbing') > -1 && (<SubQuestion subData={plumbing} sp_index={sp_index} item={item} handleChange={handleChange} selectedOptions={selectedOptions} getImageURL={getImageURL} text={getTranslation('plumbing')} tipText={getTranslation('plumbing_tip')} icon="valve.svg" keyword="plumbing" />)}
 
                                     </div>
 
