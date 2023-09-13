@@ -1,11 +1,15 @@
 .pdf {
-    display: flex;
-    grid-gap: 30px;
-    margin-bottom: 60px;
 
-    @media (max-width: $mobile) {
-        flex-wrap: wrap;
+    .elements {
+        display: flex;
+        grid-gap: 30px;
+        margin-bottom: 60px;
+    
+        @media (max-width: $mobile) {
+            flex-wrap: wrap;
+        }
     }
+ 
 
 
     .button {
@@ -164,17 +168,34 @@
 }
 
 .pdf-download {
-    display: none;
+    margin-bottom: 30px;
 
-    @media (max-width: $mobile) {
+    @media (max-width: $mobile)
+     {
         display: block;
         width: 100%;
         text-align: center;
     }
 
+    @media all and (device-width: 1024px){
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    @media all and (device-width: 768px) {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+
+    
+
     a {
         display: flex;
         justify-content: center;
+        text-decoration: none;
     }
 
     img {

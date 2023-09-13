@@ -16,9 +16,6 @@ import 'tippy.js/dist/tippy.css'; // optional
 
 function App({ getTranslation, getData , data }) {
 
-  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
-
   const [cfData, setcfData] = useState({});
   const [cfError, setcfError] = useState('');
 
@@ -32,17 +29,7 @@ function App({ getTranslation, getData , data }) {
     nextButtonState: false
   });
 
-  function useForceUpdate() {
-    const [value, setValue] = useState(0); // integer state
-    return () => setValue(value => value + 1); // update state to force render
-  }
 
-  const forceUpdate = useForceUpdate();
-
-  const checkState = (forcedStep) => { 
-    
-
-  }
 
   const sendData = async (data) => { 
     //console.log(data);
@@ -56,7 +43,7 @@ function App({ getTranslation, getData , data }) {
       },
    })
      .then((res) =>
-       console.log(res.json()))
+       console.log(res.text()))
       .catch((err) => {
          console.log(err);
       });
@@ -297,7 +284,7 @@ function App({ getTranslation, getData , data }) {
         <Steps state={ state } step={step} nextStep={nextStep} prevStep={ prevStep } />
         <div className="cnt">
           {step === 1 && (<IndexStep getTranslation={ getTranslation } nextStep={nextStep} data={data} getImageURL={getImageURL} step={step} handleChoices={handleChoices} choices={ choices } />)}
-          {step === 2 && (<OptionsStep getTranslation={ getTranslation } nextStep={nextStep} forceUpdate={forceUpdate }  data={data} getImageURL={getImageURL} step={step} handleSelectedOptions={handleSelectedOptions} selectedOptions={selectedOptions} handleChoices={handleChoices} choices={choices} hasFreeRooms={ hasFreeRooms } />)}
+          {step === 2 && (<OptionsStep getTranslation={ getTranslation } nextStep={nextStep}  data={data} getImageURL={getImageURL} step={step} handleSelectedOptions={handleSelectedOptions} selectedOptions={selectedOptions} handleChoices={handleChoices} choices={choices} hasFreeRooms={ hasFreeRooms } />)}
           {step === 3 && (<FormStep cfError={cfError } cfData={cfData} setcfData={ setcfData } getTranslation={ getTranslation } data={data} getImageURL={getImageURL} />)}
           {step === 4 && (<PdfStep getTranslation={getTranslation} getImageURL={getImageURL} pdfRows={pdfRows} total={total} cfData={cfData} sendData={sendData} />)}
         </div>

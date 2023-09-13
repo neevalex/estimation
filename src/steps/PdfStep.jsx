@@ -331,6 +331,7 @@ const App = ({ getTranslation, getImageURL, pdfRows, total, cfData, sendData }) 
 
   return (
     <div className="pdf">
+      <div className="elements">
       <div className="message">
         <img src="/assets/img/renovationsupport.jpg" alt="Close" />
 
@@ -405,6 +406,7 @@ const App = ({ getTranslation, getImageURL, pdfRows, total, cfData, sendData }) 
       <PDFViewer scale={0.56}>
         <MyDocument cfData={ cfData } getTranslation={ getTranslation } getImageURL={getImageURL} pdfRows={pdfRows} total={total} vat={vat} total_ttc={ total_ttc } />
       </PDFViewer>
+      </div>
       </div>
 
       <div className="pdf-download">

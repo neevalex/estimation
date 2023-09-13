@@ -345,6 +345,7 @@
 
             .rw-widget-input {
                 font-size: 12px;
+                min-width: 35px;
 
                 @media (max-width: $mobile) {
                     font-size: 16px;
