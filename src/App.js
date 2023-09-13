@@ -41,19 +41,6 @@ function App({ getTranslation, getData , data }) {
 
   const checkState = (forcedStep) => { 
     
-   // console.log(forcedStep);
-    let v_prevButtonState = false;
-    let v_nextButtonState = false;
-
-    // if (forcedStep <= 3) { // Next Button
-    //   if(step === 1 && choices && choices.service ) v_nextButtonState = true;
-    // }
-
-    if (forcedStep > 1) { // Prev Button
-      v_prevButtonState = true;
-    }
-
-    setState({ prevButtonState: v_prevButtonState, nextButtonState: v_nextButtonState });
 
   }
 
@@ -89,7 +76,7 @@ function App({ getTranslation, getData , data }) {
     }
 
     window.scrollTo(0, 0);
-    checkState(newStep);
+   // checkState(newStep);
   }
 
   const prevStep = (enabled) => {
@@ -99,7 +86,7 @@ function App({ getTranslation, getData , data }) {
       setStep(newStep);
     }
 
-    checkState(newStep);
+    //checkState(newStep);
   }
 
   const handleChoices = (type, stepChoice) => { 
@@ -281,7 +268,7 @@ function App({ getTranslation, getData , data }) {
     if (forcedStep <= 3) { // Next Button
       if (step === 1 && choices && choices.service) v_nextButtonState = true;
       if (step === 3 && checkFormInputs()) v_nextButtonState = true;
-      if (step === 2 ) v_nextButtonState = true;
+      if (step === 2 && total > 0 ) v_nextButtonState = true;
     }
 
     if (forcedStep > 1) { // Prev Button
