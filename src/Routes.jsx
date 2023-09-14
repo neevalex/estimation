@@ -9,6 +9,9 @@ const RoutesPage = () => {
     const [data, setData] = useState({});
 
     const getData = async () => {
+
+        if (data && data.options) return;
+
         const url = process.env.REACT_APP_BACKEND_HOST;
 
         fetch(url)
