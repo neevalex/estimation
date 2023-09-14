@@ -131,7 +131,7 @@ function OptionsStep({ getTranslation, data, step, getImageURL, handleSelectedOp
       
           {choices && choices.service && choices.service === "insulation" && (
           <div className="step">
-            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices}  rooms={['other']}  />
+            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices}  />
           
             <div className="separator">
               <div className="pre"></div>

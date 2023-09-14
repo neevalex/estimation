@@ -246,16 +246,15 @@ const MyDocument = ({ getOption, getTranslation, getImageURL, pdfRows, total,vat
                       </View>
                 
                     )}
-                
+                  </>)}
+                </>
+            ))}
+
                     <View style={styles.estimrow}>
                       <Text style={[styles.estimrowleft]}>{ getTranslation('installation_text')}</Text>
                       <Text style={[styles.estimrowright]}>{getOption('protection_price')}€</Text>
                     </View>
                     <Text style={[{ height: '10' }]}></Text>
-                  </>)}
-                </>
-            ))}
-            
             
           </>
          ))}
