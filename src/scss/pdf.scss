@@ -181,6 +181,14 @@
     @media (max-width: $mobile) {
         display: none;
     }
+
+    @media all and (device-width: 1024px){
+        display: none;
+    }
+
+    @media all and (device-width: 768px) {
+        display: none;
+    }
 }
 
 .pdf-download {
