@@ -132,8 +132,8 @@ function App({ getOption, getTranslation, getData , data }) {
                 if (service_data_key === 'price_per_m') {
 
                   if (amount > 0) {
-                    final_total += (parseInt(data_item[service_data_key]) * amount) + parseInt(getOption('protection_price'));
-                    roomTotal += (parseInt(data_item[service_data_key]) * amount);
+                    final_total += (parseFloat(data_item[service_data_key]) * amount) + parseFloat(getOption('protection_price'));
+                    roomTotal += (parseFloat(data_item[service_data_key]) * amount);
                   }
 
                   let csn = data_item['custom_service_name'];
@@ -143,22 +143,22 @@ function App({ getOption, getTranslation, getData , data }) {
 
                   let am = ' (' + amount + ' '+getTranslation('sq_meter')+')';
                   if (csn) am = ' (' + amount + ' ' + csn + ')';
-                  if(data_item['walls_formula'])  am = ' (' + parseInt(amount * parseInt(getOption('walls_formula')) )  + ' ' + getTranslation('sq_meter') + ')';
+                  if(data_item['walls_formula'])  am = ' (' + parseFloat(amount * parseFloat(getOption('walls_formula')) ).toFixed(3)  + ' ' + getTranslation('sq_meter') + ')';
               
-                  lastArrKey = newPdfRows[room].push({ 'id': option_name, 'key': service_data_key, 'room': room, 'name': getTranslation(option_name+'_pdf') + am, 'amount': (parseInt(data_item[service_data_key]) * amount) });
-                  roomTotal += (parseInt(data_item[service_data_key]) * amount);
+                  lastArrKey = newPdfRows[room].push({ 'id': option_name, 'key': service_data_key, 'room': room, 'name': getTranslation(option_name+'_pdf') + am, 'amount': (parseFloat(data_item[service_data_key]) * amount) });
+                  roomTotal += (parseFloat(data_item[service_data_key]) * amount);
                   // console.log(newPdfRows);
                 } else {
                   
                   if (data_item[service_data_key]) {
                     //console.log(service_data_key, newPdfRows[room].length-1);
-                    final_total += (parseInt(data_item[service_data_key]) * amount);
-                    roomTotal += (parseInt(data_item[service_data_key]) * amount);
+                    final_total += (parseFloat(data_item[service_data_key]) * amount);
+                    roomTotal += (parseFloat(data_item[service_data_key]) * amount);
                     let newAdditional = newPdfRows[room][newPdfRows[room].length-1]['additional'];
                     if (!newAdditional) newAdditional = [];
 
                     let newLine = {};
-                    newLine[service_data_key] = { 'key': service_data_key, 'amount': (parseInt(data_item[service_data_key]) * amount) };
+                    newLine[service_data_key] = { 'key': service_data_key, 'amount': (parseFloat(data_item[service_data_key]) * amount) };
                     
                     newAdditional = { ...newAdditional, ...newLine };
                     newPdfRows[room][newPdfRows[room].length-1]['additional'] = newAdditional;
