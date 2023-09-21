@@ -29,14 +29,14 @@ function OptionsStep({ getTranslation, data, step, getImageURL, handleSelectedOp
     delete v[q_id][sp_index];
     handleSelectedOptions({ ...selectedOptions, ...v });
   }
-
+ 
 
   return (
     <div className="inner">
       
       {choices && choices.service && choices.service === "flooring" && (
         <div className="step">
-          <RoomsSelector getTranslation={ getTranslation } data={data}  getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} />
+          <RoomsSelector getTranslation={ getTranslation } data={data}  getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} rooms={[ 'livingroom', 'toilet', 'kitchen', 'bathroom', 'corridor', 'masterbedroom', 'bedroom', 'desk', 'staircase', 'other']} />
         
           <div className="separator">
             <div className="pre"></div>
@@ -50,7 +50,7 @@ function OptionsStep({ getTranslation, data, step, getImageURL, handleSelectedOp
 
         {data && choices && choices.service && choices.service === "wallcovering" && (
         <div className="step">
-          <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} />
+          <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} rooms={[ 'livingroom', 'toilet', 'kitchen', 'bathroom', 'corridor', 'masterbedroom', 'bedroom', 'desk', 'staircase', 'other']} />
         
           <div className="separator">
             <div className="pre"></div>
@@ -64,7 +64,7 @@ function OptionsStep({ getTranslation, data, step, getImageURL, handleSelectedOp
 
         {choices && choices.service && choices.service === "interiorpainting" && (
         <div className="step">
-          <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} />
+          <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} rooms={[ 'livingroom', 'toilet', 'kitchen', 'bathroom', 'corridor', 'masterbedroom', 'bedroom', 'desk', 'staircase', 'other']} />
         
           <div className="separator">
             <div className="pre"></div>
@@ -77,7 +77,7 @@ function OptionsStep({ getTranslation, data, step, getImageURL, handleSelectedOp
       
         {choices && choices.service && choices.service === "completerenovation" && (
         <div className="step">
-          <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} />
+          <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} rooms={['house','appartment', 'office']} />
         
           <div className="separator">
             <div className="pre"></div>
@@ -103,7 +103,7 @@ function OptionsStep({ getTranslation, data, step, getImageURL, handleSelectedOp
       
           {choices && choices.service && choices.service === "electricity" && (
           <div className="step">
-            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} />
+            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} rooms={[ 'livingroom', 'toilet', 'kitchen', 'bathroom', 'corridor', 'masterbedroom', 'bedroom', 'desk', 'staircase', 'other']} />
           
             <div className="separator">
               <div className="pre"></div>
@@ -131,7 +131,7 @@ function OptionsStep({ getTranslation, data, step, getImageURL, handleSelectedOp
       
           {choices && choices.service && choices.service === "insulation" && (
           <div className="step">
-            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices}  />
+            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} rooms={[ 'livingroom', 'toilet', 'kitchen', 'bathroom', 'corridor', 'masterbedroom', 'bedroom', 'desk', 'staircase', 'other']} />
           
             <div className="separator">
               <div className="pre"></div>
@@ -145,7 +145,7 @@ function OptionsStep({ getTranslation, data, step, getImageURL, handleSelectedOp
 
         {choices && choices.service && choices.service === "carpentry" && (
           <div className="step">
-            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices}  />
+            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices}  rooms={[ 'livingroom', 'toilet', 'kitchen', 'bathroom', 'corridor', 'masterbedroom', 'bedroom', 'desk', 'staircase', 'other']} />
           
             <div className="separator">
               <div className="pre"></div>
@@ -158,7 +158,7 @@ function OptionsStep({ getTranslation, data, step, getImageURL, handleSelectedOp
 
         {choices && choices.service && choices.service === "disaster" && (
           <div className="step">
-            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices}  />
+            <RoomsSelector getTranslation={ getTranslation } data={data} getImageURL={getImageURL} selectedOptions={selectedOptions} handleChange={handleChange}  deletehandleChange={deletehandleChange}  handleChoices={handleChoices} choices={choices} rooms={[ 'livingroom', 'toilet', 'kitchen', 'bathroom', 'corridor', 'masterbedroom', 'bedroom', 'desk', 'staircase', 'other']} />
           
             <div className="separator">
               <div className="pre"></div>
