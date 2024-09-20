@@ -170,7 +170,7 @@ const MyDocument = ({ getOption, getTranslation, getImageURL, pdfRows, total,vat
           
           <Image
             style={styles.logo}
-            src="/assets/img/logo.png"
+            src="/assets/img/logo.jpg"
           />
 
           <Text style={[{ height: '20' }]}></Text>
