@@ -4,14 +4,14 @@ function Header({ setStep }) {
             <div className="inner">
                 <div className="logo">
                     <a href="https://www.entreprisebelair.com/">
-                        <img src="/assets/img/logo.svg" alt="Belair" />
+                        <img src="/assets/img/logo.jpg" alt="Belair" />
                     </a>
                 </div>
                 <div className="buttons">
                     <a href="#" onClick={() => { window.location.reload(); }} >
                         <img src="/assets/img/reload.svg" alt="Call us" />
                     </a>
-                    <a href="tel:0977951445">
+                    <a href="tel:0187632180">
                         <img src="/assets/img/phone.svg" alt="Call us" />
                     </a>
                     <a href="https://www.entreprisebelair.com/">
