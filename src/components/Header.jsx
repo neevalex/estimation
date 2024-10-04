@@ -11,7 +11,7 @@ function Header({ setStep }) {
                     <a href="#" onClick={() => { window.location.reload(); }} >
                         <img src="/assets/img/reload.svg" alt="Call us" />
                     </a>
-                    <a href="tel:0187632180">
+                    <a href="tel:0980801214">
                         <img src="/assets/img/phone.svg" alt="Call us" />
                     </a>
                     <a href="https://www.entreprisebelair.com/">

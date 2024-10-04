@@ -353,7 +353,7 @@ const App = ({ getOption, getTranslation, getImageURL, pdfRows, total, cfData, s
                   
                   <p>{getTranslation('estimate_call_us_text')}
                     <a href="mailto:contact@belairhabitat.com"><img src="/assets/img/email.svg" alt="Call us" /> contact@belairhabitat.com</a>
-                    <a href="tel:0187632180"><img src="/assets/img/phone.svg" alt="Call us" /> 01 87 63 21 80</a>
+                    <a href="tel:0980801214"><img src="/assets/img/phone.svg" alt="Call us" /> 09 80 80 12 14</a>
                   </p>
                 
                 <div className="buttons">
